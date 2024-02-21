@@ -15,7 +15,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome for file",
-            "url": "file:///Users/tonyhursh/gits/PocketPresenter/dist/index.html",
+            "url": "file:///Users/tonyhursh/gits/GuerrillaPresenter/dist/index.html",
             "webRoot": "${workspaceFolder}/dist",
         }
     ]

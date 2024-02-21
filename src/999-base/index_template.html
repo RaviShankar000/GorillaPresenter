@@ -8,7 +8,7 @@
     <meta http-equiv="Pragma" content="no-store">
     <meta http-equiv="Expires" content="0">
     <link rel="shortcut icon" id="favicon-png" type="image/png" href="data:image/jpeg;base64,iVBORw0KGgo=">
-    <title>PocketPresenter</title>
+    <title>GuerrillaPresenter</title>
   
   </head>
 
@@ -16,7 +16,7 @@
     <noscript id="noscript">
       Yeah, there's absolutely no way this can work with JavaScript turned off. Sorry, my friend.
     </noscript>
-    <div id="pocket-presenter-slideroot"> </div>
+    <div id="guerrilla-presenter-slideroot"> </div>
   </body>
   <script type="text/javascript" id="pocket_presenter_file_system">
 $$$FILESYSTEM$$$
@@ -41,7 +41,7 @@ $$$FILESYSTEM$$$
 
    let launcher = {
     initSystem: function(){
-      console.log("initSystem: PocketPresenter version: " + "___VERSION___" + " build: " + "___BUILD___");
+      console.log("initSystem: GuerrillaPresenter version: " + "___VERSION___" + " build: " + "___BUILD___");
       this.version = "___VERSION___";
       this.build = "___BUILD___";
       this.CumulativeErrors = [];
@@ -67,7 +67,7 @@ $$$FILESYSTEM$$$
     this.loadError = false;
     let jsQueue = [];
     let cssQueue = [];
-    let filenames = Object.keys(PocketPresenter_fs).sort(naturalSort());
+    let filenames = Object.keys(GuerrillaPresenter_fs).sort(naturalSort());
     for(let i = 0; i < filenames.length; i++){
         let filename = filenames[i];
       if(filename.match(/\.css$/) !== null){
@@ -101,7 +101,7 @@ $$$FILESYSTEM$$$
         this.currentSourceFile = filename;
         console.log("adding CSS: " + filename);
       try {
-        let code = PocketPresenter_fs[filename]["data"];
+        let code = GuerrillaPresenter_fs[filename]["data"];
         let style = document.createElement('style');
         style.type = 'text/css';
         if(id !== undefined){
@@ -125,7 +125,7 @@ $$$FILESYSTEM$$$
     this.currentSourceFile = filename;
     console.log("adding JS: " + filename);
     try {
-      let code = PocketPresenter_fs[filename]["data"];
+      let code = GuerrillaPresenter_fs[filename]["data"];
       let script = document.createElement('script');
       script.type = 'text/javascript';
       let jsCode = this.decodeText(code);
@@ -155,7 +155,7 @@ $$$FILESYSTEM$$$
       stylearr[i].remove();
     }
     if(keepFileSystem !== true){
-      PocketPresenter_fs = null;
+      GuerrillaPresenter_fs = null;
     }
     cleanScripts();
   },

@@ -1,9 +1,9 @@
 {
-  "name": "PocketPresenter",
+  "name": "GuerrillaPresenter",
   "version": "1.0.0",
   "description": "Self-contained presentation system",
   "keywords": [
-    "PocketPresenter",
+    "GuerrillaPresenter",
     "Presentation"
   ],
   "author": "Anthony W. Hursh",

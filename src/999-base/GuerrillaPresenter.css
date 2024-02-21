@@ -66,7 +66,7 @@ table, th, td {
 }
 
 
-.pocket-presenter-slide {
+.guerrilla-presenter-slide {
   width: calc(100vw - 2em);
   height: calc(66vw - 2em);
   margin-right: 1em;
@@ -75,7 +75,7 @@ table, th, td {
   margin-top: 1em;
   border: 1px solid #bbb;
 }
-#pocket-presenter-slideroot{
+#guerrilla-presenter-slideroot{
   width:calc(100vw - 2em);
   height:calc(66vw - 2em);
   padding:0;

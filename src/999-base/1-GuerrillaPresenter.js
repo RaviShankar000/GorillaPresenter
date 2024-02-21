@@ -1,8 +1,8 @@
 
 let PocketPresenter = {
-    slideRoot: "pocket-presenter-slideroot",
-    slideClass: ".pocket-presenter-slide",
-    slideIdFragment: "pocket-presenter-slide-",
+    slideRoot: "guerrilla-presenter-slideroot",
+    slideClass: ".guerrilla-presenter-slide",
+    slideIdFragment: "guerrilla-presenter-slide-",
   
 
     addSlide: function(template){
