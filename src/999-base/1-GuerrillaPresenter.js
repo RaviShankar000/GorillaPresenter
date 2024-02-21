@@ -29,6 +29,22 @@ let GuerrillaPresenter = {
       }
       return btoa(raw);
     },
-   
+    slideIDNumber:1,
+    sicTransit: new SicTransit(this.slideRoot,this.slideClass),
+    addSlide:function(template){
+              let slideBase = document.getElementById(this.slideRoot);
+                let id = this.slideIdFragment + this.slideIDNumber;
+                this.slideIDNumber++;
+                let newSlide = document.createElement("div");
+                newSlide.setAttribute("class", this.slideClass);
+                newSlide.setAttribute("id", id);
+                let html = this.processTemplate(template)
+                newSlide.innerHTML = html;
+                document.body.appendChild(newSlide);
+                this.sicTransit.showPanel("#" + id);
+    },
+    processTemplate: function(template){
+            return JSON.stringify(template);
+        }
 }
 
