@@ -2,8 +2,6 @@
 // Copyright 2019-2024 by Anthony W. Hursh
 // MIT License.
 
-let BrowserFileSystem = {
-}
 
 BrowserFileSystem.file_extension = function(filename){
   let end = filename.lastIndexOf('.');
@@ -48,7 +46,7 @@ BrowserFileSystem.file_path_no_extension = function(filename){
 
 
 BrowserFileSystem.collectLicenses = function(){
-  let filenames = Object.keys(BrowserFileSystem_fs);
+  let filenames = Object.keys(BrowserFileSystem.fs);
   let license_text = BrowserFileSystem.readInternalTextFile("1-root/LICENSE-GorillaPresenter.md") + "\n\n"
   for(var i = 0; i < filenames.length; i++){
     if((filenames[i].match(/LICENSE/) !== null) && (filenames[i] !== "1-root/LICENSE-GorillaPresenter.md")){
@@ -74,7 +72,7 @@ BrowserFileSystem.base_64_to_bytes = function(string_buffer){
 
 BrowserFileSystem.getInternalDir = function(basedir){
   let dirfiles = [];
-  let filelist = Object.keys(BrowserFileSystem_fs).sort();
+  let filelist = Object.keys(BrowserFileSystem.fs).sort();
   for(var i = 0; i < filelist.length; i++){
     let key = filelist[i];
     if((basedir === "") || (key.match(RegExp("^" + GorillaPresenter.makeGlob(basedir))) !== null)){
@@ -86,11 +84,11 @@ BrowserFileSystem.getInternalDir = function(basedir){
 
 BrowserFileSystem.internalFileToBlob = function(filename) {
   let filetype = BrowserFileSystem.file_extension(filename);
-  if(GorillaPresenter.mimeTypes[filetype] === undefined){
+  if(BrowserPresenter.mimeTypes[filetype] === undefined){
     filetype = "application/octet-stream";
   }
-  if(BrowserFileSystem_fs[filename] !== undefined){
-    let bytes = BrowserFileSystem.base_64_to_bytes(BrowserFileSystem_fs[filename]["data"]);
+  if(BrowserFileSystem.fs[filename] !== undefined){
+    let bytes = BrowserFileSystem.base_64_to_bytes(BrowserFileSystem.fs[filename]["data"]);
     var blob = new Blob([bytes], {type: mimetype});
   return blob;
   }
@@ -99,26 +97,34 @@ BrowserFileSystem.internalFileToBlob = function(filename) {
 }
 
 BrowserFileSystem.readInternalFileDataURL = function(filename){
-  let filetype = BrowserFileSystem.file_extension(filename);
-  if(GorillaPresenter.mimeTypes[filetype] === undefined){
-    filetype = "application/octet-stream";
+  
+  if(BrowserFileSystem.fs[filename] !== undefined){
+    const filetype = BrowserFileSystem.file_extension(filename);
+    let mimeEntry = BrowserFileSystem.mimeTypes[filetype];
+    if(mimeEntry === undefined){
+        mimetype = "application/octet-stream";
+    }
+    else {
+        mimetype = mimeEntry["mimetype"];
+    }
+    console.log("BrowserFileSystem.readInternalFileDataURL: filename " + filename + "filetype " + filetype +  "mimetype " + mimetype);   
+      return 'data:' + mimetype + ';base64,' + BrowserFileSystem.fs[filename]["data"];
   }
-  if(BrowserFileSystem_fs[filename] !== undefined){
-    return 'data:' + mimetype + ';base64,' + BrowserFileSystem_fs[filename]["data"];
-  }
+  else{
   console.error("BrowserFileSystem.readInternalFileDataURL: " + filename + " is not in internal filesystem");
   return null;
+  }
 }
 
 BrowserFileSystem.getFileSystemJSON = function(){
-  return JSON.stringify(BrowserFileSystem_fs);
+  return JSON.stringify(BrowserFileSystem.fs);
 }
 BrowserFileSystem.getPackageJSON = function(package_prefix){
-  let keys = Object.keys(BrowserFileSystem_fs);
+  let keys = Object.keys(BrowserFileSystem.fs);
   let package = {}
   for(var i = 0; i < keys.length; i++){
     if(keys[i].indexOf(package_prefix) === 0){
-      package[keys[i]] = BrowserFileSystem_fs[keys[i]]
+      package[keys[i]] = BrowserFileSystem.fs[keys[i]]
     }
   }
   package["version"] = GorillaPresenter.packageVersion;
@@ -126,8 +132,8 @@ BrowserFileSystem.getPackageJSON = function(package_prefix){
 }
 
 BrowserFileSystem.deleteInternalFile = function(filename){
-  if(BrowserFileSystem_fs[filename] !== undefined){
-      delete BrowserFileSystem_fs[filename];
+  if(BrowserFileSystem.fs[filename] !== undefined){
+      delete BrowserFileSystem.fs[filename];
       return true;
   }
   else {
@@ -141,7 +147,7 @@ BrowserFileSystem.dir = function(dirspec){
   dirspec = dirspec.replace(/\./g,"\\.")
   dirspec = dirspec.replace(/\*/g,".*")
   let re = new RegExp(dirspec);
-  let keys = Object.keys(BrowserFileSystem_fs);
+  let keys = Object.keys(BrowserFileSystem.fs);
   for(var i = 0; i < keys.length; i++){
     let key = keys[i];
     if(key.match(re) !== null){
@@ -153,7 +159,7 @@ BrowserFileSystem.dir = function(dirspec){
 
 BrowserFileSystem.collectTrash = function(){
     let trashed_files = [];
-    let keys = Object.keys(BrowserFileSystem_fs);
+    let keys = Object.keys(BrowserFileSystem.fs);
     for(var i = 0; i < keys.length; i++){
       if(keys[i].indexOf("trash/") === 0){
         trashed_files.push(keys[i].replace(/^trash\//,""))
@@ -168,9 +174,9 @@ BrowserFileSystem.emptyTrash = function(){
   }
 }
 BrowserFileSystem.trashInternalFile = function(filename){
-  if(BrowserFileSystem_fs[filename] !== undefined){
-      BrowserFileSystem_fs["trash/" + filename] = BrowserFileSystem_fs[filename]
-      delete BrowserFileSystem_fs[filename];
+  if(BrowserFileSystem.fs[filename] !== undefined){
+      BrowserFileSystem.fs["trash/" + filename] = BrowserFileSystem.fs[filename]
+      delete BrowserFileSystem.fs[filename];
       return true;
   }
   else {
@@ -181,9 +187,9 @@ BrowserFileSystem.trashInternalFile = function(filename){
 
 BrowserFileSystem.unTrashInternalFile = function(filename){
   let trashname = "trash/" + filename;
-  if(BrowserFileSystem_fs[trashname] !== undefined){
-      BrowserFileSystem_fs[filename] = BrowserFileSystem_fs[trashname]
-      delete BrowserFileSystem_fs[trashname];
+  if(BrowserFileSystem.fs[trashname] !== undefined){
+      BrowserFileSystem.fs[filename] = BrowserFileSystem.fs[trashname]
+      delete BrowserFileSystem.fs[trashname];
       return true;
   }
   else {
@@ -192,8 +198,8 @@ BrowserFileSystem.unTrashInternalFile = function(filename){
   }
 }
 BrowserFileSystem.readInternalFile = function(filename){
-  if(BrowserFileSystem_fs[filename] !== undefined){
-      return BrowserFileSystem.base_64_to_bytes(BrowserFileSystem_fs[filename]["data"]);
+  if(BrowserFileSystem.fs[filename] !== undefined){
+      return BrowserFileSystem.base_64_to_bytes(BrowserFileSystem.fs[filename]["data"]);
   }
   console.error("BrowserFileSystem.readInternalFile: " + filename + " is not in internal filesystem");
   return null;
@@ -219,27 +225,27 @@ BrowserFileSystem.dataURLToData = function(dataURI){
 BrowserFileSystem.writeDataURLToInternalFile = function(filename,data){
   let base64offset = data.indexOf("base64,");
   data = data.substring(base64offset + 7);
-  BrowserFileSystem_fs[filename] = {}
-  BrowserFileSystem_fs[filename]["data"] = data;
-  BrowserFileSystem_fs[filename]["timestamp"] = Date.now();
+  BrowserFileSystem.fs[filename] = {}
+  BrowserFileSystem.fs[filename]["data"] = data;
+  BrowserFileSystem.fs[filename]["timestamp"] = Date.now();
   return true;
 }
 BrowserFileSystem.getFileTimeStamp = function(filename){
-  if(BrowserFileSystem_fs[filename] === undefined){
+  if(BrowserFileSystem.fs[filename] === undefined){
     return false;
   }
-  return parseInt(BrowserFileSystem_fs[filename]["timestamp"])
+  return parseInt(BrowserFileSystem.fs[filename]["timestamp"])
 }
 BrowserFileSystem.writeInternalFile = function(filename,data){
   BrowserFileSystem.writeRawInternalFile(filename,  GorillaPresenter.bytes_to_base_64(data));
 }
 BrowserFileSystem.writeRawInternalFile = function(filename,data){
   let filetype = BrowserFileSystem.file_extension(filename);
-  if(BrowserFileSystem_fs[filename] === undefined){
-    BrowserFileSystem_fs[filename] = {}
+  if(BrowserFileSystem.fs[filename] === undefined){
+    BrowserFileSystem.fs[filename] = {}
   }
-  BrowserFileSystem_fs[filename]["data"] = data;
-  BrowserFileSystem_fs[filename]["timestamp"] = Date.now();
+  BrowserFileSystem.fs[filename]["data"] = data;
+  BrowserFileSystem.fs[filename]["timestamp"] = Date.now();
   return true;
 }
 
@@ -258,7 +264,7 @@ BrowserFileSystem.getSortedFileNames = function(){
 
 BrowserFileSystem.getUnsortedFileNames = function(){
   let filetree = [];
-  let filenames = Object.keys(BrowserFileSystem_fs);
+  let filenames = Object.keys(BrowserFileSystem.fs);
   for(var i = 0; i < filenames.length; i++){
       let key = filenames[i];
       if(key.match(/.*\$\$.+\$\$$/) === null){
@@ -269,41 +275,41 @@ BrowserFileSystem.getUnsortedFileNames = function(){
 }
 
 BrowserFileSystem.fileExists = function(filename){
-  if(BrowserFileSystem_fs[filename] !== undefined){
+  if(BrowserFileSystem.fs[filename] !== undefined){
     return true;
   }
   return false;
 }
 
 BrowserFileSystem.file_rename = function (oldname,newname){
-  if(BrowserFileSystem_fs[newname] !== undefined){
+  if(BrowserFileSystem.fs[newname] !== undefined){
     console.error("Can't rename " + oldname + " to " + newname +  ". " + newname + " exists.")
     return false;
   }
-  if(BrowserFileSystem_fs[oldname] === undefined){
+  if(BrowserFileSystem.fs[oldname] === undefined){
     console.error("Can't rename " + oldname + " to " + newname + ". " + oldname + " does not exist.")
     return false;
   }
-  BrowserFileSystem_fs[newname] = BrowserFileSystem_fs[oldname];
-  delete BrowserFileSystem_fs[oldname];
+  BrowserFileSystem.fs[newname] = BrowserFileSystem.fs[oldname];
+  delete BrowserFileSystem.fs[oldname];
   return true;
 }
 
 BrowserFileSystem.folder_rename = function (oldfolder,newfolder){
-  let filenames = Object.keys(BrowserFileSystem_fs);
+  let filenames = Object.keys(BrowserFileSystem.fs);
   for(var i = 0; i < filenames.length; i++){
     let current_name = filenames[i];
     if(current_name.match(new RegExp('^' + GorillaPresenter.escapeRegExp(oldfolder + '/'))) !== null){
       let newname = current_name.replace(oldfolder,newfolder);
-      BrowserFileSystem_fs[newname] = BrowserFileSystem_fs[current_name];
-      delete BrowserFileSystem_fs[current_name]
+      BrowserFileSystem.fs[newname] = BrowserFileSystem.fs[current_name];
+      delete BrowserFileSystem.fs[current_name]
     }
   }
 }
 
 BrowserFileSystem.packageVector = function(){
   let packageHash = {}
-  let files = Object.keys(BrowserFileSystem_fs)
+  let files = Object.keys(BrowserFileSystem.fs)
   for(var i = 0; i < files.length; i++){
     let packageIndex = files[i].indexOf("/");
     if(packageIndex > 0){
@@ -314,10 +320,162 @@ BrowserFileSystem.packageVector = function(){
 }
 
 BrowserFileSystem.deletePackage = function(packagename){
-  let files = Object.keys(BrowserFileSystem_fs)
+  let files = Object.keys(BrowserFileSystem.fs)
   for(var i = 0; i < files.length; i++){
     if(files[i].indexOf(packagename) === 0){
-      delete BrowserFileSystem_fs[files[i]];
+      delete BrowserFileSystem.fs[files[i]];
     }
   }
 }
+
+
+/* These are some mime types commonly used on the web. It's easy to add more at runtime... if your file extension is "foo", and is intended for use with an application called "Foobar", just do something like: 
+  BrowserFileSystem.mimeTypes["foo"] = {
+    description: "Foobar File",
+    mimetype: "application/foobar"
+  } 
+  Note that you should only do this if there's an actual registered mime type for the file extension. Otherwise, you should use "application/octet-stream" as the mimetype.
+  */
+
+BrowserFileSystem.mimeTypes = {
+  "jpeg": {
+    description: "JPEG Image",
+    mimetype: "image/jpeg"
+  },
+  "jpg": {
+    description: "JPEG Image",
+    mimetype: "image/jpeg"
+  },
+  "png": {
+    description: "PNG Image",
+    mimetype: "image/png"
+  },
+  "html": {
+    description: "HTML Document",
+    mimetype: "text/html"
+  },
+  "htm": {
+    description: "HTML Document",
+    mimetype: "text/html"
+  },
+  "css": {
+    description: "CSS Stylesheet",
+    mimetype: "text/css"
+  },
+  "js": {
+    description: "JavaScript File",
+    mimetype: "application/javascript"
+  },
+  "json": {
+    description: "JSON Format",
+    mimetype: "application/json"
+  },
+  "svg": {
+    description: "SVG Image",
+    mimetype: "image/svg+xml"
+  },
+  "txt": {
+    description: "Plain Text",
+    mimetype: "text/plain"
+  },
+  "pdf": {
+    description: "PDF Document",
+    mimetype: "application/pdf"
+  },
+  "mp4": {
+    description: "MP4 Video",
+    mimetype: "video/mp4"
+  },
+  "mp3": {
+    description: "MP3 Audio",
+    mimetype: "audio/mpeg"
+  },
+  "zip": {
+    description: "ZIP Archive",
+    mimetype: "application/zip"
+  },
+  "rar": {
+    description: "RAR Archive",
+    mimetype: "application/x-rar-compressed"
+  },
+  "gif": {
+    description: "GIF Image",
+    mimetype: "image/gif"
+  },
+  "doc": {
+    description: "Microsoft Word Document",
+    mimetype: "application/msword"
+  },
+  "docx": {
+    description: "Microsoft Word (OpenXML)",
+    mimetype: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  },
+  "xls": {
+    description: "Microsoft Excel Document",
+    mimetype: "application/vnd.ms-excel"
+  },
+  "xlsx": {
+    description: "Microsoft Excel (OpenXML)",
+    mimetype: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  },
+  "ppt": {
+    description: "Microsoft PowerPoint Document",
+    mimetype: "application/vnd.ms-powerpoint"
+  },
+  "pptx": {
+    description: "Microsoft PowerPoint (OpenXML)",
+    mimetype: "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+  },
+  "ttf": {
+    description: "TrueType Font",
+    mimetype: "font/ttf"
+  },
+  "otf": {
+    description: "OpenType Font",
+    mimetype: "font/otf"
+  },
+  "woff": {
+    description: "Web Open Font Format",
+    mimetype: "font/woff"
+  },
+  "woff2": {
+    description: "Web Open Font Format 2",
+    mimetype: "font/woff2"
+  },
+  "eot": {
+    description: "Embedded OpenType Font",
+    mimetype: "font/eot"
+  },
+  "csv": {
+    description: "Comma Separated Values",
+    mimetype: "text/csv"
+  },
+  "xml": {
+    description: "XML Document",
+    mimetype: "application/xml"
+  },
+  "webm": {
+    description: "WebM Video",
+    mimetype: "video/webm"
+  },
+  "ogg": {
+    description: "Ogg Audio",
+    mimetype: "audio/ogg"
+  },
+  "webp": {
+    description: "WebP Image",
+    mimetype: "image/webp"
+  },
+  "ico": {
+    description: "Icon Image",
+    mimetype: "image/x-icon"
+  },
+  "webmanifest": {
+    description: "Web App Manifest",
+    mimetype: "application/manifest+json"
+  },
+  "md": {
+    description: "Markdown Document",
+    mimetype: "text/markdown"
+  },
+};

@@ -7,9 +7,8 @@
     <meta http-equiv="Cache-Control" content="no-store,must-revalidate,max-age=-1">
     <meta http-equiv="Pragma" content="no-store">
     <meta http-equiv="Expires" content="0">
-    <link rel="shortcut icon" id="favicon-png" type="image/png" href="data:image/jpeg;base64,iVBORw0KGgo=">
     <title>GorillaPresenter</title>
-  
+
   </head>
 
   <body>
@@ -17,23 +16,40 @@
       Yeah, there's absolutely no way this can work with JavaScript turned off. Sorry, my friend.
     </noscript>
 
-    <div id="gorilla-presenter-slideroot" class= "gorilla-presenter-screen" ondblclick="GorillaPresenter.showEditor()"> </div>
+  <div id="gorilla-presenter-slideroot" class= "gorilla-presenter-screen" ondblclick="GorillaPresenter.showSlideEditor()">
+  </div>
+ 
+  <div id = "gorilla-presenter-editors-container">
+      <div id="gorilla-presenter-editor-toolbar">
+        <div class="gorilla-presenter-editor-toolbar">
+        </div>
 
-    <div id="gorilla-presenter-editor-container" class="gorilla-presenter-screen">
-          <div id="gorilla-presenter-editor-toolbar"><button type="button" id="doneButton" onClick = "GorillaPresenter.updateData()">Done</button></div>
-          <div>Slide editor</div>
-          <textarea  title="Slide Text Editor" id="gorilla-presenter-slide-text-editor" class = "gorilla-presenter-text-editor"></textarea>
-          <div>Image Editor</div>
-          <div> Image stuff goes here </div>
-          <div>Theme Editor</div>
-          <textarea id="gorilla-presenter-theme-text-editor" class='gorilla-presenter-text-editor' title="Theme Text Editor"> </textarea>
+
+  </div>
+  <div id="gorilla-presenter-slide-editor-container" class= "gorilla-presenter-screen gorilla-presenter-editor-container">
+      <textarea title="Slide Text Editor" id="gorilla-presenter-slide-text-editor" class = "gorilla-presenter-text-editor"></textarea>
+  </div>
+    
+  <div id="gorilla-presenter-image-editor-container" class="gorilla-presenter-screen gorilla-presenter-editor-container">
+    <div id="gorilla-presenter-image-editor">
+        <div> Image stuff goes here </div>
     </div>
+  </div>
+
+  <div id="gorilla-presenter-theme-editor-container" class="gorilla-presenter-screen gorilla-presenter-editor-container">
+      <textarea id="gorilla-presenter-theme-text-editor" class='gorilla-presenter-text-editor' title="Theme Text Editor"> </textarea>
+  </div>
+</div>
+
+
     <div id="gorilla-presenter-warning-message">
       This is a warning, y'all.
     </div>
   </body>
   <script type="text/javascript" id="Gorilla_presenter_file_system">
-$$$FILESYSTEM$$$
+    let BrowserFileSystem = {
+    }
+    $$$FILESYSTEM$$$
   </script>
   <script type="text/javascript" id="Gorilla_presenter_system_boot">
  let launcher = {
@@ -64,7 +80,7 @@ $$$FILESYSTEM$$$
     this.loadError = false;
     let jsQueue = [];
     let cssQueue = [];
-    let filenames = Object.keys(BrowserFileSystem_fs).sort(naturalSort());
+    let filenames = Object.keys(BrowserFileSystem.fs).sort(naturalSort());
     for(let i = 0; i < filenames.length; i++){
         let filename = filenames[i];
       if(filename.match(/\.css$/) !== null){
@@ -98,7 +114,7 @@ $$$FILESYSTEM$$$
         this.currentSourceFile = filename;
         console.log("adding CSS: " + filename);
       try {
-        let code = BrowserFileSystem_fs[filename]["data"];
+        let code = BrowserFileSystem.fs[filename]["data"];
         let style = document.createElement('style');
         style.type = 'text/css';
         if(id !== undefined){
@@ -122,7 +138,7 @@ $$$FILESYSTEM$$$
     this.currentSourceFile = filename;
     console.log("adding JS: " + filename);
     try {
-      let code = BrowserFileSystem_fs[filename]["data"];
+      let code = BrowserFileSystem.fs[filename]["data"];
       let script = document.createElement('script');
       script.type = 'text/javascript';
       let jsCode = this.decodeText(code);
@@ -152,7 +168,7 @@ $$$FILESYSTEM$$$
       stylearr[i].remove();
     }
     if(keepFileSystem !== true){
-      BrowserFileSystem_fs = null;
+      BrowserFileSystem.fs = null;
     }
     cleanScripts();
   },

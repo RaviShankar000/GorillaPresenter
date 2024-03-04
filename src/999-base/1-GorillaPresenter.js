@@ -6,6 +6,7 @@ let GorillaPresenter = {
     slideIdFragment: "gorilla-presenter-slide-",
     slidePosition:-1,
     speakerNotes:"",
+    editor_mode: "light",
     slideIDs: [],
     themes : {},
     showUIScreen:function(id){
@@ -14,15 +15,37 @@ let GorillaPresenter = {
         screens[i].style.display = "none";
       }
       let screen = document.getElementById(id);
-      screen.style.display = "block";
+      screen.style.display = "grid";
     },
-    showEditor:function(){
-      this.showUIScreen("gorilla-presenter-editor-container");
+    showSlideEditor:function(){
+      GorillaPresenter.showUIScreen("gorilla-presenter-slide-editor-container");
+      document.getElementById("gorilla-presenter-editors-container").style.display = "grid";
       let slideEditor = document.getElementById("gorilla-presenter-slide-text-editor");
       slideEditor.value = GorillaPresenter.slideData;
       let themeEditor = document.getElementById("gorilla-presenter-theme-text-editor");
       themeEditor.value = GorillaPresenter.themeData;
       slideEditor.focus();
+    },
+    showThemeEditor:function(){
+      GorillaPresenter.showUIScreen("gorilla-presenter-theme-editor-container");
+      document.getElementById("gorilla-presenter-editors-container").style.display = "grid";
+      let slideEditor = document.getElementById("gorilla-presenter-slide-text-editor");
+      GorillaPresenter.slideData = slideEditor.value;
+      let themeEditor = document.getElementById("gorilla-presenter-theme-text-editor");
+      themeEditor.value = GorillaPresenter.themeData;
+      themeEditor.focus();
+    },
+    showImageEditor:function(){
+      document.getElementById("gorilla-presenter-editors-container").style.display = "grid";
+      GorillaPresenter.showUIScreen("gorilla-presenter-image-editor-container");
+      let imageEditor = document.getElementById("gorilla-presenter-image-editor");
+      imageEditor.focus();
+    },
+    showHomeScreen:function(){
+      GorillaPresenter.showUIScreen("gorilla-presenter-slideroot");
+      document.getElementById("gorilla-presenter-editors-container").style.display = "none";
+      GorillaPresenter.updateData();
+      GorillaPresenter.displaySlide();
     },
     updateData:function(){
       console.log("updateData called"); 
@@ -30,21 +53,50 @@ let GorillaPresenter = {
       GorillaPresenter.themeData = document.getElementById("gorilla-presenter-theme-text-editor").value;
       GorillaPresenter.renderSlides(GorillaPresenter.slideRoot);
       GorillaPresenter.renderThemes();
-      GorillaPresenter.displaySlide();
       GorillaPresenter.saveSlides();
-      GorillaPresenter.showSlideDisplay();
     },
     showSlideDisplay:function(){
       GorillaPresenter.showUIScreen("gorilla-presenter-slideroot");
+      GorillaPresenter.displaySlide();
     },
     saveSlides:function(){
       BrowserFileSystem.writeInternalTextFile("userdata/slides",GorillaPresenter.slideData);
       BrowserFileSystem.writeInternalTextFile("userdata/slideposition",GorillaPresenter.slidePosition.toString());
       BrowserFileSystem.writeInternalTextFile("userdata/themes",GorillaPresenter.themeData);
     },
-    
+    buildToolbar:function(){
+      let toolbar = document.getElementById("gorilla-presenter-editor-toolbar");
+      toolbar.innerHTML  = "";
+      GorillaPresenter.addToolbarButton(toolbar,"Slide Show",GorillaPresenter.showHomeScreen);
+      GorillaPresenter.addToolbarButton(toolbar,"Download",GorillaPresenter.showDownloadShow);
+      GorillaPresenter.addToolbarButton(toolbar,"Slide Editor",GorillaPresenter.showSlideEditor);
+      GorillaPresenter.addToolbarButton(toolbar,"Theme Editor",GorillaPresenter.showThemeEditor);
+      GorillaPresenter.addToolbarButton(toolbar,"Image Editor",GorillaPresenter.showImageEditor);
+      GorillaPresenter.addToolbarButton(toolbar,"Help",GorillaPresenter.showHelp);
+      GorillaPresenter.addToolbarButton(toolbar,"Documentation",GorillaPresenter.showDocumentation);
+    //  GorillaPresenter.addToolbarButton(toolbar,"About",GorillaPresenter.showAbout);
+    },
+
+    addToolbarButton:function(toolbar, label, action){
+      let toolbarIconFileName = label.toLowerCase().replace(" ","-");
+      if(GorillaPresenter.editor_mode === "dark"){
+        toolbarIconFileName += "-dark";
+      }
+      toolbarIconFileName += ".webp";
+      let img = document.createElement("img");
+      img.src = BrowserFileSystem.readInternalFileDataURL("toolbar/" + toolbarIconFileName);
+      img.alt = label;
+      img.title = label;
+      img.onclick = action;
+      img.className = "gorilla-presenter-toolbar-button";
+      toolbar.appendChild(img);
+    },
+
     startup:function(){
-     
+      setHeadLink("icon",BrowserFileSystem.readInternalFileDataURL("icons/favicon.ico"),"image/x-icon");
+     setHeadLink("icon",BrowserFileSystem.readInternalFileDataURL("icons/favicon-192x192.png"),"image/png");
+      setHeadLink("apple-touch-icon",BrowserFileSystem.readInternalFileDataURL("icons/apple-touch-icon-180x180.png"),"image/png");
+      GorillaPresenter.buildToolbar();
       if(BrowserFileSystem.fileExists("userdata/slides.md") === false){
         console.log("No slides found.");
         GorillaPresenter.slideData ="";
@@ -99,7 +151,7 @@ let GorillaPresenter = {
         let slidetext = "# " + slidetexts[j];
         let newSlide = document.createElement("div");
         let id = GorillaPresenter.slideIdFragment + uuid();
-        newSlide.setAttribute("class", this.slideClass);
+        newSlide.setAttribute("class", GorillaPresenter.slideClass);
         newSlide.setAttribute("id", id);
         newSlide.innerHTML =  `<div class="gorilla-presenter-editable"><div class="gorilla-presenter-slide-container">` + GorillaPresenter.markdown.render(slidetext) + "</div></div>";
         document.getElementById(GorillaPresenter.slideRoot).appendChild(newSlide);
@@ -136,12 +188,13 @@ let GorillaPresenter = {
         GorillaPresenter. warn("Slide ID" + slideId + " is undefined. Position is " + slidePosition);
         return;
       }
-      this.sicTransit.showPanel("#" + slideId);
+      GorillaPresenter.sicTransit.showPanel("#" + slideId);
     },
     warn:function(message){
       let slideElement = document.getElementById(GorillaPresenter.slideRoot);
       const slideStyles = window.getComputedStyle(slideElement);
       let warningElement = document.getElementById("gorilla-presenter-warning-message");
+      warningElement.innerHTML = message;
       warningElement.style.opacity = 0;
       warningElement.style.display = "block";
       let warningElementStyle = window.getComputedStyle(warningElement);
@@ -153,7 +206,7 @@ let GorillaPresenter = {
       let top = (slideHeight - warningHeight) / 2;
       warningElement.style.left = left + "px";
       warningElement.style.top = top + "px"; 
-      warningElement.innerHTML = message;
+      
       fadeIn(warningElement);
       setTimeout(function(){
         fadeOut(warningElement);

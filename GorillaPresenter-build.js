@@ -6,7 +6,9 @@ const btoa  = require('btoa');
 const jsmin = require('jsmin').jsmin;
 let version_info
 let build_info;
-let BrowserFileSystem_fs = {}
+let BrowserFileSystem = {}
+BrowserFileSystem.fs = {}
+
 let source_folder =  __dirname + "/src/"
 console.log("Source folder is " + source_folder);
 bump_version();
@@ -40,11 +42,11 @@ function process_files(err,results){
 }
 
 function write_filesystem(){
-    let filesystem = JSON.stringify(BrowserFileSystem_fs)
+    let filesystem = JSON.stringify(BrowserFileSystem.fs)
     if (!fs.existsSync(__dirname + "/filesystem")){
       fs.mkdirSync(__dirname + "/filesystem");
     }
-    fs.writeFileSync(__dirname +  "/filesystem/BrowserFileSystem_fs.json",filesystem,"utf8");
+    fs.writeFileSync(__dirname +  "/filesystem/BrowserFileSystem.fs.json",filesystem,"utf8");
 }
 
 function create_directories(){
@@ -66,7 +68,7 @@ function write_html(){
     }
     else{
       switch(template_line.trim()){
-        case "$$$FILESYSTEM$$$":   template_out = template_out + "BrowserFileSystem_fs=" + JSON.stringify(BrowserFileSystem_fs)
+        case "$$$FILESYSTEM$$$":   template_out = template_out + "BrowserFileSystem.fs=" + JSON.stringify(BrowserFileSystem.fs)
               break;
         default: template_out = template_out + template_line + "\n"
               break;
@@ -91,7 +93,7 @@ function process_file(file_name){
   console.log("Processing: " + outfile_name);
 
   file_data = fs.readFileSync(file_name,"binary");
-  BrowserFileSystem_fs[outfile_name] = {"timestamp": Date.now(),"data":btoa(file_data)};
+  BrowserFileSystem.fs[outfile_name] = {"timestamp": Date.now(),"data":btoa(file_data)};
 }
 
 /**

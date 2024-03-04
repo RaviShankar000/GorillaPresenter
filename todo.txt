@@ -1,3 +1,8 @@
-Set up support for "theming" (a very simple theming... one that the average user can actually use)
 
-Make CTRL-S and CMD-S save the current editor (as well as ESC)
+Make CTRL-S and CMD-S save the current editor (as well as ESC). Or save all editors and download? Maybe that would be better, come to think about it.
+
+
+Images
+
+Export to full-page print and 6-up handouts.
+

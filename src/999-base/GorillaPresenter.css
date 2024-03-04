@@ -2,7 +2,7 @@ body {
   font-family:sans-serif;
   font-size:20px;
   line-height:1.33em;
-  background: #bbb;
+  background: #000;
   display:block;
   padding:0;
   margin:0;
@@ -40,6 +40,27 @@ table, th, td {
   padding:0.25em;
 }
 
+.gorilla-presenter-toolbar-button {
+  width: 3em;
+  height: 3em;
+  padding: 0.1em;
+}
+#gorilla-presenter-editors-container {
+  display: none;
+  grid-template-rows: 3.2em 1fr;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1000;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
 .gorilla-presenter-slide {
   box-sizing: border-box;
   width: 100%;
@@ -48,34 +69,25 @@ table, th, td {
   padding:0;
   overflow: auto;
 }
-
-#gorilla-presenter-slide-editor-container {
+.gorilla-presenter-editor-container {
   box-sizing: border-box;
   width: 100vw;
-  height: 100vh;
-  max-height: 100vh;
-  margin: 0;
+  height: 62.7vw;
+  max-height: calc(100vh - 4vw);
   padding: 0;
+  margin: 0;
+  background-color: #bbb;
   display: none;
 }
 
-#gorilla-presenter-theme-editor-container{
-  box-sizing: border-box;
-  width:100vw;
-  height: 66.7vw;
-  max-height:100vh;
-  margin:0;
-  padding:0;
-  display:none;
-}
-
 #gorilla-presenter-slideroot {
-  width:100vw;
-  height: 66.7vw;
-  max-height:100vh;
-  font-size:5vw;
-  resize:none;
-  margin: 0;
+  width: 96vw;
+  height: 62.7vw;
+  max-height: calc(100vh - 4vw);
+  border-radius: 5vw;
+  font-size: 5vw;
+  resize: none;
+  margin: 2vw;
   padding: 0;
 }
 
@@ -100,17 +112,23 @@ table, th, td {
   font-family: sans-serif
 }
 
-.gorilla-presenter-text-editor{
+.gorilla-presenter-text-editor {
   box-sizing: border-box;
-  width:100vw;
-  height:20vh;
-  max-height:100%;
-  font-size:20px;
-  font-family:monospace;
-  padding:1em;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 4vw);
+  font-size: 20px;
+  font-family: monospace;
+  padding: 1em;
   overflow: auto;
 }
 
+.gorilla-presenter-editor-toolbar{
+  padding-left:1em;
+  padding-right:1em;
+  padding-top:0.25em;
+}
 
 .gorilla-presenter-editable {
   font-weight: normal;
