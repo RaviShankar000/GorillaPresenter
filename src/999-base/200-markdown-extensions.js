@@ -1,1 +1,0 @@
-GorillaPresenter.markdown =  window.markdownit({html:true,xhtmlOut:true,typographer:true});

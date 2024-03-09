@@ -107,6 +107,12 @@ table, th, td {
   margin-top:0;
 }
 
+.gorilla-presenter-main-menu-item:hover {
+  background-color: #cacaca;
+  font-weight:bold;
+  cursor:pointer
+}
+
 #gorilla-presenter-about-container {
   overflow: auto;
   width: 96vw;

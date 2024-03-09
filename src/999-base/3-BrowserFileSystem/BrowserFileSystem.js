@@ -1,7 +1,7 @@
-// filesystem-extensions.js
+// BrowserFileSystem is a simple in-memory file system for
+// use in web applications.
 // Copyright 2019-2024 by Anthony W. Hursh
 // MIT License.
-
 
 BrowserFileSystem.file_extension = function(filename){
   let end = filename.lastIndexOf('.');

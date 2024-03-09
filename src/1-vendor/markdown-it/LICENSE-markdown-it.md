@@ -1,6 +1,7 @@
 The MIT License
 
-Markdown-it is Copyright (c) 2014 Vitaly Puzrin, Alex Kocharin.
+Markdown-It is Copyright (c) 2014 Vitaly Puzrin, Alex Kocharin.
+
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
