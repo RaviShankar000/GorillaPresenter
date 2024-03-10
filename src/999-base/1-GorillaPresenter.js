@@ -8,12 +8,15 @@ let GorillaPresenter = {
     speakerNotes:"",
     editor_mode: "light",
     slideIDs: [],
+    slideTransitionsForward: [],
+    slideTransitionsBack: [],
     themes : {},
     currentLanguage:"en",
     slideEditorPosition:0,
     themeEditorPosition:0,
     mainMenuVisible:false,
     onHomeScreen:false,
+    fullScreen:false,
     showUIScreen:function(id){
       let screens = document.querySelectorAll(".gorilla-presenter-screen");
       for(let i=0;i<screens.length;i++){
@@ -28,7 +31,12 @@ let GorillaPresenter = {
       let label = target.innerHTML;
       switch(label){
         case "Slide Show":GorillaPresenter.showHomeScreen();break;
-        case "Enter/Exit Full Screen": GorillaPresenter.enterFullScreen();break;
+        case "Enter/Exit Full Screen":if(GorillaPresenter.fullScreen === true){
+             GorillaPresenter.exitFullScreen()
+            }
+            else{
+              GorillaPresenter.enterFullScreen();
+            }break;
         case "Slide Editor":GorillaPresenter.showSlideEditor();break;
         case "Image Editor":GorillaPresenter.showImageEditor();break;
         case "Save Presentation":GorillaPresenter.downloadSlides();break;
@@ -76,7 +84,7 @@ let GorillaPresenter = {
     showHomeScreen:function(){
       GorillaPresenter.showUIScreen("gorilla-presenter-slideroot");
       GorillaPresenter.updateData();
-      GorillaPresenter.displaySlide();
+      GorillaPresenter.displaySlide("cutIn");
       GorillaPresenter.onHomeScreen = true;
     },
     showAbout:function(){
@@ -114,6 +122,12 @@ let GorillaPresenter = {
       else {
         GorillaPresenter.slidePosition = parseInt(BrowserFileSystem.readInternalTextFile("userdata/slideposition"));
       }
+      if(BrowserFileSystem.fileExists("userdata/language") === false){
+        GorillaPresenter.language = "en";
+      }
+      else {
+        GorillaPresenter.language = BrowserFileSystem.readInternalTextFile("userdata/language").trim();
+      }
       if(BrowserFileSystem.fileExists("userdata/themes.csx") === false){
         GorillaPresenter.themeData = "";
       }
@@ -131,74 +145,84 @@ let GorillaPresenter = {
       let aboutElement = document.getElementById("gorilla-presenter-about");
       aboutElement.innerHTML = aboutElement.innerHTML + GorillaPresenter.markdown.render( BrowserFileSystem.collectLicenses());
       GorillaPresenter.showHomeScreen();
-      document.addEventListener('keydown', function(event) {
-          const isCmdOrCtrl = event.ctrlKey || event.metaKey;
-          if (isCmdOrCtrl && event.key.toLowerCase() === 'e') {
+      let screens = document.getElementsByClassName("gorilla-presenter-screen");
+      GorillaPresenter.touchStartTimer = GorillaPresenter.touchEndTimer =  GorillaPresenter.clickTimer = null;
+        GorillaPresenter.setMenuHandlers(document.body);
+  },
+    setMenuHandlers:function(element){
+      element.addEventListener('keydown', function(event) {
+        const isCmdOrCtrl = event.ctrlKey || event.metaKey;
+        if (isCmdOrCtrl && event.key.toLowerCase() === 'e') {
+          if(GorillaPresenter.mainMenuVisible === false){
+              GorillaPresenter.showMainMenu(event);
+          }
+          else{
+            GorillaPresenter.hideMainMenu(event);
+          }
+          return;
+        }
+        GorillaPresenter.hideMainMenu(event);
+        if(GorillaPresenter.onHomeScreen === false){
+          return;
+        }
+        // Try to handle any keys that someone might try to use to navigate the slides.
+        if(event.key === "ArrowRight"){
+            GorillaPresenter.slideForward();
+            return;
+        }
+        if(event.key === "ArrowLeft"){
+            GorillaPresenter.slideBack();
+            return;
+        }
+        if(event.key === "ArrowDown"){
+          GorillaPresenter.slideForward();
+          return;
+      }
+      if(event.key === "ArrowUp"){
+          GorillaPresenter.slideBack();
+          return;
+      }
+        if(event.key === "PageDown"){
+          GorillaPresenter.slideForward();
+          return;
+      }
+      if(event.key === "PageUp"){
+          GorillaPresenter.slideBack();
+          return;
+      }
+      if(event.key === "Enter"){
+        GorillaPresenter.slideForward();
+        return;
+      }
+      if(event.key === "Backspace"){
+        GorillaPresenter.slideBack();
+        return;
+      }
+      if(event.code === "Space"){
+        GorillaPresenter.slideForward();
+        return;
+      }
+      // In case a desperate user tries to escape full screen mode. :-)
+      if(event.code === "Escape"){
+        GorillaPresenter.exitFullScreen();
+        return;
+      }
+      return;
+    });
+
+    // Long press detection for touch devices
+    element.addEventListener('touchstart', function(event) {
+        GorillaPresenter.touchStartX = event.touches[0].clientX;
+        GorillaPresenter.touchStartTimer = setTimeout(function() {
             if(GorillaPresenter.mainMenuVisible === false){
-                GorillaPresenter.showMainMenu(event);
+              GorillaPresenter.showMainMenu(event);
             }
             else{
               GorillaPresenter.hideMainMenu(event);
-              return
             }
-          }
-          if(GorillaPresenter.onHomeScreen === false){
-            return;
-          }
-          if(event.key === "ArrowRight"){
-              GorillaPresenter.slideForward();
-              return;
-          }
-          if(event.key === "ArrowLeft"){
-              GorillaPresenter.slideBack();
-              return;
-          }
-          if(event.key === "ArrowDown"){
-            GorillaPresenter.slideForward();
-            return;
-        }
-        if(event.key === "ArrowUp"){
-            GorillaPresenter.slideBack();
-            return;
-        }
-          if(event.key === "PageDown"){
-            GorillaPresenter.slideForward();
-            return;
-        }
-        if(event.key === "PageUp"){
-            GorillaPresenter.slideBack();
-            return;
-        }
-        if(event.key === "Enter"){
-          GorillaPresenter.slideForward();
-          return;
-        }
-        if(event.key === "Backspace"){
-          GorillaPresenter.slideBack();
-          return;
-        }
-        if(event.code = "Space"){
-          GorillaPresenter.slideForward();
-          return;
-        }
-      });
-
-      // Timers for click and touch events
-      GorillaPresenter.touchStartTimer = GorillaPresenter.touchEndTimer =  GorillaPresenter.clickTimer = null;
-
-      // Long press detection for touch devices
-      document.addEventListener('touchstart', function(event) {
-          GorillaPresenter.touchStartX = event.touches[0].clientX;
-          GorillaPresenter.touchStartTimer = setTimeout(function() {
-              if(GorillaPresenter.mainMenuVisible === false){
-                GorillaPresenter.showMainMenu(event);
-              }
-              else{
-                GorillaPresenter.hideMainMenu(event);
-              }
-          }, 500);
-      });
-      document.addEventListener('touchend', function(event) {
+        }, 500);
+    });
+      element.addEventListener('touchend', function(event) {
           clearTimeout(GorillaPresenter.touchStartTimer);
             GorillaPresenter.touchStartTimer = null;
             const touchEndX = event.changedTouches[0].clientX;
@@ -210,12 +234,16 @@ let GorillaPresenter = {
             GorillaPresenter.slideForward();
             }
       });
-      document.addEventListener('touchmove', function(event) {
+      element.addEventListener('touchmove', function(event) {
           clearTimeout(GorillaPresenter.touchStartTimer);
           GorillaPresenter.touchStartTimer = null;
       });
       
-      document.addEventListener('mousedown', function(event) {
+      element.addEventListener('mousedown', function(event) {
+        if (GorillaPresenter.mainMenuVisible === true && !event.target.closest("#gorilla-presenter-main-menu")) {
+          GorillaPresenter.hideMainMenu(event);
+          return;
+        }
         GorillaPresenter.isLongClick = false;
         GorillaPresenter.clickTimer = setTimeout(function() {
             GorillaPresenter.isLongClick = true;
@@ -225,10 +253,10 @@ let GorillaPresenter = {
             else {
                 GorillaPresenter.hideMainMenu(event);
             }
-        }, 1500);
+        }, 1000);
     });
     
-    document.addEventListener('mouseup', function(event) {
+    element.addEventListener('mouseup', function(event) {
         clearTimeout(GorillaPresenter.clickTimer);
         if (!GorillaPresenter.isLongClick) {
             // It was a short click, advance to the next slide
@@ -239,15 +267,20 @@ let GorillaPresenter = {
         GorillaPresenter.clickTimer = null;
     });
     
-    document.addEventListener('mouseleave', function(event) {
+    element.addEventListener('mouseleave', function(event) {
         clearTimeout(GorillaPresenter.clickTimer);
         GorillaPresenter.clickTimer = null;
     });   
-  },    
-   
-
+    },
     renderSlides:function(element){
       GorillaPresenter.speakerNotes = "";
+      for(let i = 0; i < GorillaPresenter.slideIDs.length; i++) {
+        let slideId = GorillaPresenter.slideIDs[i];
+        let slideElement = document.getElementById(slideId);
+        if(slideElement) {
+          slideElement.remove();
+        }
+      }
       GorillaPresenter.slideIDs = [];
       let text; 
       let slidelines = GorillaPresenter.slideData.split("\n");
@@ -271,40 +304,61 @@ let GorillaPresenter = {
         newSlide.setAttribute("id", id);
         newSlide.innerHTML =  `<div class="gorilla-presenter-editable"><div class="gorilla-presenter-slide-container">` + GorillaPresenter.markdown.render(slidetext) + "</div></div>";
         document.getElementById(GorillaPresenter.slideRoot).appendChild(newSlide);
+        GorillaPresenter.sicTransit.transferPanel(newSlide);
         renderMathInElement(newSlide);
         GorillaPresenter.slideIDs.push(id);
       }
     },
     slideForward:function(){
-      GorillaPresenter.slidePosition++;
-      GorillaPresenter.displaySlide();
+      let transition = GorillaPresenter.slideTransitionsForward[GorillaPresenter.slidePosition];
+      console.log("slideForward: Transition is " + transition);
+      if(transition === undefined){
+        transition = "swipeInFromRight";
+      }
+      GorillaPresenter.slidePosition = GorillaPresenter.slidePosition + 1;
+      GorillaPresenter.displaySlide(transition);
     },
 
     slideBack:function(){
-      GorillaPresenter.slidePosition--;
-      GorillaPresenter.displaySlide();
+      let transition = GorillaPresenter.slideTransitionsBack[GorillaPresenter.slidePosition];
+      if(transition === undefined){
+        transition = "swipeInFromLeft"
+      } 
+      GorillaPresenter.slidePosition = GorillaPresenter.slidePosition - 1;
+      GorillaPresenter.displaySlide(transition);
     },
 
 
-    displaySlide:function(){
+    displaySlide:function(transition){
+      console.log("displaySlide: transition is "  + transition);
       if(GorillaPresenter.slideIDs.length === 0){
-        GorillaPresenter.warn("No slides. You'll have to make some first.");
+        GorillaPresenter.warn(GorillaPresenter.translate("No slides. You'll have to make some first.",GorillaPresenter.currentLanguage));
         return;
       }
       if(GorillaPresenter.slidePosition < 0){
         GorillaPresenter.slidePosition = 0;
-        GorillaPresenter.warn("At first slide.");
+        GorillaPresenter.warn(GorillaPresenter.translate("At first slide.",GorillaPresenter.currentLanguage));
+        return;
       }
       if(GorillaPresenter.slidePosition >= GorillaPresenter.slideIDs.length){
         GorillaPresenter.slidePosition = GorillaPresenter.slideIDs.length -1 ;
-        GorillaPresenter.warn("At last slide.");
+        GorillaPresenter.warn(GorillaPresenter.translate("At last slide.",GorillaPresenter.currentLanguage));
+        return;
+      }
+      if(GorillaPresenter.sicTransit.isValidTransition(transition) === false){
+        warn(GorillaPresenter.translate("Unrecognized transition",GorillaPresenter.currentLanguage) + ": " + transition);
+        return;
       }
       let slideId = GorillaPresenter.slideIDs[GorillaPresenter.slidePosition];
       if(slideId === undefined){
-        GorillaPresenter. warn("Slide ID" + slideId + " is undefined. Position is " + slidePosition);
+        GorillaPresenter. warn(GorillaPresenter.translate("No slide with this ID:",GorillaPresenter.currentLanguage) + slideId);
         return;
       }
-      GorillaPresenter.sicTransit.showPanel("#" + slideId);
+  /*    panelSelector: the selector for the panel to be transitioned. See selectPanel() for details.
+      transitionName: the name of the transition to be performed. See getTransitionList() for a list of currently defined transitions.
+      stackRotationNumber: the number of times to rotate the stack.  Only used by the rotateStack transition. Positive numbers move panels from the top of the stack to the bottom. Negative numbers move panels from the bottom of the stack to the top. Zero is a no-op. Default is 1. */
+      GorillaPresenter.sicTransit.performTransition({"panelSelector":"#" + slideId, "transitionName":transition,"stackRotationNumber":0});
+    // GorillaPresenter.sicTransit.showPanel("#" + slideId);
     },
     warn:function(message){
       let slideElement = document.getElementById(GorillaPresenter.slideRoot);
@@ -328,19 +382,72 @@ let GorillaPresenter = {
         fadeOut(warningElement);
       },1000);
     },
+    setLanguage(language){
+      GorillaPresenter.currentLanguage = language;
+      if(language !== "en"){
+        this.warn(translate("Support for languages other than English is experimental. Please report any issues at",language) + " https://github.com/pulpgrinder/GorillaPresenter");
+      }
+      BrowserFileSystem.writeInternalTextFile("userdata/language",language);
+    },
     renderMainMenu:function(){
       let mainMenu = document.getElementById("gorilla-presenter-main-menu");
-       mainMenu.innerHTML = "<div class='gorilla-presenter-main-menu-item'><span>Select Theme: </span> <select title='Theme Selector' id='gorilla-presenter-theme-selector' onchange='GorillaPresenter.themeSelected(this.value)'></select><button id='gorilla-presenter-theme-ok-button' onclick='GorillaPresenter.hideMainMenu()'>&#x2713;</button></div>";
+       mainMenu.innerHTML = "<div class='gorilla-presenter-main-menu-item'><span class='translatable'>Select Theme</span>: <select title='Theme Selector' id='gorilla-presenter-theme-selector' onchange='GorillaPresenter.themeSelected(this.value)'></select></div>";
       let menuItems = ["Slide Show","Enter/Exit Full Screen","Slide Editor","Image Editor","Save Presentation","Theme Editor","Documentation","About","Done"];
       for(let i=0;i<menuItems.length;i++){
         let menuItem = document.createElement("div");
-        menuItem.innerHTML = menuItems[i];
+        menuItem.innerHTML = "<span class='translatable'>" + menuItems[i] + "</span>";
         menuItem.className = "gorilla-presenter-main-menu-item link";
         menuItem.onclick = GorillaPresenter.processMainMenuClick;
         mainMenu.appendChild(menuItem);
       }
+      let languageDiv = document.createElement("div")
+      languageDiv.className = "gorilla-presenter-main-menu-item link";
+      languageDiv.innerHTML = "<span class='translatable'>Select Language</span>: </span> <select title='Language Selector' id='gorilla-presenter-language-selector' onchange='GorillaPresenter.selectLanguage(this.value)'></select>";
+      mainMenu.appendChild(languageDiv);
+      GorillaPresenter.loadLanguages();
+      document.getElementById("gorilla-presenter-language-selector").onchange = GorillaPresenter.selectLanguage;
+        GorillaPresenter.translateUI();
     },
-   
+    translateUI:function(){
+      let language = GorillaPresenter.currentLanguage;
+      let translations = GorillaPresenter.translations;
+      let elements = document.getElementsByClassName("translatable");
+      for(let i=0;i<elements.length;i++){
+        let element = elements[i];
+        let text = element.innerHTML;
+        console.log("Translating " + text);
+        let translation = translations[text];
+        if(translation !== undefined){
+          let translatedText = translation[language];
+          if(translatedText !== undefined){
+            element.innerHTML = translatedText;
+          }
+        }
+      }
+    },
+    selectLanguage:function(event){
+      GorillaPresenter.setLanguage(event.target.value);
+      GorillaPresenter.renderMainMenu();
+      GorillaPresenter.showMainMenu();
+      GorillaPresenter.renderThemes();
+    },
+    loadLanguages:function(){
+      let languageSelector = document.getElementById("gorilla-presenter-language-selector");
+      languageSelector.innerHTML = "";
+      console.log("Language selector is now empty");
+      let languages = Object.keys(GorillaPresenter.translations["Slide Show"]);
+      console.log("There are " + languages.length + " languages.")
+      for(let i=0;i<languages.length;i++){
+        let language = languages[i];
+        let option = document.createElement("option");
+        option.value = language;
+        option.innerHTML = language;
+        if(language === GorillaPresenter.currentLanguage){
+          option.selected = true;
+        }
+        languageSelector.appendChild(option);
+      }
+    },
     showMainMenu:function(event){
       GorillaPresenter.mainMenuVisible = true;
       GorillaPresenter.saveEditorCursors();
@@ -358,9 +465,9 @@ let GorillaPresenter = {
       let top = (slideHeight - menuHeight) / 2;
       mainMenu.style.left = left + "px";
       mainMenu.style.top = top + "px";
-      setTimeout(function(){
+   /*    setTimeout(function(){
         GorillaPresenter.hideMainMenu();
-      },7000);
+      },7000); */
     },
     hideMainMenu:function(event){
       let mainMenu = document.getElementById("gorilla-presenter-main-menu");
@@ -403,8 +510,7 @@ let GorillaPresenter = {
   }, */
     
     enterFullScreen:function(){
-      let element = document.getElementById(GorillaPresenter.slideRoot);
-      element.focus();
+      let element = document.body;
       if (element.requestFullscreen) {
         element.requestFullscreen();
       } else if (element.webkitrequestFullscreen) { /* Safari */
@@ -412,6 +518,17 @@ let GorillaPresenter = {
       } else if (element.msRequestFullscreen) { /* IE11 */
         element.msRequestFullscreen();
       }
+      GorillaPresenter.fullScreen = true;
+    },
+    exitFullScreen:function(){
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+      }
+      GorillaPresenter.fullScreen = false;
     },
     setHeadLink: function(tagValue, dataURI,dataMimeType) {
       if (typeof tagValue !== 'string'){

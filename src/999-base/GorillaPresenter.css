@@ -147,6 +147,12 @@ table, th, td {
   line-height: 1.2em;
 }
 
+.gorilla-presenter-unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;  
+}
 
 #gorilla-presenter-warning-message {
   display:none;
