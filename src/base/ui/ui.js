@@ -34,6 +34,37 @@ GorillaPresenter.enterFullScreen = function(){
     GorillaPresenter.fullScreen = false;
   }
 
+  GorillaPresenter.fadeOut = function(element) {
+    let opacity = 1;
+    function decrease() {
+        opacity -= 0.02;
+        if (opacity <= 0){
+            // complete
+            element.style.opacity = 0;
+            element.style.display = "none";
+            return true;
+        }
+        element.style.opacity = opacity;
+        requestAnimationFrame(decrease);
+    }
+    decrease();
+}
+GorillaPresenter.fadeIn = function(element) {
+    let opacity = 0;
+    element.style.opacity =  0;
+    element.style.display = "block";
+    function increase() {
+        opacity += 0.02;
+        if (opacity >= 1){
+            // complete
+            element.style.opacity = 1;
+            return true;
+        }
+        element.style.opacity = opacity;
+        requestAnimationFrame(increase);
+    }
+    increase();
+}
 
 
   GorillaPresenter.warn = function(message,time=1000){
@@ -53,8 +84,8 @@ GorillaPresenter.enterFullScreen = function(){
     warningElement.style.left = left + "px";
     warningElement.style.top = top + "px"; 
     
-    fadeIn(warningElement);
+    GorillaPresenter.fadeIn(warningElement);
     setTimeout(function(){
-      fadeOut(warningElement);
+      GorillaPresenter.fadeOut(warningElement);
     },time);
   }

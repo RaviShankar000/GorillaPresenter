@@ -19,4 +19,4 @@ GorillaPresenter.loadPresentationData = function(){
     GorillaPresenter.renderLanguages();
     GorillaPresenter.renderFontStackSelectors();
     GorillaPresenter.renderSlides();
-    }
+  }

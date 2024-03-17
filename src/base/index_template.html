@@ -307,37 +307,8 @@
         setTimeout(fn,timer);
     }
   }
-  function fadeOut(element) {
-    let opacity = 1;
-    function decrease() {
-        opacity -= 0.02;
-        if (opacity <= 0){
-            // complete
-            element.style.opacity = 0;
-            element.style.display = "none";
-            return true;
-        }
-        element.style.opacity = opacity;
-        requestAnimationFrame(decrease);
-    }
-    decrease();
-}
-function fadeIn(element) {
-    let opacity = 0;
-    element.style.opacity =  0;
-    element.style.display = "block";
-    function increase() {
-        opacity += 0.02;
-        if (opacity >= 1){
-            // complete
-            element.style.opacity = 1;
-            return true;
-        }
-        element.style.opacity = opacity;
-        requestAnimationFrame(increase);
-    }
-    increase();
-}
+  
+
  /*setTimeout(function(){
    launcher.cleanScripts()
  },25); */

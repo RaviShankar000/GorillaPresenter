@@ -16,6 +16,7 @@ GorillaPresenter.loadThemes = function(){
   }
   let themename = BrowserFileSystem.readInternalTextFile("userdata/themename");
   GorillaPresenter.themeName = themename;
+  GorillaPresenter.renderThemes()
   GorillaPresenter.setTheme();
 }
 
@@ -25,6 +26,7 @@ GorillaPresenter.saveThemes = function(){
 }
 
 GorillaPresenter.setTheme = function(){
+    console.log("themeName is: " + GorillaPresenter.themeName);
     let themeData = GorillaPresenter.themes[GorillaPresenter.themeName];
     console.log("themeData is: " + themeData);
     if(themeData === undefined){

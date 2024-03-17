@@ -92,6 +92,10 @@ background: #333333;
     background-color: #E91E63;
     border-bottom: 1px solid #9B59B6;
 }
+.gorilla-presenter-slide {
+    color: #3E2723;
+    background-color: #FBEEE6;
+}
 
 
 %%% Damaged Robot
@@ -121,7 +125,7 @@ font-family: sans-serif;
     color: #2C3E50;
     background-color: #EAEDED;
 }
-%%% Vintage
+%%% Mauve Decade
 
 .gorilla-presenter-editable h1 {
     color: #FAF0E6;

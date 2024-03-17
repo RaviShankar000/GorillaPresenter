@@ -6,7 +6,9 @@ GorillaPresenter.startup = function() {
     let aboutElement = document.getElementById("gorilla-presenter-about");
     aboutElement.innerHTML = aboutElement.innerHTML + GorillaPresenter.markdown.render( BrowserFileSystem.collectLicenses());
     GorillaPresenter.renderPresentationData();
+    GorillaPresenter.renderMainMenu();
     GorillaPresenter.showHomeScreen();
+    //GorillaPresenter.setTheme();
     GorillaPresenter.touchStartTimer = GorillaPresenter.touchEndTimer =  GorillaPresenter.clickTimer = null;
       GorillaPresenter.setMenuHandlers(document.body);
 }

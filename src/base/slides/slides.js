@@ -15,6 +15,7 @@ GorillaPresenter.loadSlides = function(){
      else{
         GorillaPresenter.slideData = "#No Slides\nYou need to add some slides\n";
      }
+     document.getElementById("gorilla-presenter-slide-text-editor").value = GorillaPresenter.slideData;
     if(BrowserFileSystem.fileExists("userdata/slideposition")){
         GorillaPresenter.slidePosition = parseInt(BrowserFileSystem.readInternalTextFile("userdata/slideposition"));
     }
@@ -73,7 +74,6 @@ GorillaPresenter.slideForward = function(){
     return;
   }
   let transition = GorillaPresenter.slideTransitionsForward[GorillaPresenter.slidePosition];
-  console.log("slideForward: Transition is " + transition);
   if(transition === undefined){
     transition = "swipeInFromRight";
   }
@@ -94,11 +94,9 @@ GorillaPresenter.slideBack = function(){
   GorillaPresenter.displaySlide(transition);
 }
 GorillaPresenter.transitionDone = function(){
-  console.log("in transitionDone callback");
   GorillaPresenter.transitionBusy = false;
 }
 GorillaPresenter.displaySlide = function(transition){
-  console.log("displaySlide: transition is "  + transition);
   if(GorillaPresenter.slideIDs.length === 0){
     GorillaPresenter.warn(GorillaPresenter.translate("No slides. You'll have to make some first.",GorillaPresenter.currentLanguage));
     return;
