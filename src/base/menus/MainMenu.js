@@ -4,23 +4,35 @@ GorillaPresenter.onHomeScreen = false;
 GorillaPresenter.renderMainMenu = function(){
     let mainMenu = document.getElementById("gorilla-presenter-main-menu");
     mainMenu.innerHTML = "";
-    GorillaPresenter.renderThemes();
-    let menuItems = ["Slide Show","Enter/Exit Full Screen","Slide Editor","Media Library","Save Presentation","Documentation","About"];
-    for(let i = 0;i < menuItems.length; i++){
-      let menuItem = document.createElement("div");
-      menuItem.setAttribute("baselabel",menuItems[i]);
-      menuItem.innerHTML = "<span class='translatable'>" + menuItems[i] + "</span>";
-      menuItem.className = "gorilla-presenter-main-menu-item link";
-      menuItem.onclick = GorillaPresenter.processMainMenuClick;
-      mainMenu.appendChild(menuItem);
-    }
-    GorillaPresenter.renderLanguages();
-    GorillaPresenter.renderFontStackSelectors();
-    
-  }
+    GorillaPresenter.renderMainMenuItems(mainMenu);
+    GorillaPresenter.renderThemes(mainMenu);
+    GorillaPresenter.renderFontStackSelectors(mainMenu);
+    GorillaPresenter.renderLanguages(mainMenu);
+  },
 
+GorillaPresenter.renderMainMenuItems = function(mainMenu){
+  //let mainMenu = document.getElementById("gorilla-presenter-main-menu");
+  let menuItems = ["Slide Show","Enter/Exit Full Screen","Slide Editor","Media Library","Save Presentation","Print","Documentation","About","Extra Settings"];
+  for(let i = 0;i < menuItems.length; i++){
+    let menuItem = document.createElement("div");
+    menuItem.setAttribute("baselabel",menuItems[i]);
+    menuItem.innerHTML = "<span class='translatable'>" + menuItems[i] + "</span>";
+    menuItem.className = "gorilla-presenter-main-menu-item link";
+    menuItem.onclick = GorillaPresenter.processMainMenuClick;
+    mainMenu.appendChild(menuItem);
+  }
+}
 
   GorillaPresenter.setMenuHandlers = function(element){
+  // Need to handle this in case the user enters/exits full screen mode using the browser menu or hitting esc on the keyboard.
+   document.onfullscreenchange = (event) => {
+      if(document.fullscreenElement !== null){
+        GorillaPresenter.fullScreen = true;
+      }
+      else{
+        GorillaPresenter.fullScreen = false;
+      }
+    };
     element.addEventListener('keydown', function(event) {
       const isCmdOrCtrl = event.ctrlKey || event.metaKey;
       if (isCmdOrCtrl && event.key.toLowerCase() === 'e') {
@@ -81,6 +93,7 @@ GorillaPresenter.renderMainMenu = function(){
       }
       if(GorillaPresenter.fullScreen === true){
         GorillaPresenter.exitFullScreen();
+        GorillaPresenter.fullScreen = false;
         return;
       }
     }
@@ -170,6 +183,8 @@ GorillaPresenter.processMainMenuClick = function(event){
     case "Save Presentation":GorillaPresenter.downloadSlides();break;
     case "Documentation":GorillaPresenter.showDocumentation();break;
     case "About":GorillaPresenter.showAbout();break;
+    case "Print":GorillaPresenter.showPrint();break;
+    case "Extra Settings": 
   }
   GorillaPresenter.hideMainMenu();
 },
@@ -208,6 +223,7 @@ GorillaPresenter.showAbout = function(){
 
 GorillaPresenter.showMainMenu = function(event){
   GorillaPresenter.renderMainMenu();
+ 
   GorillaPresenter.mainMenuVisible = true;
   GorillaPresenter.saveEditorCursors();
   let slideElement = document.getElementById(GorillaPresenter.slideRoot);
@@ -215,15 +231,7 @@ GorillaPresenter.showMainMenu = function(event){
   let mainMenu = document.getElementById("gorilla-presenter-main-menu");
   mainMenu.style.opacity = 1;
   mainMenu.style.display = "block";
-  let mainMenuStyle = window.getComputedStyle(mainMenu);
-  let slideWidth = parseInt(slideStyles.width);
-  let slideHeight = parseInt(slideStyles.height);
-  let menuWidth = parseInt(mainMenuStyle.width);
-  let menuHeight = parseInt(mainMenuStyle.height);
-  let left = (slideWidth - menuWidth) / 2;
-  let top = (slideHeight - menuHeight) / 2;
-  mainMenu.style.left = left + "px";
-  mainMenu.style.top = top + "px";
+  GorillaPresenter.centerElement(mainMenu);
 }
 
 GorillaPresenter.hideMainMenu = function(event){

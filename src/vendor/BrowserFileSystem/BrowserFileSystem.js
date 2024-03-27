@@ -86,7 +86,7 @@ BrowserFileSystem.getInternalDir = function(basedir){
 
 BrowserFileSystem.internalFileToBlob = function(filename) {
   let filetype = BrowserFileSystem.file_extension(filename);
-  if(BrowserPresenter.mimeTypes[filetype] === undefined){
+  if(BrowserFileSystem.mimeTypes[filetype] === undefined){
     filetype = "application/octet-stream";
   }
   if(BrowserFileSystem.fs[filename] !== undefined){
@@ -99,7 +99,6 @@ BrowserFileSystem.internalFileToBlob = function(filename) {
 }
 
 BrowserFileSystem.readInternalFileDataURL = function(filename){
-  
   if(BrowserFileSystem.fs[filename] !== undefined){
     const filetype = BrowserFileSystem.file_extension(filename);
     let mimeEntry = BrowserFileSystem.mimeTypes[filetype];
@@ -378,6 +377,33 @@ BrowserFileSystem.uploadFile = function(type,multiple,format,callback){
   },10)
 }
 
+BrowserFileSystem.downloadFile = function(filename,data,mime_type){
+  var blob = new Blob([data], {type: mime_type});
+  BrowserFileSystem.downloadBlob(filename,blob);
+}
+
+BrowserFileSystem.downloadBlob = function(filename,blob){
+
+let element = document.createElement('a')
+element.href = window.URL.createObjectURL(blob);
+element.setAttribute('download', filename);
+element.style.display = 'none';
+element.innerHTML = "Download";
+document.body.appendChild(element)
+ element.click();
+ document.body.removeChild(element);
+ window.URL.revokeObjectURL(element.href);
+ delete element;
+}
+
+
+BrowserFileSystem.downloadInternalFile = function(filename){
+var blob = BrowserFileSystem.internalFileToBlob(filename);
+if(blob !== false){
+ BrowserFileSystem.downloadBlob(filename,blob)
+}
+return false;
+}
 
 /* These are some mime types commonly used on the web. It's easy to add more at runtime... if your file extension is "foo", and is intended for use with an application called "Foobar", just do something like: 
   BrowserFileSystem.mimeTypes["foo"] = {

@@ -22,15 +22,19 @@ GorillaPresenterFontStackOptions = {
 
 GorillaPresenter.loadFontStacks = function(){
     if(BrowserFileSystem.fileExists("userdata/fontStacks") === false){
+        console.log("setting default fonts")
         GorillaPresenter.headingFontStack = "--didone-font-stack";
         GorillaPresenter.bodyFontStack = "--humanist-font-stack";
         GorillaPresenter.codeFontStack = "--monospace-code-font-stack";
         GorillaPresenter.saveFontStacks();
     }
+    console.log("fontstack file content: " + BrowserFileSystem.readInternalTextFile("userdata/fontStacks"))
     fontStacks = BrowserFileSystem.readInternalTextFile("userdata/fontStacks").split("\n");
+    console.log("fontStacks: " + fontStacks);
     GorillaPresenter.headingFontStack = fontStacks[0];
     GorillaPresenter.bodyFontStack = fontStacks[1];
     GorillaPresenter.codeFontStack = fontStacks[2];
+    GorillaPresenter.setFontStacks();
 }
 
 GorillaPresenter.saveFontStacks = function(){
@@ -45,7 +49,6 @@ GorillaPresenter.saveFontStacks = function(){
       styleElement.id = "gorilla-presenter-font-stack";
       styleElement.innerHTML = ":root {\n--slide-heading-font-stack: var(" + GorillaPresenter.headingFontStack + ");\n--slide-body-font-stack: var(" + GorillaPresenter.bodyFontStack + ");\n--slide-code-font-stack:var(" + GorillaPresenter.codeFontStack + ");}\n";
       document.head.appendChild(styleElement);
-      GorillaPresenter.saveFontStacks();
     }
   
 GorillaPresenter.renderFontStackSelector = function(selectedFontStack){
@@ -87,19 +90,18 @@ GorillaPresenter.headingFontStackSelected = function(value){
     GorillaPresenter.setCodeFontStack(GorillaPresenterFontStackOptions[value]);
   }
 
-  GorillaPresenter.renderFontStackSelectors = function(){
-    let mainMenu = document.getElementById("gorilla-presenter-main-menu");
+  GorillaPresenter.renderFontStackSelectors = function(mainMenu){
     headingFontItem = document.createElement("div");
     headingFontItem.className = "gorilla-presenter-main-menu-item link";
-    headingFontItem.innerHTML = "<span class='translatable'>Heading Font</span>: <select title='Heading Font' id='gorilla-presenter-heading-font-stack-selector' onchange='GorillaPresenter.headingFontStackSelected(this.value)'></select></div>";
+    headingFontItem.innerHTML = "<span class='translatable'>Heading</span>: <select title='Heading Font' id='gorilla-presenter-heading-font-stack-selector' onchange='GorillaPresenter.headingFontStackSelected(this.value)'></select></div>";
     mainMenu.appendChild(headingFontItem);
     let bodyFontItem = document.createElement("div");
     bodyFontItem.className = "gorilla-presenter-main-menu-item link";
-    bodyFontItem.innerHTML = "<span class='translatable'>Body Font</span>: <select title='Body Font Stack' id='gorilla-presenter-body-font-stack-selector' onchange='GorillaPresenter.bodyFontStackSelected(this.value)'></select></div>";
+    bodyFontItem.innerHTML = "<span class='translatable'>Body</span>: <select title='Body Font Stack' id='gorilla-presenter-body-font-stack-selector' onchange='GorillaPresenter.bodyFontStackSelected(this.value)'></select></div>";
     mainMenu.appendChild(bodyFontItem);
     let codeFontItem = document.createElement("div");
     codeFontItem.className = "gorilla-presenter-main-menu-item link";
-    codeFontItem.innerHTML = "<span class='translatable'>Code Font</span>: <select title='Code Font Stack' id='gorilla-presenter-code-font-stack-selector' onchange='GorillaPresenter.codeFontStackSelected(this.value)'></select></div>";
+    codeFontItem.innerHTML = "<span class='translatable'>Code</span>: <select title='Code Font Stack' id='gorilla-presenter-code-font-stack-selector' onchange='GorillaPresenter.codeFontStackSelected(this.value)'></select></div>";
     mainMenu.appendChild(codeFontItem);
     document.getElementById("gorilla-presenter-heading-font-stack-selector").innerHTML = GorillaPresenter.renderFontStackSelector(GorillaPresenter.headingFontStack);
     document.getElementById("gorilla-presenter-body-font-stack-selector").innerHTML = GorillaPresenter.renderFontStackSelector(GorillaPresenter.bodyFontStack);

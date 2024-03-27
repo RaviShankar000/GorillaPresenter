@@ -16,7 +16,8 @@ GorillaPresenter.loadPresentationData = function(){
   }
 
   GorillaPresenter.renderPresentationData = function(){
-    GorillaPresenter.renderLanguages();
-    GorillaPresenter.renderFontStackSelectors();
+    let mainMenu = document.getElementById("gorilla-presenter-main-menu");
+    GorillaPresenter.renderLanguages(mainMenu);
+    GorillaPresenter.renderFontStackSelectors(mainMenu);
     GorillaPresenter.renderSlides();
   }

@@ -68,24 +68,54 @@ GorillaPresenter.fadeIn = function(element) {
 
 
   GorillaPresenter.warn = function(message,time=1000){
-    let slideElement = document.getElementById(GorillaPresenter.slideRoot);
-    const slideStyles = window.getComputedStyle(slideElement);
     let warningElement = document.getElementById("gorilla-presenter-warning-message");
     warningElement.innerHTML = message;
-    warningElement.style.opacity = 0;
+    warningElement.style.opacity = 1;
     warningElement.style.display = "block";
-    let warningElementStyle = window.getComputedStyle(warningElement);
-    let slideWidth = parseInt(slideStyles.width);
-    let slideHeight = parseInt(slideStyles.height);
-    let warningWidth = parseInt(warningElementStyle.width);
-    let warningHeight = parseInt(warningElementStyle.height);
-    let left = (slideWidth - warningWidth) / 2;
-    let top = (slideHeight - warningHeight) / 2;
-    warningElement.style.left = left + "px";
-    warningElement.style.top = top + "px"; 
-    
+   GorillaPresenter.centerElement(warningElement)
     GorillaPresenter.fadeIn(warningElement);
     setTimeout(function(){
       GorillaPresenter.fadeOut(warningElement);
     },time);
+  }
+  GorillaPresenter.centerElement = function(element){
+    let slideElement = document.getElementById(GorillaPresenter.slideRoot);
+    const slideStyles = window.getComputedStyle(slideElement);
+    let elementStyle = window.getComputedStyle(element);
+    let slideWidth = parseInt(slideStyles.width);
+    console.log("slideWidth: " + slideWidth);
+    let slideHeight = parseInt(slideStyles.height);
+    console.log("slideHeight: " + slideHeight);
+    let elementWidth = parseInt(elementStyle.width);
+    let maxElementWidth = parseInt(elementStyle.maxWidth);
+    let actualElementWidth = (elementWidth > maxElementWidth) ? maxelementWidth : elementWidth;
+    let elementHeight = parseInt(elementStyle.height);
+    let left = (slideWidth - actualElementWidth) / 2;
+    console.log("left: " + left);
+    let top = (slideHeight - elementHeight) / 2;
+    console.log("top: " + top);
+    element.style.left = left + "px";
+    element.style.top = top + "px"; 
+  }
+
+  GorillaPresenter.renderPrinterDialog = function(){
+    let printerDialog = document.getElementById("gorilla-presenter-printer-dialog");
+    printerDialog.innerHTML = "";
+    let dialogContent = "";
+    dialogContent += "<span class='translatable'>Paper Size</span>:" + "<input type='radio' name='papersize' id='usletter' value='usletter'/>";
+    dialogContent += "<label for='usletter'><span class='translatable'>US Letter</span></label>";
+    dialogContent += "<input type='radio' name='papersize' id='a4' value='a4'/>";
+    dialogContent += "<label for='a4'>A4</label>";
+    dialogContent += "<br/>";
+    dialogContent += "<span class='translatable'>Slides Per Page</span>:" + "<input type='radio' name='slidesperpage' id='slides6up' value='6up'/>";
+    dialogContent += "<label for='slides6up'>6</label>";
+    dialogContent += "<input type='radio' name='slidesperpage' id='slides1up' value='1up'/>";
+    dialogContent += "<label for='slides1up'>1</label>";
+    dialogContent += "<br/>";
+    dialogContent += "<div><span class='translatable'>In the print dialog, please set landscape orientation for one slide per page and portrait orientation for six slides per page</span>.</div>";
+    dialogContent += "<br/>";
+    dialogContent += "<button id='print-button' onclick='GorillaPresenter.printSlides()'><span class='translatable'>Print</span></button>";
+    printerDialog.innerHTML = dialogContent;
+    document.getElementById("gorilla-presenter-printer-dialog").style.display = "block";
+    GorillaPresenter.centerElement(document.getElementById("gorilla-presenter-printer-dialog"));
   }

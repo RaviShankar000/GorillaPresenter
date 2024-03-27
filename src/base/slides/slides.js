@@ -46,6 +46,7 @@ GorillaPresenter.renderSlides = function(element){
       decommentedlines.push(text);
     }
     text = decommentedlines.join("\n");
+    text = text + "# Gorilla Presenter\n\Gorilla Presenter needs your help.\n\n" + "<a href='https://www.gorillapresenter.com/support'><img src=" + BrowserFileSystem.readInternalFileDataURL("icons/logo-small.png") + " width='30%' height='30%' style='display:block;margin-left:auto;margin-right:auto;'></a>\n";
     let slidetexts = text.split(/^# /gm);
     slidetexts.shift();
     for(let j=0; j < slidetexts.length;j++){
@@ -60,6 +61,90 @@ GorillaPresenter.renderSlides = function(element){
       renderMathInElement(newSlide);
       GorillaPresenter.slideIDs.push(id);
     }
+
+  }
+
+GorillaPresenter.render1up = async function(papersize){
+  const paperclass =  " " + papersize + "-landscape";
+  const innerclass = "gorilla-presenter-printslide-1-up " + paperclass;
+  
+  const container1up = document.getElementById("gorilla-presenter-1-up-container");
+  container1up.innerHTML = "";
+  let text; 
+  let slidelines = GorillaPresenter.slideData.split("\n");
+  let decommentedlines = [];
+  for(let i=0;i < slidelines.length;i++){
+     text = slidelines[i];
+    if(text.indexOf(";") === 0){
+      continue;
+    }
+    decommentedlines.push(text);
+  }
+  text = decommentedlines.join("\n");
+  let slidetexts = text.split(/^# /gm);
+  slidetexts.shift();
+  for(let j=0; j < slidetexts.length;j++){
+    let slidetext = "# " + slidetexts[j];
+    let newSlide = document.createElement("div");
+    let id = GorillaPresenter.slideIdFragment + uuid();
+    newSlide.setAttribute("class", innerclass);
+    newSlide.setAttribute("id", id);
+    newSlide.innerHTML =   GorillaPresenter.markdown.render(slidetext) ;
+    container1up.appendChild(newSlide);
+    renderMathInElement(newSlide);
+  }
+    document.getElementById("gorilla-presenter-slideroot").style.display = "none";
+    container1up.style.display="block";
+    window.print();
+    container1up.style.display="none";
+    document.getElementById("gorilla-presenter-slideroot").style.display = "block";
+  }
+
+GorillaPresenter.render6up = async function(papersize){
+  const paperclass =  " " + papersize + "-portrait";
+  
+  const slideclass = "gorilla-presenter-printslide-6-up-slide ";
+  const pageclass = "gorilla-presenter-printslide-6-up-page ";
+  const wrapperclass = "gorilla-presenter-6-up-slide-wrapper"
+  const container6up = document.getElementById("gorilla-presenter-6-up-container");
+  container6up.innerHTML = "";
+  let text; 
+  let slidelines = GorillaPresenter.slideData.split("\n");
+  let decommentedlines = [];
+  for(let i=0;i < slidelines.length;i++){
+    text = slidelines[i];
+    if(text.indexOf(";") === 0){
+      continue;
+    }
+    decommentedlines.push(text);
+  }
+  text = decommentedlines.join("\n");
+  let slidetexts = text.split(/^# /gm);
+  slidetexts.shift();
+  let currentPage;
+  for(let j=0; j < slidetexts.length;j++){
+    if(j % 6 === 0){
+      currentPage = document.createElement("div");
+      currentPage.setAttribute("class", pageclass + paperclass);
+      container6up.appendChild(currentPage);
+   }
+    let slidetext = "# " + slidetexts[j];
+    let newSlideWrapper = document.createElement("div");
+    newSlideWrapper.setAttribute("class",wrapperclass);
+    currentPage.appendChild(newSlideWrapper);
+    let newSlide = document.createElement("div");
+    let id = GorillaPresenter.slideIdFragment + uuid();
+    newSlide.setAttribute("class", slideclass);
+    newSlide.setAttribute("id", id);
+    newSlide.innerHTML =   GorillaPresenter.markdown.render(slidetext) ;
+    newSlideWrapper.appendChild(newSlide);
+    renderMathInElement(newSlide);
+  }
+    document.getElementById("gorilla-presenter-slideroot").style.display = "none";
+    container6up.style.display="block";
+    window.print();
+   /* container6up.style.display="none";
+    document.getElementById("gorilla-presenter-slideroot").style.display = "block"; */
   }
 
   GorillaPresenter.saveSlides = function(){

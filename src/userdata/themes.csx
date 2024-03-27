@@ -104,12 +104,10 @@ background: #333333;
 color: #FFA07A;
 background: #6E260E;
 border-bottom: 3px solid #8B4513;
-font-family: monospace;
 }
 .gorilla-presenter-slide {
 color: #D2B48C;
 background: linear-gradient(to bottom, #3D2B1F, #8B4513);
-font-family: sans-serif;
 }
 
 
@@ -308,13 +306,11 @@ font-family: sans-serif;
 color: #FFD700; 
 background: #000000; 
 border-bottom: 2px solid #B22222; 
-font-family: serif;
 }
 
 .gorilla-presenter-slide {
 color: #FFFFFF; 
 background: linear-gradient(to bottom, #1A237E, #0D47A1); 
-font-family: sans-serif;
 }
 
 
@@ -324,12 +320,10 @@ font-family: sans-serif;
 color: #5E503F;
 background: #F0E6D2;
 border-bottom: 2px solid #8D7B67;
-font-family: serif;
 }
 .gorilla-presenter-slide {
 color: #4A3F36;
 background: linear-gradient(to bottom, #FFF8E7, #EDE0D4);
-font-family: sans-serif;
 }
 
 
@@ -364,13 +358,11 @@ background: #000000;
 color: #F7CA18;
 background: #E68310;
 border-bottom: 3px solid #C0392B;
-font-family: serif;
 transform: rotate(-5deg);
 }
 .gorilla-presenter-slide {
 color: #8E44AD;
 background: linear-gradient(to right, #F1C40F, #E74C3C, #9B59B6);
-font-family: sans-serif;
 }
 
 
@@ -406,12 +398,8 @@ font-family: sans-serif;
     background-color: #fff;
   }
 
-.gorilla-presenter-editable{
-    font-family: monospace;
-}
 .gorilla-presenter-editable h1 {
     border-bottom: 1px solid black;
-    font-family:monospace;
     display: block;
 }
 
@@ -467,8 +455,7 @@ font-family: sans-serif;
 .gorilla-presenter-editable h1 {
     color: #D4AF37; 
     background: linear-gradient(to right, #8C7853, #EDEAE0); 
-    border-bottom: 1px solid #C0C0C0; 
-    font-family: cursive;
+    border-bottom: 1px solid #C0C0C0;
 }
 .gorilla-presenter-slide {
     color: #763C28; 
@@ -593,13 +580,323 @@ color: #C0C0C0;
 background: #1D2951;
 }
 
+%%% Pale Rider
+
+.gorilla-presenter-slide {
+color: #5D5D5D;
+background-color: #F4F4F4;
+}
+
+.gorilla-presenter-editable h1 {
+color: #FFFFFF;
+background-color: #607D8B;
+border-bottom: 2px solid #455A64;
+}
+
+.gorilla-presenter-editable p {
+color: #616161;
+}
+
+.gorilla-presenter-editable a {
+color: #FF5722;
+}
+
+.gorilla-presenter-editable ul, .gorilla-presenter-editable ol {
+color: #757575;
+}
+
+.gorilla-presenter-editable blockquote {
+border-left: 4px solid #CFD8DC;
+background-color: #ECEFF1;
+color: #607D8B;
+}
+
+.gorilla-presenter-editable code {
+background-color: #ECEFF1;
+color: #D84315;
+}
+
+.gorilla-presenter-editable pre {
+background-color: #CFD8DC;
+color: #37474F;
+}
+
+.gorilla-presenter-editable img {
+border: 2px solid #B0BEC5;
+border-radius: 4px;
+}
+
+%%% Gaudi
+
+.gorilla-presenter-slide {
+color: #2E2E2E;
+background-color: #F7CA18; /* Bright, vivid colors reflecting Gaudi's mosaics */
+}
+
+.gorilla-presenter-editable h1 {
+color: #C0392B;
+background-color: #F39C12;
+border-bottom: 3px solid #D35400;
+}
+
+.gorilla-presenter-editable p {
+color: #34495E;
+}
+
+.gorilla-presenter-editable a {
+color: #2980B9;
+}
+
+.gorilla-presenter-editable blockquote {
+border-left: 5px solid #E67E22;
+background-color: #FBEEE6;
+color: #D35400;
+}
+
+%%% Santa Fe
+
+.gorilla-presenter-slide {
+color: #8B4726;
+background-color: #FFF5EE; /* Warm earth tones */
+}
+
+.gorilla-presenter-editable h1 {
+color: #FFFFFF;
+background-color: #C2B280;
+border-bottom: 2px solid #967860;
+}
+
+.gorilla-presenter-editable p {
+color: #A0522D;
+}
+
+.gorilla-presenter-editable a {
+color: #CD853F;
+}
+
+.gorilla-presenter-editable ul, .gorilla-presenter-editable ol {
+color: #8B4513;
+}
+
+%%% Glacier
+
+.gorilla-presenter-slide {
+color: #2C3E50;
+background-color: #D6EAF8; /* Cool, icy blues */
+}
+
+.gorilla-presenter-editable h1 {
+color: #154360;
+background-color: #AED6F1;
+border-bottom: 3px solid #5499C7;
+}
+
+.gorilla-presenter-editable p {
+color: #1B4F72;
+}
+
+.gorilla-presenter-editable a {
+color: #2471A3;
+}
+
+%%% Heavy Equipment
+
+.gorilla-presenter-slide {
+color: #E5E7E9;
+background-color: #424949; /* Dark, industrial background with steel-like colors */
+}
+
+.gorilla-presenter-editable h1 {
+color: #F4D03F;
+background-color: #566573;
+border-bottom: 4px solid #B3B6B7;
+}
+
+.gorilla-presenter-editable p {
+color: #ABB2B9;
+}
+
+.gorilla-presenter-editable a {
+color: #E74C3C;
+}
+
+%%% Cantata
+
+.gorilla-presenter-slide {
+color: #566573;
+background-color: #FDFEFE; /* Light, elegant background with a hint of sophistication */
+}
+
+.gorilla-presenter-editable h1 {
+color: #17202A;
+background-color: #D5D8DC;
+border-bottom: 2px solid #AEB6BF;
+}
+
+.gorilla-presenter-editable p {
+color: #626567;
+}
+
+.gorilla-presenter-editable a {
+color: #2980B9;
+}
+
+%%% Deep Woods
+
+.gorilla-presenter-editable h1 {
+color: #F5F5DC;
+background-color: #013220;
+border-bottom: 2px solid #004225;
+}
+.gorilla-presenter-slide {
+color: #DEB887;
+background-color: #2F4F4F;
+}
+
+%%% Scholium
+
+.gorilla-presenter-editable h1 {
+color: #FBF6E1;
+background-color: #3E4A59;
+border-bottom: 1px solid #6D7B8D;
+}
+.gorilla-presenter-slide {
+color: #4A4A4A;
+background-color: #ECECEC;
+}
+
+%%% Neverland
+
+.gorilla-presenter-editable h1 {
+color: #00FF00;
+background-color: #00008B;
+border-bottom: 1px solid #48D1CC;
+}
+.gorilla-presenter-slide {
+color: #32CD32;
+background-color: #FAFAD2;
+}
+
+%%% Hammurabi
+
+.gorilla-presenter-editable h1 {
+color: #F4F4F2;
+background-color: #5E3A06;
+border-bottom: 2px solid #8E6B23;
+}
+.gorilla-presenter-slide {
+color: #E1D9C0;
+background-color: #9A7B4F;
+}
+
+%%% Bali
+
+.gorilla-presenter-editable h1 {
+color: #FFFFFF;
+background-color: #136A8A;
+border-bottom: 2px solid #2685A8;
+}
+.gorilla-presenter-slide {
+color: #F4EFE9;
+background-color: #88B04B;
+}
+
+%%% Prairie
+
+.gorilla-presenter-editable h1 {
+color: #5B4B0E;
+background-color: #C2B280;
+border-bottom: 2px solid #9A8B68;
+}
+.gorilla-presenter-slide {
+color: #6E664E;
+background-color: #F5F5DC;
+}
+
+%%% Ancient Rome
+
+.gorilla-presenter-editable h1 {
+color: #F5F5F5;
+background-color: #8B0000;
+border-bottom: 2px solid #660000;
+}
+.gorilla-presenter-slide {
+color: #DAA520;
+background-color: #3E2723;
+}
+
+%%% Tropical Fish
+
+.gorilla-presenter-editable h1 {
+color: #013ADF;
+background-color: #FF4500;
+border-bottom: 2px solid #FA8072;
+}
+.gorilla-presenter-slide {
+color: #EEDFCC;
+background-color: #46C7C7;
+}
+
+%%% Spacecraft
+
+.gorilla-presenter-editable h1 {
+color: #C0C0C0;
+background-color: #333333;
+border-bottom: 2px solid #808080;
+}
+.gorilla-presenter-slide {
+color: #DCDCDC;
+background-color: #000000;
+}
+
+%%% Cobblestone
+
+.gorilla-presenter-editable h1 {
+color: #FFFFFF;
+background-color: #A9A9A9;
+border-bottom: 2px solid #696969;
+}
+.gorilla-presenter-slide {
+color: #F5F5F5;
+background-color: #778899;
+}
 
 
+%%% Stained Glass
 
+.gorilla-presenter-editable h1 {
+color: #FFFFFF;
+background-color: #00008B;
+border-bottom: 3px solid #B0C4DE;
+}
+.gorilla-presenter-slide {
+color: #D3D3D3;
+background-color: #8A2BE2;
+}
 
+%%% Fresco
 
+.gorilla-presenter-editable h1 {
+color: #FAEBD7;
+background-color: #6495ED;
+border-bottom: 2px solid #B0E0E6;
+}
+.gorilla-presenter-slide {
+color: #7d1f1f;
+background-color: #F0E68C;
+}
 
+%%% Rager
 
+.gorilla-presenter-editable h1 {
+color: #FFD700;
+background-color: #FF4500;
+border-bottom: 3px solid #FF8C00;
+}
+.gorilla-presenter-slide {
+color: #FFFFFF;
+background-color: #000000;
+}
 
 /* 
 To create a new theme, begin a new line with %%%, a space, and the name of your theme. Begin your CSS rules for the theme on the next line.

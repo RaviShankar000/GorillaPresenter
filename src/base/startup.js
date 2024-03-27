@@ -7,6 +7,7 @@ GorillaPresenter.startup = function() {
     aboutElement.innerHTML = aboutElement.innerHTML + GorillaPresenter.markdown.render( BrowserFileSystem.collectLicenses());
     GorillaPresenter.renderPresentationData();
     GorillaPresenter.renderMainMenu();
+    GorillaPresenter.renderPrinterDialog();
     GorillaPresenter.showHomeScreen();
     //GorillaPresenter.setTheme();
     GorillaPresenter.touchStartTimer = GorillaPresenter.touchEndTimer =  GorillaPresenter.clickTimer = null;

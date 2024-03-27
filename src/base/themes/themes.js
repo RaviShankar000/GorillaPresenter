@@ -16,7 +16,8 @@ GorillaPresenter.loadThemes = function(){
   }
   let themename = BrowserFileSystem.readInternalTextFile("userdata/themename");
   GorillaPresenter.themeName = themename;
-  GorillaPresenter.renderThemes()
+  let mainMenu = document.getElementById("gorilla-presenter-main-menu");
+  GorillaPresenter.renderThemes(mainMenu)
   GorillaPresenter.setTheme();
 }
 
@@ -26,11 +27,9 @@ GorillaPresenter.saveThemes = function(){
 }
 
 GorillaPresenter.setTheme = function(){
-    console.log("themeName is: " + GorillaPresenter.themeName);
     let themeData = GorillaPresenter.themes[GorillaPresenter.themeName];
-    console.log("themeData is: " + themeData);
     if(themeData === undefined){
-        console.log("Theme not found., using Default");
+        console.error("Theme not found. Using Default");
         themeData = GorillaPresenter.themes["Default"];
     }
     if(document.getElementById("gorilla-presenter-theme")){
@@ -41,10 +40,10 @@ GorillaPresenter.setTheme = function(){
     styleElement.id = "gorilla-presenter-theme";
     document.head.appendChild(styleElement);
     BrowserFileSystem.writeInternalTextFile("userdata/themename",GorillaPresenter.themeName);
+    GorillaPresenter.setFontStacks();
 }
 
-GorillaPresenter.renderThemes = function(){
-  let mainMenu = document.getElementById("gorilla-presenter-main-menu");
+GorillaPresenter.renderThemes = function(mainMenu){
   let themeItem = document.createElement("div");
   themeItem.innerHTML = "<span class='translatable'>Theme</span>: <select title='Theme Selector' id='gorilla-presenter-theme-selector' onchange='GorillaPresenter.themeSelected(this.value)'></select>";
   themeItem.className = "gorilla-presenter-main-menu-item link";
@@ -87,7 +86,6 @@ GorillaPresenter.renderThemes = function(){
 
 
   GorillaPresenter.themeSelected = function(theme){
-    console.log("New Theme: " + theme);
     GorillaPresenter.themeName = theme;
     GorillaPresenter.setTheme(theme);
   }
