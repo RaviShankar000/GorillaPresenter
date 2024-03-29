@@ -107,9 +107,8 @@ BrowserFileSystem.readInternalFileDataURL = function(filename){
     }
     else {
         mimetype = mimeEntry["mimetype"];
-    }
-    console.log("BrowserFileSystem.readInternalFileDataURL: filename " + filename + "filetype " + filetype +  "mimetype " + mimetype);   
-      return 'data:' + mimetype + ';base64,' + BrowserFileSystem.fs[filename]["data"];
+    } 
+    return 'data:' + mimetype + ';base64,' + BrowserFileSystem.fs[filename]["data"];
   }
   else{
   console.error("BrowserFileSystem.readInternalFileDataURL: " + filename + " is not in internal filesystem");

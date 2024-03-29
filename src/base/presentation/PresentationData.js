@@ -1,18 +1,24 @@
-GorillaPresenter.loadPresentationData = function(){
-    GorillaPresenter.loadThemes();
-    GorillaPresenter.loadLanguage();
-    GorillaPresenter.loadFontStacks();
-    GorillaPresenter.loadSlides();
+GorillaPresenter.config = {
+  currentLanguage:"en",
+  themeName:"Default",
+  headingFontStack :"--didone-font-stack",
+  bodyFontStack :"--humanist-font-stack",
+  codeFontStack : "--monospace-code-font-stack",
+  slideData:"",
+  slidePosition: -1,
+  slidesperpage: "6up",
+  papersize: "usletter",
+}
 
+  GorillaPresenter.saveConfig = function(){
+    BrowserFileSystem.writeInternalTextFile("userdata/config",JSON.stringify(GorillaPresenter.config));
   }
-
-
-  GorillaPresenter.savePresentationData = function(){
-    GorillaPresenter.saveSlides();
-    GorillaPresenter.saveThemes();
-    GorillaPresenter.saveLanguage();
-    GorillaPresenter.saveFontStacks();
-
+  GorillaPresenter.loadConfig = function(){
+    if(BrowserFileSystem.fileExists("userdata/config") === false){
+      GorillaPresenter.saveConfig();
+    }
+    GorillaPresenter.config = JSON.parse(BrowserFileSystem.readInternalTextFile("userdata/config"));
+    document.getElementById("gorilla-presenter-slide-text-editor").value = GorillaPresenter.config.slideData;
   }
 
   GorillaPresenter.renderPresentationData = function(){

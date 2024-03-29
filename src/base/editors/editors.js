@@ -7,9 +7,9 @@ GorillaPresenter.saveEditorCursors = function(){
   }
 
 GorillaPresenter.updateEditorData = function(){
-    GorillaPresenter.slideData = document.getElementById("gorilla-presenter-slide-text-editor").value;
+    GorillaPresenter.config.slideData = document.getElementById("gorilla-presenter-slide-text-editor").value;
       GorillaPresenter.renderSlides(GorillaPresenter.slideRoot);
-      GorillaPresenter.savePresentationData();
+      GorillaPresenter.saveConfig();
 }
 
   

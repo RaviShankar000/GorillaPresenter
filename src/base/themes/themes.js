@@ -1,5 +1,4 @@
 GorillaPresenter.themes  = {};
-GorillaPresenter.themeName = "Default";
 
 
 GorillaPresenter.loadThemes = function(){
@@ -11,26 +10,14 @@ GorillaPresenter.loadThemes = function(){
   else {
     GorillaPresenter.themeData = BrowserFileSystem.readInternalTextFile("userdata/themes.csx");
   }
-  if(BrowserFileSystem.fileExists("userdata/themename") === false){
-    BrowserFileSystem.writeInternalTextFile("userdata/themename","Default");
-  }
-  let themename = BrowserFileSystem.readInternalTextFile("userdata/themename");
-  GorillaPresenter.themeName = themename;
-  let mainMenu = document.getElementById("gorilla-presenter-main-menu");
-  GorillaPresenter.renderThemes(mainMenu)
-  GorillaPresenter.setTheme();
-}
-
-GorillaPresenter.saveThemes = function(){
-  BrowserFileSystem.writeInternalTextFile("userdata/themes.csx",GorillaPresenter.themeData);
-  BrowserFileSystem.writeInternalTextFile("userdata/themename",GorillaPresenter.themeName);
 }
 
 GorillaPresenter.setTheme = function(){
-    let themeData = GorillaPresenter.themes[GorillaPresenter.themeName];
+    let themeData = GorillaPresenter.themes[GorillaPresenter.config.themeName];
     if(themeData === undefined){
         console.error("Theme not found. Using Default");
         themeData = GorillaPresenter.themes["Default"];
+        GorillaPresenter.config.themeName = "Default";
     }
     if(document.getElementById("gorilla-presenter-theme")){
         document.getElementById("gorilla-presenter-theme").remove();
@@ -39,7 +26,6 @@ GorillaPresenter.setTheme = function(){
     styleElement.innerHTML = themeData;
     styleElement.id = "gorilla-presenter-theme";
     document.head.appendChild(styleElement);
-    BrowserFileSystem.writeInternalTextFile("userdata/themename",GorillaPresenter.themeName);
     GorillaPresenter.setFontStacks();
 }
 
@@ -74,7 +60,7 @@ GorillaPresenter.renderThemes = function(mainMenu){
       if(themeName === "Default"){
         continue;
       }
-      if(themeName === GorillaPresenter.themeName){
+      if(themeName === GorillaPresenter.config.themeName){
           themeChoices += "<option value='" + themeName + "' selected>" + themeName + "</option>";
       }
       else {
@@ -86,6 +72,7 @@ GorillaPresenter.renderThemes = function(mainMenu){
 
 
   GorillaPresenter.themeSelected = function(theme){
-    GorillaPresenter.themeName = theme;
+    GorillaPresenter.config.themeName = theme;
+    GorillaPresenter.saveConfig();
     GorillaPresenter.setTheme(theme);
   }

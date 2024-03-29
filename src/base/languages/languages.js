@@ -1,12 +1,10 @@
-GorillaPresenter.currentLanguage = "en";
 
 GorillaPresenter.translateUI = function(){
-  let language = GorillaPresenter.currentLanguage;
+  let language = GorillaPresenter.config.currentLanguage;
   let elements = document.getElementsByClassName("translatable");
   for(let i=0;i<elements.length;i++){
     let element = elements[i];
     let text = element.innerText;
-    console.log("translating " + text);
     let translation = GorillaPresenter.translations[language][text];
     if(translation !== undefined){
         element.innerHTML = "<bdi>" + translation + "</bdi>";
@@ -15,27 +13,20 @@ GorillaPresenter.translateUI = function(){
   }
 
 GorillaPresenter.translate = function(phrase,language) {
+  console.log("language is " + language);
   if (GorillaPresenter.translations[language][phrase]) {
     return GorillaPresenter.translations[language][phrase];
     }
    else return phrase;
 }
 
-GorillaPresenter.loadLanguage = function(){
-  if(BrowserFileSystem.fileExists("userdata/language") === false){
-    GorillaPresenter.currentLanguage = "en";
-  }
-  else {
-    GorillaPresenter.currentLanguage = BrowserFileSystem.readInternalTextFile("userdata/language").trim();
-  }
-}
 
 GorillaPresenter.setLanguage = function(language){
-  GorillaPresenter.currentLanguage = language;
+  GorillaPresenter.config.currentLanguage = language;
   if(language !== "en"){
     GorillaPresenter.warn(GorillaPresenter.translate("Support for languages other than English is experimental. Please report any issues at",language) + " https://github.com/pulpgrinder/GorillaPresenter",3000);
   }
-  GorillaPresenter.saveLanguage();
+  GorillaPresenter.saveConfig();
 }
 
 
@@ -48,12 +39,8 @@ GorillaPresenter.selectLanguage = function(event){
   GorillaPresenter.showMainMenu();
 }
 
-GorillaPresenter.saveLanguage = function(){
-  BrowserFileSystem.writeInternalTextFile("userdata/language",GorillaPresenter.currentLanguage);
-}
 
 GorillaPresenter.renderLanguages = function(mainMenu){
-  GorillaPresenter.loadLanguage();
     let languageDiv = document.createElement("div")
     languageDiv.className = "gorilla-presenter-main-menu-item link";
     let langHTML = "<span class='translatable'>Language</span>: <select title='Language Selector' id='gorilla-presenter-language-selector' onchange='GorillaPresenter.selectLanguage(this.value)'>"
@@ -61,7 +48,7 @@ GorillaPresenter.renderLanguages = function(mainMenu){
       let selected = "";
       for(let i=0;i<languageList.length;i++){
         let language = languageList[i];
-        if(language === GorillaPresenter.currentLanguage){
+        if(language === GorillaPresenter.config.currentLanguage){
           selected = " selected";
         }
         else {
@@ -112,6 +99,7 @@ GorillaPresenter.translations = {
         "At last slide.": "At last slide.",
         "Body": "Body",
         "Body Font": "Body Font",
+        "Cancel": "Cancel",
         "Code": "Code",
         "Code Font": "Code Font",
         "Documentation": "Documentation",
@@ -125,6 +113,8 @@ GorillaPresenter.translations = {
         "Media Library": "Media Library",
         "No slides. You'll have to make some first.": "No slides. You'll have to make some first.",
         "Paper Size": "Paper Size",
+        "Please select a paper size.": "Please select a paper size.",
+        "Please select the number of slides per page." : "Please select the number of slides per page.",
         "Print": "Print",
         "Save Presentation": "Save Presentation",
         "Slide Editor": "Slide Editor",
@@ -143,6 +133,7 @@ GorillaPresenter.translations = {
         "At last slide.": "عند الشريحة الأخيرة.",
         "Body": "النص",
         "Body Font": "خط النص",
+        "Cancel": "إلغاء",
         "Code": "كود",
         "Code Font": "خط الكود",
         "Documentation": "التوثيق",
@@ -156,6 +147,8 @@ GorillaPresenter.translations = {
         "Media Library": "مكتبة الوسائط",
         "No slides. You'll have to make some first.": "لا توجد شرائح. يجب عليك إنشاء بعضها أولاً.",
         "Paper Size": "حجم الورق",
+        "Please select a paper size." : "يرجى تحديد حجم الورق.",
+        "Please select the number of slides per page." : "يرجى تحديد عدد الشرائح لكل صفحة.",
         "Print": "طباعة",
         "Save Presentation": "حفظ العرض",
         "Slide Editor": "محرر الشرائح",
@@ -173,6 +166,7 @@ GorillaPresenter.translations = {
         "At last slide.": "শেষ স্লাইডে.",
         "Body": "বডি",
         "Body Font": "বডি ফন্ট",
+        "Cancel": "বাতিল",
         "Code": "কোড",
         "Code Font": "কোড ফন্ট",
         "Documentation": "ডকুমেন্টেশন",
@@ -186,6 +180,8 @@ GorillaPresenter.translations = {
         "Media Library": "মিডিয়া লাইব্রেরি",
         "No slides. You'll have to make some first.": "কোন স্লাইড নেই। আপনাকে প্রথমে কিছু তৈরি করতে হবে।",
         "Paper Size": "কাগজের আকার",
+        "Please select a paper size." : "দয়া করে একটি কাগজের আকার নির্বাচন করুন।",
+        "Please select the number of slides per page." : "দয়া করে প্রতি পৃষ্ঠায় স্লাইডের সংখ্যা নির্বাচন করুন।",
         "Print": "প্রিন্ট",
         "Save Presentation": "প্রেজেন্টেশন সংরক্ষণ করুন",
         "Slide Editor": "স্লাইড সম্পাদক",
@@ -204,6 +200,7 @@ GorillaPresenter.translations = {
         "At last slide.": "Bei der letzten Folie.",
         "Body": "Körper",
         "Body Font": "Textkörper-Schriftart",
+        "Cancel": "Abbrechen",
         "Code": "Code",
         "Code Font": "Code-Schriftart",
         "Documentation": "Dokumentation",
@@ -217,6 +214,8 @@ GorillaPresenter.translations = {
         "Media Library": "Medienbibliothek",
         "No slides. You'll have to make some first.": "Keine Folien. Sie müssen zuerst einige erstellen.",
         "Paper Size": "Papiergröße",
+        "Please select a paper size." : "Bitte wählen Sie ein Papierformat.",
+        "Please select the number of slides per page." : "Bitte wählen Sie die Anzahl der Folien pro Seite.",
         "Print": "Drucken",
         "Save Presentation": "Präsentation speichern",
         "Slide Editor": "Folien-Editor",
@@ -235,6 +234,7 @@ GorillaPresenter.translations = {
       "At last slide.": "En la última diapositiva.",
       "Body": "Cuerpo",
       "Body Font": "Fuente del cuerpo",
+      "Cancel": "Cancelar",
       "Code": "Código",
       "Code Font": "Fuente del código",
       "Documentation": "Documentación",
@@ -248,6 +248,8 @@ GorillaPresenter.translations = {
       "Media Library": "Biblioteca de medios",
       "No slides. You'll have to make some first.": "No hay diapositivas. Tendrás que crear algunas primero.",
       "Paper Size": "Tamaño de papel",
+      "Please select a paper size.": "Por favor, selecciona un tamaño de papel.",
+      "Please select the number of slides per page." : "Por favor, selecciona el número de diapositivas por página.",
       "Print": "Imprimir",
       "Save Presentation": "Guardar presentación",
       "Slide Editor": "Editor de diapositivas",
@@ -266,6 +268,7 @@ GorillaPresenter.translations = {
         "At last slide.": "در آخرین اسلاید.",
         "Body": "متن اصلی",
         "Body Font": "فونت متن",
+        "Cancel": "لغو",
         "Code": "کد",
         "Code Font": "فونت کد",
         "Documentation": "مستندات",
@@ -279,6 +282,8 @@ GorillaPresenter.translations = {
         "Media Library": "کتابخانه رسانه",
         "No slides. You'll have to make some first.": "اسلایدی وجود ندارد. ابتدا باید برخی را ایجاد کنید.",
         "Paper Size": "اندازه کاغذ",
+        "Please select a paper size." : "لطفاً یک اندازه کاغذ انتخاب کنید.",
+        "Please select the number of slides per page." : "لطفاً تعداد اسلایدها در هر صفحه را انتخاب کنید.",
         "Print": "چاپ",
         "Save Presentation": "ذخیره ارائه",
         "Slide Editor": "ویرایشگر اسلاید",
@@ -297,6 +302,7 @@ GorillaPresenter.translations = {
         "At last slide.": "À la dernière diapositive.",
         "Body": "Corps",
         "Body Font": "Police du corps",
+        "Cancel": "Annuler",
         "Code": "Code",
         "Code Font": "Police du code",
         "Documentation": "Documentation",
@@ -310,6 +316,8 @@ GorillaPresenter.translations = {
         "Media Library": "Bibliothèque de médias",
         "No slides. You'll have to make some first.": "Pas de diapositives. Vous devrez en créer quelques-unes d'abord.",
         "Paper Size": "Taille du papier",
+        "Please select a paper size." : "Veuillez sélectionner une taille de papier.",
+        "Please select the number of slides per page." : "Veuillez sélectionner le nombre de diapositives par page.",
         "Print": "Imprimer",
         "Save Presentation": "Sauvegarder la présentation",
         "Slide Editor": "Éditeur de diapositives",
@@ -328,6 +336,7 @@ GorillaPresenter.translations = {
   "At last slide.": "अंतिम स्लाइड पर।",
   "Body": "बॉडी",
   "Body Font": "बॉडी फॉन्ट",
+  "Cancel": "रद्द करें",
   "Code": "कोड",
   "Code Font": "कोड फॉन्ट",
   "Documentation": "दस्तावेज़ीकरण",
@@ -341,6 +350,8 @@ GorillaPresenter.translations = {
   "Media Library": "मीडिया लाइब्रेरी",
   "No slides. You'll have to make some first.": "कोई स्लाइड्स नहीं हैं। आपको पहले कुछ बनाना होगा।",
   "Paper Size": "कागज का आकार",
+  "Please select a paper size." : "कृपया कागज का आकार चुनें।",
+  "Please select the number of slides per page." : "कृपया प्रति पृष्ठ स्लाइड्स की संख्या चुनें।",
   "Print": "प्रिंट",
   "Save Presentation": "प्रस्तुतिकरण सहेजें",
   "Slide Editor": "स्लाइड संपादक",
@@ -359,6 +370,7 @@ GorillaPresenter.translations = {
   "At last slide.": "最後のスライドで。",
   "Body": "ボディ",
   "Body Font": "ボディフォント",
+  "Cancel": "キャンセル",
   "Code": "コード",
   "Code Font": "コードフォント",
   "Documentation": "ドキュメンテーション",
@@ -372,6 +384,8 @@ GorillaPresenter.translations = {
   "Media Library": "メディアライブラリ",
   "No slides. You'll have to make some first.": "スライドがありません。最初にいくつか作成する必要があります。",
   "Paper Size": "紙のサイズ",
+  "Please select a paper size." : "紙のサイズを選択してください。",
+  "Please select the number of slides per page." : "ページあたりのスライド数を選択してください。",
   "Print": "印刷",
   "Save Presentation": "プレゼンテーションを保存",
   "Slide Editor": "スライドエディタ",
@@ -390,6 +404,7 @@ GorillaPresenter.translations = {
   "At last slide.": "마지막 슬라이드에서.",
   "Body": "본문",
   "Body Font": "본문 글꼴",
+  "Cancel": "취소",
   "Code": "코드",
   "Code Font": "코드 글꼴",
   "Documentation": "문서",
@@ -403,6 +418,8 @@ GorillaPresenter.translations = {
   "Media Library": "미디어 라이브러리",
   "No slides. You'll have to make some first.": "슬라이드가 없습니다. 먼저 몇 개 만들어야 합니다.",
   "Paper Size": "용지 크기",
+  "Please select a paper size." : "용지 크기를 선택하세요.",
+  "Please select the number of slides per page." : "페이지 당 슬라이드 수를 선택하세요.",
   "Print": "인쇄",
   "Save Presentation": "발표 저장",
   "Slide Editor": "슬라이드 편집기",
@@ -421,6 +438,7 @@ GorillaPresenter.translations = {
   "At last slide.": "Na última slide.",
   "Body": "Corpo",
   "Body Font": "Fonte do corpo",
+  "Cancel": "Cancelar",
   "Code": "Código",
   "Code Font": "Fonte do código",
   "Documentation": "Documentação",
@@ -434,6 +452,8 @@ GorillaPresenter.translations = {
   "Media Library": "Biblioteca de mídia",
   "No slides. You'll have to make some first.": "Sem slides. Você terá que fazer alguns primeiro.",
   "Paper Size": "Tamanho do papel",
+  "Please select a paper size." : "Por favor, selecione um tamanho de papel.",
+  "Please select the number of slides per page." : "Por favor, selecione o número de slides por página.",
   "Print": "Imprimir",
   "Save Presentation": "Salvar apresentação",
   "Slide Editor": "Editor de slides",
@@ -452,6 +472,7 @@ GorillaPresenter.translations = {
   "At last slide.": "На последнем слайде.",
   "Body": "Тело",
   "Body Font": "Шрифт тела",
+  "Cancel": "Отмена",
   "Code": "Код",
   "Code Font": "Шрифт кода",
   "Documentation": "Документация",
@@ -465,6 +486,8 @@ GorillaPresenter.translations = {
   "Media Library": "Медиатека",
   "No slides. You'll have to make some first.": "Слайдов нет. Сначала вам нужно создать некоторые.",
   "Paper Size": "Размер бумаги",
+  "Please select a paper size." : "Пожалуйста, выберите размер бумаги.",
+  "Please select the number of slides per page." : "Пожалуйста, выберите количество слайдов на страницу.",
   "Print": "Печать",
   "Save Presentation": "Сохранить презентацию",
   "Slide Editor": "Редактор слайдов",
@@ -483,6 +506,7 @@ GorillaPresenter.translations = {
   "At last slide.": "Son slaytta.",
   "Body": "Gövde",
   "Body Font": "Gövde Yazı Tipi",
+  "Cancel": "İptal",
   "Code": "Kod",
   "Code Font": "Kod Yazı Tipi",
   "Documentation": "Dokümantasyon",
@@ -496,6 +520,8 @@ GorillaPresenter.translations = {
   "Media Library": "Medya Kütüphanesi",
   "No slides. You'll have to make some first.": "Slayt yok. Önce birkaç tane yapmanız gerekecek.",
   "Paper Size": "Kağıt Boyutu",
+  "Please select a paper size." : "Lütfen bir kağıt boyutu seçin.",
+  "Please select the number of slides per page." : "Lütfen sayfa başına slayt sayısını seçin.",
   "Print": "Yazdır",
   "Save Presentation": "Sunumu Kaydet",
   "Slide Editor": "Slayt Düzenleyici",
@@ -514,6 +540,7 @@ GorillaPresenter.translations = {
   "At last slide.": "在最后一张幻灯片。",
   "Body": "正文",
   "Body Font": "正文字体",
+  "Cancel": "取消",
   "Code": "代码",
   "Code Font": "代码字体",
   "Documentation": "文档",
@@ -527,6 +554,8 @@ GorillaPresenter.translations = {
   "Media Library": "媒体库",
   "No slides. You'll have to make some first.": "没有幻灯片。你首先需要制作一些。",
   "Paper Size": "纸张大小",
+  "Please select a paper size." : "请选择纸张大小。",
+  "Please select the number of slides per page." : "请选择每页幻灯片数。",
   "Print": "打印",
   "Save Presentation": "保存演示",
   "Slide Editor": "幻灯片编辑器",
@@ -545,6 +574,7 @@ GorillaPresenter.translations = {
   "At last slide.": "在最後一張幻燈片。",
   "Body": "正文",
   "Body Font": "正文字體",
+  "Cancel": "取消",
   "Code": "代碼",
   "Code Font": "代碼字體",
   "Documentation": "文檔",
@@ -558,6 +588,8 @@ GorillaPresenter.translations = {
   "Media Library": "媒體庫",
   "No slides. You'll have to make some first.": "沒有幻燈片。您首先需要製作一些。",
   "Paper Size": "紙張大小",
+  "Please select a paper size." : "請選擇紙張大小。",
+  "Please select the number of slides per page." : "請選擇每頁幻燈片數。",
   "Print": "打印",
   "Save Presentation": "保存演示",
   "Slide Editor": "幻燈片編輯器",

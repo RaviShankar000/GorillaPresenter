@@ -194,7 +194,7 @@ GorillaPresenter.showSlideEditor = function(){
   GorillaPresenter.showUIScreen("gorilla-presenter-slide-editor-container");
   GorillaPresenter.onHomeScreen = false;
   let slideEditor = document.getElementById("gorilla-presenter-slide-text-editor");
-  slideEditor.value = GorillaPresenter.slideData;
+  slideEditor.value = GorillaPresenter.config.slideData;
   slideEditor.focus();
   slideEditor.setSelectionRange(GorillaPresenter.slideEditorPosition, GorillaPresenter.slideEditorPosition);
 }
