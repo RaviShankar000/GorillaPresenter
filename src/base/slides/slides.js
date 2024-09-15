@@ -2,11 +2,11 @@ GorillaPresenter.slideRoot = "gorilla-presenter-slideroot";
 GorillaPresenter.slideClass = "gorilla-presenter-slide";
 GorillaPresenter.slideSelector = ".gorilla-presenter-slide";
 GorillaPresenter.slideIdFragment =  "gorilla-presenter-slide-";
-GorillaPresenter.config.slidePosition = -1;
+GorillaPresenter.config.slidePosition = 0;
 GorillaPresenter.speakerNotes = "";
 GorillaPresenter.slideIDs = [];
-GorillaPresenter.slideTransitionsForward = [];
-GorillaPresenter.slideTransitionsBack =  [];
+GorillaPresenter.slideTransitionForward = "swipeInFromRight";
+GorillaPresenter.slideTransitionBack =  "swipeInFromLeft";
 GorillaPresenter.speakerNotesWindow = null;
 GorillaPresenter.transitionBusy = false; // This is a flag to prevent multiple transitions from happening at once.
 
@@ -103,7 +103,8 @@ GorillaPresenter.renderSlideSelector = function(){
 }
 
 
-GorillaPresenter.renderSlides = function(element){
+GorillaPresenter.renderSlides = function(){
+    GorillaPresenter.clickHandlers = {};
     GorillaPresenter.speakerNotes = "";
     for(let i = 0; i < GorillaPresenter.slideIDs.length; i++) {
       let slideId = GorillaPresenter.slideIDs[i];
@@ -143,13 +144,15 @@ GorillaPresenter.renderSlides = function(element){
 
     let slidetexts = decommentedlines.split(/^# /gm);
     slidetexts.shift();
-    for(let j=0; j < slidetexts.length;j++){
-      let slidetext = "# " + slidetexts[j];
+    for(let slideNumber=0;slideNumber < slidetexts.length;slideNumber++){
+      let slidetext = "# " + slidetexts[slideNumber];
       let newSlide = document.createElement("div");
       let id = GorillaPresenter.slideIdFragment + uuid();
       newSlide.setAttribute("class", GorillaPresenter.slideClass);
       newSlide.setAttribute("id", id);
-      slidetext = GorillaPresenter.processCommands(slidetext);
+      GorillaPresenter.slideTransitions[slideNumber] = ["swipeInFromRight","swipeInFromLeft"];
+      slidetext = GorillaPresenter.processDirectives(slidetext,slideNumber);
+      slidetext = GorillaPresenter.processMultilineDirectives(slidetext,slideNumber);
       newSlide.innerHTML =  `<div class="gorilla-presenter-editable"><div class="gorilla-presenter-slide-container">` + GorillaPresenter.markdown.render(slidetext) + "</div></div>";
       document.getElementById(GorillaPresenter.slideRoot).appendChild(newSlide);
       GorillaPresenter.sicTransit.transferPanel(newSlide);
@@ -159,6 +162,12 @@ GorillaPresenter.renderSlides = function(element){
     renderMathInElement(document.body);
     GorillaPresenter.adjustImageSizes();
     GorillaPresenter.patchHyperlinks();
+    Object.keys(GorillaPresenter.clickHandlers).forEach(function(key){
+      let elements = document.getElementsByClassName(key);
+      for(let i = 0; i < elements.length; i++){
+        elements[i].addEventListener("click",GorillaPresenter.clickHandlers[key]);
+      }
+    })
   }
 
 
@@ -176,17 +185,39 @@ GorillaPresenter.renderSlides = function(element){
          event.stopPropagation();
          });
    }
+   const navigableListItems  = document.getElementsByClassName('navigable-list-item');
+    for (let i = 0; i < navigableListItems.length; i++) {
+      navigableListItems[i].addEventListener('click', function(event) {
+      event.stopPropagation();
+      });
+      navigableListItems[i].addEventListener('mouseup', function(event) {
+        event.stopPropagation();
+        });
+      navigableListItems[i].addEventListener('touchend', function(event) {
+          event.stopPropagation();
+          });
+    }
  }
  
 GorillaPresenter.slideForward = function(){
   if(GorillaPresenter.transitionBusy === true){
     return;
   }
-  let transition = GorillaPresenter.slideTransitionsForward[GorillaPresenter.config.slidePosition];
+  if(GorillaPresenter.slideIDs.length === 0){
+    GorillaPresenter.warn(GorillaPresenter.translate("No slides. You'll have to make some first.",GorillaPresenter.config.currentLanguage));
+    return;
+  }
+  GorillaPresenter.config.slidePosition = GorillaPresenter.config.slidePosition + 1;
+  if(GorillaPresenter.config.slidePosition >= GorillaPresenter.slideIDs.length){
+    GorillaPresenter.config.slidePosition = (GorillaPresenter.slideIDs).length -1 ;
+    GorillaPresenter.warn(GorillaPresenter.translate("At last slide.",GorillaPresenter.config.currentLanguage));
+    return;
+  }
+  let transition = GorillaPresenter.slideTransitions[GorillaPresenter.config.slidePosition][0];
   if(transition === undefined){
     transition = "swipeInFromRight";
   }
-  GorillaPresenter.config.slidePosition = GorillaPresenter.config.slidePosition + 1;
+  
   GorillaPresenter.displaySlide(transition);
 }
 
@@ -194,36 +225,34 @@ GorillaPresenter.slideBack = function(){
   if(GorillaPresenter.transitionBusy === true){
     return;
   }
-  let transition = GorillaPresenter.slideTransitionsBack[GorillaPresenter.config.slidePosition];
-  if(transition === undefined){
-    transition = "swipeInFromLeft"
-  } 
-  GorillaPresenter.config.slidePosition = GorillaPresenter.config.slidePosition - 1;
-  GorillaPresenter.displaySlide(transition);
-}
-GorillaPresenter.transitionDone = function(){
-  GorillaPresenter.transitionBusy = false;
-  document.getElementById(GorillaPresenter.slideIDs[GorillaPresenter.config.slidePosition]).focus();
-}
-GorillaPresenter.displaySlide = function(transition){
   if(GorillaPresenter.slideIDs.length === 0){
     GorillaPresenter.warn(GorillaPresenter.translate("No slides. You'll have to make some first.",GorillaPresenter.config.currentLanguage));
     return;
   }
+  GorillaPresenter.config.slidePosition = GorillaPresenter.config.slidePosition - 1;
   if(GorillaPresenter.config.slidePosition < 0){
     GorillaPresenter.config.slidePosition = 0;
     GorillaPresenter.warn(GorillaPresenter.translate("At first slide.",GorillaPresenter.config.currentLanguage));
     return;
   }
-  if(GorillaPresenter.config.slidePosition >= GorillaPresenter.slideIDs.length){
-    GorillaPresenter.config.slidePosition = (GorillaPresenter.slideIDs).length -1 ;
-    GorillaPresenter.warn(GorillaPresenter.translate("At last slide.",GorillaPresenter.config.currentLanguage));
-    return;
+  let transition = GorillaPresenter.slideTransitions[GorillaPresenter.config.slidePosition][1];
+  if(transition === undefined){
+    transition = "swipeInFromLeft"
   }
+  GorillaPresenter.displaySlide(transition);
+}
+
+GorillaPresenter.transitionDone = function(){
+  GorillaPresenter.transitionBusy = false;
+  document.getElementById(GorillaPresenter.slideIDs[GorillaPresenter.config.slidePosition]).focus();
+}
+GorillaPresenter.displaySlide = function(transition){
+  console.log("using transition " + transition);
   if(GorillaPresenter.sicTransit.isValidTransition(transition) === false){
     warn(GorillaPresenter.translate("Unrecognized transition",GorillaPresenter.config.currentLanguage) + ": " + transition);
     return;
   }
+  console.log("displaying slide " + GorillaPresenter.config.slidePosition);
   let slideId = GorillaPresenter.slideIDs[GorillaPresenter.config.slidePosition];
   if(slideId === undefined){
     GorillaPresenter. warn(GorillaPresenter.translate("No slide with this ID:",GorillaPresenter.config.currentLanguage) + slideId);

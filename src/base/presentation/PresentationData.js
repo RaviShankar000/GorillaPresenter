@@ -9,6 +9,8 @@ GorillaPresenter.config = {
   editorMode:"light",
   slidesperpage: "6up",
   papersize: "letter",
+  incorrectAnswer: "I'm sorry, that is incorrect.",
+  correctAnswer: "Woohoo! That is correct!"
 }
 
   GorillaPresenter.saveConfig = function(){
@@ -26,5 +28,6 @@ GorillaPresenter.config = {
     let mainMenu = document.getElementById("gorilla-presenter-main-menu");
     GorillaPresenter.renderLanguages(mainMenu);
     GorillaPresenter.renderFontStackSelectors(mainMenu);
+    console.log("rendering slides from renderPresentationData");
     GorillaPresenter.renderSlides();
   }

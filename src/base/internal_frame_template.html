@@ -19,6 +19,13 @@
   </div>
  
   <div id="gorilla-presenter-slide-editor-container" class= "gorilla-presenter-screen gorilla-presenter-editor-container">
+    <div id="gorilla-presenter-slide-editor-controls">
+      <span class="gorilla-presenter-button-bar">
+      <button class="gorilla-presenter-editor-button" type="button" onclick="GorillaPresenter.showSlideShowScreen()">Done</button>
+      <button class="gorilla-presenter-editor-button" type="button">Hooha</button>
+      <button class="gorilla-presenter-editor-button" type="button">Booba</button>
+    </span>
+    </div>
       <textarea title="Slide Text Editor" id="gorilla-presenter-slide-text-editor" class = "gorilla-presenter-text-editor"></textarea>
   </div>
     
@@ -339,7 +346,6 @@ let BrowserFileSystem = {};
  <script type="text/javascript">
   launcher.initSystem();
   launcher.launchSystem();
-  GorillaPresenter.startup();
   document.getElementsByTagName("html")[0].style.visibility = "visible";
   if (!window.requestAnimationFrame) {
     window.requestAnimationFrame = function(fn) {
@@ -348,7 +354,8 @@ let BrowserFileSystem = {};
     }
   }
   window.onload = function(){
-    GorillaPresenter.renderSlides();
+    console.log("calling GorillaPresenter.startup()");
+    GorillaPresenter.startup()
   }
 
  /*setTimeout(function(){

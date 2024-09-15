@@ -14,13 +14,19 @@
   
 GorillaPresenter.getMediaIcon = function(mediaType){
   switch(mediaType){
-    case "image":
-      return "🖼️";
+  /*   case "image":
+      return "<span style='height:100px;font-size=100px;'>🖼️</span>";
     case "audio":
-      return "🔊";
+      return "<span style='height:100px;;font-size=100px;'>🔊<span style='height:100px;'>";
     case "video":
-      return "🎥";
-    default:
+      return "<span style='height:100px;;font-size=100px;'>🎥</span>"; */
+      case "image":
+        return "<span style='height:100px;font-size=100px;'  class='icon-picture'> </span>";
+      case "audio":
+        return "<span style='height:100px;;font-size=100px;'><span style='height:100px;' class='icon-file-audio'> </span>";
+      case "video":
+        return "<span style='height:100px;;font-size=100px;' class='icon-video'> </span>";
+    default: 
       return "";
   }
 }

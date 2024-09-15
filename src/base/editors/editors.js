@@ -1,3 +1,4 @@
+
 GorillaPresenter.initSlideEditor = function(){
     let slideEditor = document.getElementById("gorilla-presenter-slide-text-editor");
     slideEditor.value = GorillaPresenter.slideData;
@@ -10,13 +11,14 @@ GorillaPresenter.initSlideEditor = function(){
     GorillaPresenter.showUIScreen("gorilla-presenter-slide-editor-container");
     GorillaPresenter.currentScreen = "Slide Editor";
     let slideEditor = document.getElementById("gorilla-presenter-slide-text-editor");
-    slideEditor.value = GorillaPresenter.slideData;
-    if(GorillaPresenter.config.slidePosition < 0){
+   slideEditor.value = GorillaPresenter.slideData;
+   if(GorillaPresenter.config.slidePosition < 0){
       GorillaPresenter.config.slideEditorPosition = 0;
     }
     else {
       GorillaPresenter.config.slideEditorPosition = GorillaPresenter.slideOffsets[GorillaPresenter.config.slidePosition];
     }
+    
     setTimeout(function(){
       slideEditor.setSelectionRange(GorillaPresenter.config.slideEditorPosition, GorillaPresenter.config.slideEditorPosition);
       slideEditor.blur();
@@ -33,7 +35,8 @@ GorillaPresenter.updateEditorData = function(){
     let editor = document.getElementById("gorilla-presenter-slide-text-editor");
     GorillaPresenter.slideData = editor.value;
     GorillaPresenter.config.slideEditorPosition = editor.selectionStart;
-    GorillaPresenter.renderSlides(GorillaPresenter.slideRoot);
+    console.log("rendering slides from updateEditorData");
+    GorillaPresenter.renderPresentationData();
     GorillaPresenter.saveConfig();
 }
 
@@ -45,7 +48,7 @@ GorillaPresenter.insertTextAtCaret = function(text) {
         if (sel.getRangeAt && sel.rangeCount) {
             range = sel.getRangeAt(0);
             range.deleteContents();
-            range.insertNode( document.createTextNode(text) );
+            range.insertNode(document.createTextNode(text));
         }
     } else if (document.selection && document.selection.createRange) {
         document.selection.createRange().text = text;

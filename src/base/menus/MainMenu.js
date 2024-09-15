@@ -15,15 +15,12 @@ GorillaPresenter.renderMainMenu = function () {
 
   GorillaPresenter.renderMainMenuItems = function (mainMenu) {
     //let mainMenu = document.getElementById("gorilla-presenter-main-menu");
-    let menuItems = ["Slide Show", "Enter/Exit Full Screen", "Show Speaker Notes", "Slide Editor", "Media Library", "Save Presentation", "Load Presentation", "Export to PDF", "About"];
+    let menuItems = ["Slide Show", "Slide Editor", "Save Presentation", "Load Presentation", "Enter/Exit Full Screen", "Show Speaker Notes",  "Media Library",  "About"];
     for (let i = 0; i < menuItems.length; i++) {
       if (GorillaPresenter.currentScreen === menuItems[i]) {
         continue;
       }
 
-      if ((menuItems[i] === "Export to PDF") && (GorillaPresenter.currentScreen !== "Slide Show")) {
-        continue;
-      }
       let menuItem = document.createElement("div");
       menuItem.setAttribute("baselabel", menuItems[i]);
       menuItem.innerHTML = "<span class='translatable'>" + menuItems[i] + "</span>";
@@ -186,55 +183,7 @@ GorillaPresenter.setMenuHandlers = function (element) {
     }
     GorillaPresenter.hideMainMenu(event);
   },
-
-
-
-  GorillaPresenter.showMediaLibrary = function () {
-    let mediaLibrary = document.getElementById("gorilla-presenter-media-library");
-    mediaLibrary.innerHTML = "";
-    let mediaInfoFiles = BrowserFileSystem.getInternalDir("userdata/media/*.info").sort();
-    for (let i = 0; i < mediaInfoFiles.length; i++) {
-      let mediaInfoFile = mediaInfoFiles[i];
-      let mediaElement = document.createElement("div");
-      let mediaFileName = BrowserFileSystem.readInternalTextFile(mediaInfoFile);
-      let mediaFileData = BrowserFileSystem.readInternalFileDataURL(  mediaFileName);
-
-      mediaElement.className = "gorilla-presenter-media-library-item";
-      let mediaNickname = BrowserFileSystem.file_basename_no_extension(mediaInfoFile);
-      mediaElement.innerHTML = "<img src='" + mediaFileData + "' height='100px'/>" +  "<span class='gorilla-presenter-media-file-name' original-file-name='" + mediaNickname + "' contenteditable='plaintext-only'>" + mediaNickname + "</span>";
-      mediaLibrary.appendChild(mediaElement);
-    }
-    let elements = document.getElementsByClassName("gorilla-presenter-media-file-name");
-    for(let i = 0; i < elements.length; i++){
-      elements[i].onkeydown = function(evt){
-        if (evt.keyCode === 13) {
-            evt.preventDefault();
-            // commit on return
-            this.blur(); 
-        }
-    };
-      elements[i].onblur = function(event){
-        let element = event.target;
-        if(element.innerText === ""){
-          element.innerText = element.getAttribute("original-file-name");
-          return;
-        }
-        let originalFileName = element.getAttribute("original-file-name");
-        let originalFileFullPath = "userdata/media/" + originalFileName + ".info";
-        let newFileName = element.innerText.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
-        element.innerText = newFileName;
-        let newFileFullPath = "userdata/media/" + newFileName + ".info";
-        BrowserFileSystem.file_rename(originalFileFullPath,newFileFullPath);
-        setTimeout(function(){
-          GorillaPresenter.showMediaLibrary();
-        },50);
-      }
-    }
-
-    GorillaPresenter.showUIScreen("gorilla-presenter-media-library-container");
-    mediaLibrary.focus();
-    GorillaPresenter.currentScreen = "Media Library";
-  },
+  
 
 GorillaPresenter.showSlideShowScreen = function () {
   GorillaPresenter.showUIScreen("gorilla-presenter-slideroot");

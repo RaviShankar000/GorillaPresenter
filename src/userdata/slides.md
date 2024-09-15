@@ -1,8 +1,6 @@
-; Any line beginning with a semicolon (;), like this one, will not appear on the slide, but will appear in the speaker notes.
-Any line beginning with two slashes (//), like the next one one, will appear neither on the slide nor in the speaker notes.
-// This will only appear in the slide editor. It won't be on the slides or in the speaker notes.
 ; A line that begins with an octothorpe (#), like the next one, begins a new slide.
 # Gorilla Presenter
+
 // The line below will be explained later. For now, don't worry about how it works.
 {{{image Bob | Our Founder Says "Hi"}}}
 
@@ -10,6 +8,8 @@ Any line beginning with two slashes (//), like the next one one, will appear nei
 * No app
 * No server 
 * No net connection needed
+
+
 
 # Gorilla Presenter
 
@@ -19,18 +19,17 @@ Any line beginning with two slashes (//), like the next one one, will appear nei
 (iOS and iPadOS require adding a home screen shortcut)
 
 # Gorilla Presenter
-; Notes for slide 2.
-* Fast text-based editing.
-* Can be edited anywhere, even on a phone or tablet
-* Get your presentation done and be off enjoying a tasty beverage while your rivals are still playing pointy-clicky.
 
+* Fast text-based editing.
+* Can be edited anywhere --- desktop, tablet -- even on a phone in a pinch.
+* Get your presentation done and be off enjoying a tasty beverage while your rivals are still playing pointy-clicky.
 
 # How do I get it?
 
 You're soaking in it, mang! 
 * Control+click (long press on mobile) 
 * Choose "Save Presentation"
-* That's it! You can open this file on your local computer and have a full working copy of Gorilla Presenter.
+* That's it! You can open this file on your local computer or mobile device and have a full working copy of Gorilla Presenter.
 
 # Editing Slides
 
@@ -38,6 +37,11 @@ You're soaking in it, mang!
 * Choose "Edit Slides"
 * Use standard Markdown formatting
 * Switch back to the Slide Show to see your changes.
+
+# New Slides
+
+An octophorpe, #, (aka "hash mark", "pound sign") at the beginning of a new line begins a new slide.
+
 
 # Bold and Italic
 * Italic text segments are surrounded by \* (for instance, *This is italic*)
@@ -53,6 +57,12 @@ Bulleted list items begin with \*. Numbered list  items begin with a number foll
 1) Numbered Point 1
 2) Numbered Point 2
 
+# Paragraphs
+
+Paragraphs are created simply by adding a blank line between them.
+
+For instance, this line is in a new paragraph.
+
 # Block Quotes
 
 > This is a block quote
@@ -62,76 +72,125 @@ Bulleted list items begin with \*. Numbered list  items begin with a number foll
 Code
 ```
 
-# Equations
+# Comments
 
-Gorilla Presenter supports \\(\LaTeX\\) equations:
+Lines that begin with a semicolon (;) will not appear on the slide, but will appear in the speaker notes.
+; This line will appear in the speaker notes, but not on the slide.
 
-$$x=\frac{-b\pm \sqrt{{{b}^{2}}-4ac}}{2a}$$
+Lines that begin with two slashes (//) will only appear in the editor text. They will not appear on the slide *or* in the speaker notes.
+// This line will only appear in the editor.
+
+# Advanced Functions and Directives
+
+None of information on the following slides is required for basic functionality. You definitely *don't*  need to memorize all the directives to use Gorilla Presenter. Think of the following as reference material. 
+
+# Mathematics
+
+Gorilla Presenter uses \\(\KaTeX\\) to render \\(\LaTeX\\) math on your slides, in either inline format \\(x^2)\\  or display format: 
 
 $$\int_a^b x^2 dx  = \frac{x^3}{3}\LARGE{|}{_{\small a}^{\small b}}$$
 
-# Demo Slide 3
-
-Hey mang!
+A full tutorial on \\(\KaTeX\\)and \\(\LaTeX\\) is way beyond the scope of this presentation. There are many excellent resources on the web for learning these packages.
 
 
-# Media
+# Media Resources
+
+You can upload and manage media files from the Media Library (accessible from the main menu). There are a few samples in there to get you started. One nice feature is that you can give your media files human-friendly names, for example, TalkingHead rather than "userdata/media/testvideo.mp4" or some similar gibberish. Media directives (see the next slide) will use the first matching name they find, meaning that you could use just "Talking" or "Head", if you had no other media files containing those text strings in their names. Of course the full "TalkingHead" will also work. 
+
+At present, Gorilla Presenter supports .jpg,.gif,.png, and .svg images, .mp3 audio, and .mp4 video. The goal here was to restrict media formats to those that are viewable/playable on the widest possible variety of systems.
+
+Media files are stored within your presentation bundle, meaning that they can potentially make the bundle quite large (especially for video). There's no real way around this.
+
+You can also embed external media files using standard HTML methods (for example, the embed code from a YouTube video) Of course, going that way means that your presentation will not work offline. You win some, you lose some.
+
+
+# Media directives
+
+The format for all of these is:
+
+\{{{type name | description}}}. Examples:
+
+
+\{{{image Bob | Our Founder Says "Hi"}}}
+
+produces:
 
 {{{image Bob | Our Founder Says "Hi"}}}
+
+\{{{audio BWV764 | Excerpt from Wie schön leuchtet der Morgenstern, BWV 764, Johann Sebastian Bach (variation of completion, performed by Thomas A. Schneider)}}} produces:
+
 {{{audio BWV764 | Excerpt from Wie schön leuchtet der Morgenstern, BWV 764, Johann Sebastian Bach (variation of completion, performed by Thomas A. Schneider)}}}
 
+\{{{video TalkingHead | Video sample}}} produces:
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus in hac habitasse platea dictumst vestibulum rhoncus est.
+{{{video TalkingHead | Video sample}}}
 
-# Demo Slide 5
 
-Nunc consequat interdum varius sit amet mattis vulputate enim. Arcu non sodales neque sodales ut etiam sit amet. Lacus vestibulum sed arcu non odio euismod lacinia at quis. Amet mauris commodo quis imperdiet massa tincidunt nunc pulvinar. 
+# The isbn directive
 
-# Demo Slide 6
+This generates a menu of sources for books with a specific ISBN.
 
-Fames ac turpis egestas integer eget aliquet nibh praesent. Tincidunt dui ut ornare lectus sit amet est. Tincidunt eget nullam non nisi est. Est ullamcorper eget nulla facilisi etiam dignissim diam. 
+For example, \{{{isbn 0440001358|The Moon is a Harsh Mistress}}} produces:
 
-# Demo Slide 7
+{{{isbn 0440001358|The Moon is a Harsh Mistress}}}
 
-Non nisi est sit amet facilisis. Cursus metus aliquam eleifend mi in nulla. Suspendisse sed nisi lacus sed viverra tellus in hac habitasse. Massa placerat duis ultricies lacus.
+# The mailto directive
 
-# The isbn command
+Send email to an address of your choice. The format is:
 
-Given an ISBN, this creates links to find a book on a variety of sources (including WorldCat, Amazon, and Open Library).
+\{{{mailto prompt|address|subject|body}}}
 
-\{\{\{isbn 9358562277|Beyond Good and Evil, by Friedrich Wilhelm Nietzsche\}\}\} produces {{{isbn 9358562277|Beyond Good and Evil, by Friedrich Wilhelm Nietzsche}}}
+Example:  \{{{mailto Send some mail|example@example.com|This is a test|This is the test body. Please attach (something) to this email. Thanks!}}} produces:
 
-# The mailto Command
-\{\{\{mailto (email)|(subject)|(body)\}\}\} sends email to an address of your choice, along with a subject and body, via the user's default email program. 
+{{{mailto Send some mail|example@example.com|This is a test|This is the test body. Please attach (something) to this email. Thanks!}}}
 
-Example: {{{mailto example@example.com|This is a test|This is the test body. Please attach (whatever) to this email. Thanks!}}}
+# The fontsize directive
 
-# The fontsize Command
+The fontsize directive lets you alter the font size of a run of text.
 
-The \{\{\{fontsize (size) (text)\}\}\} command lets you alter the size of a run of text. For example, \{\{\{fontsize tiny Hi, there!\}\}\} produces {{{fontsize tiny Hi, there!}}}.
+Example: \{{{fontsize tiny This is tiny text.}}} produces:
 
-Available sizes are:
+{{{fontsize tiny This is tiny text.}}}
 
-{{{fontsize tiny tiny}}}
+Available sizes are tiny, footnotesize, small, normalsize, large, Large, LARGE, huge, Huge, and HUGE.
 
-{{{fontsize scriptsize scriptsize}}}
+These are designed to match the corresponding font sizes in \\(\LaTeX\\). For example, fontsize Large  should produce text of approximately the same size as \Large in \\(\LaTeX\\).
 
-{{{fontsize footnotesize footnotesize}}}
+# The selftest directive
 
-{{{fontsize small small}}}
+This lets you add a self-test "quiz" to a slide (note: these are *not* intended to be used for grading purposes).
+The first line should contain the test title, right after the directive.
+Subsequent lines have the questions and answers. The first line has the question text, while succeeding lines have answer candidates.
+The correct answer (or answers) should be preceded by an asterisk (*). Add a blank line to begin a new question/answers set.
 
-{{{fontsize normalsize normalsize}}}
+{{{selftest A self test on the selftest directive
+The selftest directive allows you to add a self test to a slide.
+* True
+False
+LOL WAT?
 
-{{{fontsize large large}}}
+How do you separate question/answer sets from each other?
+With an asterisk
+* With a blank line
+By hitting enter enough times to go to a new page
+It can't be done. A self-test can only have one question and answer set.
+}}}
 
-{{{fontsize Large Large}}}
+# The selftestresponses directive
 
-{{{fontsize LARGE LARGE}}}
+This lets you customize the correct/incorrect responses for self tests. The body of the directive consists of the correct response and the incorrect response, separated with a pipe ("|") character. Example:
 
-{{{fontsize huge huge}}}
+\{{{setselftestresponses Cool beans! | Sorry, man.}}}
 
-{{{fontsize Huge Huge}}}
+would change the default responses of "Woohoo! That is correct!" and ""I'm sorry. That is incorrect." to "Cool beans!" and "Sorry, man." respectively. This is a global setting (i.e., it affects all the slides, regardless of which slide contains the directive).
 
-{{{fontsize HUGE HUGE}}}
+# The transition directive
 
-These are designed to match the corresponding font sizes in \\(\LaTeX\\). For example, \{\{\{fontsize Large Hi, there!\}\}\}  should produce approximately the same size text as \Large in \\(\LaTeX\\).
+Allows you to use a custom transition when moving between slides. The format is:
+
+\{{{transition (transition name)}}}
+
+This slide contains a \{{{transition zoom}}} directive, so navigating to it will use a zoom effect.
+{{{transition zoom}}} 
+Available transitions are: swiperight, swipeleft, swipetop, swipebottom, cut, crossdissolve, iris, spin, and zoom.
+   

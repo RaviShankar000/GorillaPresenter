@@ -4,9 +4,11 @@
         "headingFontStack": "--didone-font-stack",
         "bodyFontStack" : "--humanist-font-stack",
         "codeFontStack" : "--monospace-code-font-stack",
-        "slidePosition": -1,
+        "slidePosition": 0,
         "slideEditorPosition":0,
         "editorMode":"slides",
         "slidesperpage":"6up",
-        "papersize":"letter"
+        "papersize":"letter",
+         "incorrectAnswer": "I'm sorry. That is incorrect.",
+        "correctAnswer": "Woohoo! That is correct!"
 }

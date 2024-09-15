@@ -1,13 +1,28 @@
-GorillaPresenter.processMailto = function(commandparts){
-    commandparts = commandparts.join(" ");
-    commandparts = commandparts.split("|");
+GorillaPresenter.processMailto = function(directiveparts){
+    directiveparts = directiveparts.join(" ");
+    directiveparts = directiveparts.split("|");
    
-    if(commandparts.length < 3){
-        return "<span class='gorilla-presenter-error-message'>Found mailto without enough arguments; need email, subject, and body</span>";
+    if(directiveparts.length < 4){
+        return "<span class='gorilla-presenter-error-message'>Found mailto without enough arguments; need prompt, email, subject, and body</span>";
     }
-    let email = commandparts[0];
-    let subject = commandparts[1];
-    let body = commandparts[2];
-    let mailtoString = '<a href="mailto:' + email + '?subject=' + subject + '&body=' + body + '">' + subject + '</a>';
-    return mailtoString;
+    let prompt = directiveparts[0];
+    let email = directiveparts[1];
+    let subject = directiveparts[2];
+    let body = directiveparts[3];
+    let mailtoSources = {
+    customClass:"gorilla-presenter-isbn",
+    items: [
+        {
+            type: "clickable",
+            text: prompt,
+            parameter: "mailto:" + email + "?subject=" + subject + "&body=" + body
+        },
+    ]}
+    GorillaPresenter.clickHandlers["gorilla-presenter-mailto"] = function(evt){
+        evt.preventDefault();
+        evt.stopPropagation()
+        evt.stopImmediatePropagation();
+        GorillaPresenter.sendMail(evt,evt.target.getAttribute("parameter"));
+    }
+    return GorillaPresenter.navigableList(mailtoSources);
 }

@@ -5,6 +5,25 @@
 ; file for your theming pleasure. Just remember: if you break it, 
 ; you get to keep both halves!
 
+%%% Bucky Fuller
+
+.gorilla-presenter-editable h1 {
+    color: #FFFFFF;
+    background-color: #2E86C1;
+    border-bottom: 1px solid #1B4F72;
+    font-family: 'Helvetica', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    padding-left: 1em;
+}
+
+.gorilla-presenter-slide {
+    color: #212F3D;
+    background-color: #D6DBDF;
+    font-family: 'Futura', sans-serif;
+    line-height: 1.6;
+}
+
 %%% Default
 
 .gorilla-presenter-slide {
@@ -899,7 +918,6 @@ background-color: #000000;
 }
 
 // Begin City Pack
-Certainly! Here is a curated list of 20 themes with distinctive color palettes:
 
 %%% Paris
 
@@ -1144,7 +1162,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
 // End City Pack
 // Geography Pack
 
-%%% Sahara (Desert)
+%%% Sahara
 
 .gorilla-presenter-editable h1 {
     color: #FDF5E6;
@@ -1156,7 +1174,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #F4A460;
 }
 
-%%% Siberia (Taiga)
+%%% Siberia
 
 .gorilla-presenter-editable h1 {
     color: #E8F5E9;
@@ -1168,7 +1186,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #A5D6A7;
 }
 
-%%% Everglades (Wetlands)
+%%% Everglades
 
 .gorilla-presenter-editable h1 {
     color: #FFFFFF;
@@ -1180,7 +1198,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #E0FFFF;
 }
 
-%%% Badlands (Badlands)
+%%% Badlands
 
 .gorilla-presenter-editable h1 {
     color: #FDFEFE;
@@ -1192,7 +1210,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #FFE4B5;
 }
 
-%%% Arctic (Tundra)
+%%% Arctic
 
 .gorilla-presenter-editable h1 {
     color: #F0F8FF;
@@ -1204,7 +1222,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #E0FFFF;
 }
 
-%%% Amazon (Rainforest)
+%%% Amazon
 
 .gorilla-presenter-editable h1 {
     color: #E8F5E9;
@@ -1216,7 +1234,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #C8E6C9;
 }
 
-%%% Serengeti (Savanna)
+%%% Serengeti
 
 .gorilla-presenter-editable h1 {
     color: #FFF8DC;
@@ -1228,7 +1246,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #FAF0E6;
 }
 
-%%% Great Barrier Reef (Coral Reef)
+%%% Great Barrier Reef
 
 .gorilla-presenter-editable h1 {
     color: #FFFFFF;
@@ -1240,7 +1258,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #FFF5EE;
 }
 
-%%% Rockies (Mountains)
+%%% Rockies
 
 .gorilla-presenter-editable h1 {
     color: #E0E0E0;
@@ -1252,7 +1270,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #D6DBDF;
 }
 
-%%% Greenland (Glacier)
+%%% Greenland
 
 .gorilla-presenter-editable h1 {
     color: #F0FFFF;
@@ -1264,7 +1282,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #E6E6FA;
 }
 
-%%% Pampas (Grassland)
+%%% Pampas
 
 .gorilla-presenter-editable h1 {
     color: #F0FFF0;
@@ -1276,7 +1294,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #E0FFE0;
 }
 
-%%% Gobi (Desert)
+%%% Gobi
 
 .gorilla-presenter-editable h1 {
     color: #FDF5E6;
@@ -1288,7 +1306,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #F5DEB3;
 }
 
-%%% Okefenokee (Swamp)
+%%% Okefenokee
 
 .gorilla-presenter-editable h1 {
     color: #F5FFFA;
@@ -1300,7 +1318,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #F0FFF0;
 }
 
-%%% Grand Canyon (Canyon)
+%%% Grand Canyon
 
 .gorilla-presenter-editable h1 {
     color: #FFFFFF;
@@ -1312,7 +1330,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #F5DEB3;
 }
 
-%%% Great Plains (Prairie)
+%%% Great Plains
 
 .gorilla-presenter-editable h1 {
     color: #F5FFFA;
@@ -1324,7 +1342,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #F0FFF0;
 }
 
-%%% Bora Bora (Lagoon)
+%%% Bora Bora
 
 .gorilla-presenter-editable h1 {
     color: #F0FFFF;
@@ -1336,7 +1354,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #E0FFFF;
 }
 
-%%% Mongolian Steppe (Steppe)
+%%% Mongolian Steppe
 
 .gorilla-presenter-editable h1 {
     color: #F5F5F5;
@@ -1348,7 +1366,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #EEE8AA;
 }
 
-%%% Congo Basin (Jungle)
+%%% Congo Basin
 
 .gorilla-presenter-editable h1 {
     color: #F5FFFA;
@@ -1360,7 +1378,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #C8E6C9;
 }
 
-%%% Everglades (Marsh)
+%%% Everglades
 
 .gorilla-presenter-editable h1 {
     color: #F0FFF0;
@@ -1372,7 +1390,7 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background-color: #E8F5E9;
 }
 
-%%% Mauna Loa (Volcanic)
+%%% Mauna Loa
 
 .gorilla-presenter-editable h1 {
     color: #F5F5F5;
@@ -1626,6 +1644,71 @@ Certainly! Here is a curated list of 20 themes with distinctive color palettes:
     background: #F5F5F5;
 }
 // End Artist Pack
+// Begin Fictional Locations Pack
+
+%%% Airstrip One
+
+.gorilla-presenter-editable h1 { color: #FFFFFF; background-color: #3C3C3C; border-bottom: 1px solid #8B0000; }
+
+.gorilla-presenter-slide { color: #DCDCDC; background-color: #2F2F2F; }
+
+%%% Arrakis
+
+.gorilla-presenter-editable h1 { color: #FFD700; background-color: #8B4513; border-bottom: 1px solid #DAA520; }
+
+.gorilla-presenter-slide { color: #8B4513; background-color: #DEB887; }
+
+%%% Narnia
+
+.gorilla-presenter-editable h1 { color: #F0F8FF; background-color: #4B0082; border-bottom: 1px solid #708090; }
+
+.gorilla-presenter-slide { color: #2F4F4F; background-color: #E6E6FA; }
+
+%%% Oz
+
+.gorilla-presenter-editable h1 { color: #FFFACD; background-color: #32CD32; border-bottom: 1px solid #FFD700; }
+
+.gorilla-presenter-slide { color: #4B0082; background-color: #F0E68C; }
+
+%%% Graustark
+
+.gorilla-presenter-editable h1 { color: #D3D3D3; background-color: #2F4F4F; border-bottom: 1px solid #8B0000; }
+
+.gorilla-presenter-slide { color: #8B0000; background-color: #A9A9A9; }
+
+%%% Barsoom
+
+.gorilla-presenter-editable h1 { color: #FFE4C4; background-color: #8B0000; border-bottom: 1px solid #B22222; }
+
+.gorilla-presenter-slide { color: #D2B48C; background-color: #800000; }
+
+
+%%% The Shire
+
+.gorilla-presenter-editable h1 { color: #2C5F2D; background-color: #A8E6A1; border-bottom: 1px solid #6B8E23; }
+
+.gorilla-presenter-slide { color: #4B5320; background-color: #F0F8E7; }
+
+%%% Rohan
+
+.gorilla-presenter-editable h1 { color: #FFF8DC; background-color: #556B2F; border-bottom: 1px solid #8B4513; }
+
+.gorilla-presenter-slide { color: #2F4F4F; background-color: #EEE8AA; }
+
+
+%%% Mordor
+
+.gorilla-presenter-editable h1 { color: #F5F3CE; background-color: #2C0A0A; border-bottom: 1px solid #8B0000; }
+
+.gorilla-presenter-slide { color: #DCDCDC; background-color: #1C1C1C; }
+
+%%% Gondor
+
+.gorilla-presenter-editable h1 { color: #F8F9F9; background-color: #2C3E50; border-bottom: 1px solid #A9A9A9; }
+
+.gorilla-presenter-slide { color: #2E4053; background-color: #E5E8E8; }
+
+
 /* 
 To create a new theme, begin a new line with %%%, a space, and the name of your theme. Begin your CSS rules for the theme on the next line.
 

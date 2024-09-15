@@ -72,7 +72,7 @@ GorillaPresenter.renderThemes = function(mainMenu){
 
 
   GorillaPresenter.themeSelected = function(theme){
-    GorillaPresenter.config.themeName = theme;
+    GorillaPresenter.config.themeName = theme.replace("'","&#39;");
     GorillaPresenter.saveConfig();
     GorillaPresenter.setTheme(theme);
   }

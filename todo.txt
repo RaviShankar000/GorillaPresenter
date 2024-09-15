@@ -1,28 +1,47 @@
-Add save button to editor screen.
+Add "return to show" to editor screen.
 
 Need to replace spaces in title for audio (and maybe other media) with %20, maybe.
-Quiz
+* selfTest
 * Mailto
 Branch
+External links
+
 * Images
 * Audio
 * Video
 YouTube
-ISBN
+* ISBN
 Font
 * Font Size
 No Title
+* Transitions
 
-O'Keeffe not working (probably due to apostrophe)
+Open arbitrary new window
 
+Weirdness in media library "Can't rename". Also need thumbnails/icons for video and audio.
 Media library screen is a little plain. Make it prettier. Add trash button.
 
-Test importing of audio and video.
+Embed stuff like Zoom and Big Blue button? Nah, better in a new window I think. Think some more about this.
 
-Make CTRL-S and CMD-S save the current editor (as well as ESC). Or save all editors and download? Maybe that would be better, come to think about it.
+Some sort of bug with the screen time for popup messages (e.g. the one about experimental languages)
 
-I think that CTRL/CMD-S should save the editor and return to the slide show, if the slide editor is active. If on the home screen, should download the self-contained app. Think about this some more, though.
 
+Split screen editor?
+
+* Test importing of audio and video.
+
+Nope, don't do this. Make CTRL-S and CMD-S save the current editor (as well as ESC). Or save all editors and download? Maybe that would be better, come to think about it.
+
+Nope. Just add "return to show" button. I think that CTRL/CMD-S should save the editor and return to the slide show, if the slide editor is active. If on the home screen, should download the self-contained app. Think about this some more, though.
 
 Clicking too fast skips transitions. Need to queue them up somehow. This is still happening somehow. Unrecognized race condition? Continue to investigate. Seems to be fixed? Torture test this.
 
+Icons needed: Video, audio, book, external link, internal link...
+
+Inline LaTeX example on slide isn't working.
+
+Change self-test back to quiz.
+
+Make questions stand out from answers with CSS.
+
+Change selftestresponses to quizconfig
