@@ -26,3 +26,12 @@ GorillaPresenter.processMailto = function(directiveparts){
     }
     return GorillaPresenter.navigableList(mailtoSources);
 }
+
+
+GorillaPresenter.sendMail = function(evt,mailtourl){
+    setTimeout(function(){
+        document.location = mailtourl;
+
+    },100);
+    return true;
+}

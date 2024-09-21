@@ -1,10 +1,63 @@
+GorillaPresenter.syncEditorTextAreas = function (event) {
+  const source = event.target;
+  let mainEditor = document.getElementById("gorilla-presenter-slide-text-editor");
+  let splitEditor = document.getElementById("gorilla-presenter-secondary-slide-text-editor");
+  const target = source === mainEditor ? splitEditor : mainEditor;
+
+  // Save scroll positions
+  const sourceScroll = source.scrollTop;
+  const targetScroll = target.scrollTop;
+
+  // Synchronize text
+  mainEditor.value = splitEditor.value = source.value;
+  
+  // Restore scroll positions
+  source.scrollTop = sourceScroll;
+  target.scrollTop = targetScroll;
+}
+
+GorillaPresenter.editorResized = function() {
+  console.log("editors resized");
+  let height = GorillaPresenter.slideEditor.offsetHeight;
+  let containerHeight = GorillaPresenter.slideEditor.parentElement.offsetHeight;
+  GorillaPresenter.splitEditor.style.height =  (containerHeight - height) + "px";
+ }
 
 GorillaPresenter.initSlideEditor = function(){
-    let slideEditor = document.getElementById("gorilla-presenter-slide-text-editor");
+    const slideEditor = document.getElementById("gorilla-presenter-slide-text-editor");
+    slideEditor.style.height = '100%';
+    GorillaPresenter.slideEditor = slideEditor;
+    const splitEditor = document.getElementById("gorilla-presenter-secondary-slide-text-editor");
+    splitEditor.style.height = '0%';
+    new ResizeObserver(GorillaPresenter.editorResized).observe(slideEditor);
+    GorillaPresenter.splitEditor = splitEditor;
+    const showButton = document.getElementById('split-editor');
+    const hideButton = document.getElementById('unsplit-editor');
+    GorillaPresenter.initEditorButtons();
+    GorillaPresenter.setButtonTranslations();
     slideEditor.value = GorillaPresenter.slideData;
+    splitEditor.value = GorillaPresenter.slideData;
     slideEditor.addEventListener('input', GorillaPresenter.saveEditorCursors);
     slideEditor.addEventListener('paste', GorillaPresenter.handleEditorPaste);
     slideEditor.focus();
+    console.log("adding split editor event listeners");
+['input', 'cut', 'paste'].forEach(eventType => {
+    slideEditor.addEventListener(eventType, GorillaPresenter.syncEditorTextAreas);
+    splitEditor.addEventListener(eventType, GorillaPresenter.syncEditorTextAreas);
+});
+showButton.addEventListener('click', () => {
+    slideEditor.style.height = "50%";
+    splitEditor.style.height = "50%";
+    splitEditor.style.display = 'block';
+    showButton.style.display = 'none';
+    hideButton.style.display = 'inline';
+});
+hideButton.addEventListener('click', () => {
+    splitEditor.style.display = 'none';
+    showButton.style.display = 'inline';
+    hideButton.style.display = 'none';
+    GorillaPresenter.slideEditor.style.height = '100%';
+});
   }
 
   GorillaPresenter.showSlideEditor = function(){
@@ -57,9 +110,31 @@ GorillaPresenter.insertTextAtCaret = function(text) {
  
 
 GorillaPresenter.handleEditorPaste = function(event) {
+    console.log("handling editor paste");
     let element = event.target;
     if(element.classList.contains('gorilla-presenter-editor')){
       let text = event.clipboardData.getData('text/plain');
       GorillaPresenter.insertTextAtCaret(text);
     }
+}
+
+GorillaPresenter.performEditorFunction = function(event){
+  alert("performing editor function: " + event.target.title);
+}
+
+GorillaPresenter.initEditorButtons = function(){
+  let editorButtons = document.querySelectorAll('.gorilla-presenter-editor-button');
+  editorButtons.forEach(function(button){
+    button.addEventListener('click', GorillaPresenter.performEditorFunction);
+  });
+  GorillaPresenter.setButtonTranslations();
+}
+
+GorillaPresenter.setButtonTranslations = function(){
+  let currentLanguage = GorillaPresenter.config.currentLanguage;
+  let buttons = document.querySelectorAll('.gorilla-presenter-editor-button');
+  buttons.forEach(function(button){
+    let englishtitle = button.getAttribute('englishtitle');
+    button.title = GorillaPresenter.translate(englishtitle,currentLanguage);
+  });
 }

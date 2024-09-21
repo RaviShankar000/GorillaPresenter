@@ -42,9 +42,4 @@ GorillaPresenter.openNewWindow = function(evt,url){
     window.open(url, '_blank');
 }
 
-GorillaPresenter.sendMail = function(evt,mailtourl){
-    evt.preventDefault();
-    evt.stopImmediatePropagation();
-    window.location.href = mailtourl;
-}
     

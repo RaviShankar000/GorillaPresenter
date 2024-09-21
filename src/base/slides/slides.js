@@ -19,6 +19,7 @@ GorillaPresenter.loadSlides = function(){
     GorillaPresenter.slideData = BrowserFileSystem.readInternalTextFile("userdata/slides.md");
   }
   document.getElementById("gorilla-presenter-slide-text-editor").value = GorillaPresenter.slideData;
+  document.getElementById("gorilla-presenter-secondary-slide-text-editor").value = GorillaPresenter.slideData;
 }
 
 GorillaPresenter.saveSlides = function(){
@@ -249,7 +250,7 @@ GorillaPresenter.transitionDone = function(){
 GorillaPresenter.displaySlide = function(transition){
   console.log("using transition " + transition);
   if(GorillaPresenter.sicTransit.isValidTransition(transition) === false){
-    warn(GorillaPresenter.translate("Unrecognized transition",GorillaPresenter.config.currentLanguage) + ": " + transition);
+    GorillaPresenter.warn(GorillaPresenter.translate("Unrecognized transition",GorillaPresenter.config.currentLanguage) + ": " + transition);
     return;
   }
   console.log("displaying slide " + GorillaPresenter.config.slidePosition);

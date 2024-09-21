@@ -1,5 +1,5 @@
 
-GorillaPresenter.scoreSelfTest = function(event,isCorrect){
+GorillaPresenter.scoreQuiz = function(event,isCorrect){
     if(isCorrect === "true"){
         alert(GorillaPresenter.config.correctAnswer);
     }
@@ -8,10 +8,10 @@ GorillaPresenter.scoreSelfTest = function(event,isCorrect){
     }
 }
 
-GorillaPresenter.setTestResponses = function(responses){
+GorillaPresenter.setQuizConfig = function(responses){
     let responseparts = responses.join(" ").split("|");
     if(responseparts.length < 2){
-        return "<span class='gorilla-presenter-error-message'>Error: Found selftestresponses without correct and incorrect answers.</span>";
+        return "<span class='gorilla-presenter-error-message'>Error: Found quizresponses directive without values for correct and incorrect answers.</span>";
     }
     GorillaPresenter.config.correctAnswer = responseparts[0];
     GorillaPresenter.config.incorrectAnswer = responseparts[1];
@@ -19,53 +19,53 @@ GorillaPresenter.setTestResponses = function(responses){
     return "";
 }
 
-GorillaPresenter.processSelfTest = function(titleparts,directivelines){
+GorillaPresenter.processQuiz = function(titleparts,directivelines){
     let title = titleparts.join(" ").trim();
     if(title === "")
     {
-        return "<span class='gorilla-presenter-error-message'>Found selftest directive without title.</span>";
+        return "<span class='gorilla-presenter-error-message'>Found quiz directive without title.</span>";
     }
-    console.log("selfTest title is " + title);
+    console.log("Quiz title is " + title);
 
     if(directivelines.length < 0){
-        return "<span class='gorilla-presenter-error-message'>Found selftest directive without body.</span>";
+        return "<span class='gorilla-presenter-error-message'>Found quiz directive without body.</span>";
     }
     
-    let selftestobject = {
-        customClass: "gorilla-presenter-selftest",
+    let quizobject = {
+        customClass: "gorilla-presenter-quiz",
         items: []
     };
-    selftestobject.items.push({
+    quizobject.items.push({
         type: "title",
         text: title,
         parameter: "title"
     });
     let questions = directivelines.join("\n").split("\n\n");
-    console.log("selftest: there are " + questions.length + " questions");
+    console.log("quiz: there are " + questions.length + " questions");
     console.log("the questions are " + questions);
     for(i = 0; i < questions.length; i++){
         if(questions[i].trim() === ""){
             continue;
         }
-        selftestobject.items = selftestobject.items.concat(GorillaPresenter.processSelfTestQuestion(questions[i]));
+    quizobject.items = quizobject.items.concat(GorillaPresenter.processQuizQuestion(questions[i]));
     }
-    GorillaPresenter.clickHandlers["gorilla-presenter-selftest"] = function(evt){
+    GorillaPresenter.clickHandlers["gorilla-presenter-quiz"] = function(evt){
         evt.preventDefault();
         evt.stopPropagation()
         evt.stopImmediatePropagation();
-        GorillaPresenter.scoreSelfTest(evt,evt.target.getAttribute("parameter"));
+        GorillaPresenter.scoreQuiz(evt,evt.target.getAttribute("parameter"));
     }
-    return GorillaPresenter.navigableList(selftestobject);
+    return GorillaPresenter.navigableList(quizobject);
 }
 
-GorillaPresenter.processSelfTestQuestion = function(question){
+GorillaPresenter.processQuizQuestion = function(question){
     let gotCorrectAnswer = false;
     let questionparts = question.split("\n");
     if(questionparts.length < 2){
         return [
             {
                 type: "error",
-                text: "Error: Found selftest question without title or answers."
+                text: "Error: Found quiz question without title or answers."
             }
         ];
     }
@@ -97,7 +97,7 @@ GorillaPresenter.processSelfTestQuestion = function(question){
         return [
             {
                 type: "error",
-                text: "Error: Found selftest question '" + questiontitle + "' without a correct answer."
+                text: "Error: Found quiz question '" + questiontitle + "' without a correct answer."
             }
         ];
     }

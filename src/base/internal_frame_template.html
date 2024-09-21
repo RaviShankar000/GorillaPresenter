@@ -19,14 +19,33 @@
   </div>
  
   <div id="gorilla-presenter-slide-editor-container" class= "gorilla-presenter-screen gorilla-presenter-editor-container">
-    <div id="gorilla-presenter-slide-editor-controls">
+    <div id="gorilla-presenter-editor-controls">
       <span class="gorilla-presenter-button-bar">
-      <button class="gorilla-presenter-editor-button" type="button" onclick="GorillaPresenter.showSlideShowScreen()">Done</button>
-      <button class="gorilla-presenter-editor-button" type="button">Hooha</button>
-      <button class="gorilla-presenter-editor-button" type="button">Booba</button>
+      <button class="gorilla-presenter-editor-button icon-ok" type="button" englishtitle="Done""></button>
+      <button class="gorilla-presenter-editor-button icon-bold" type="button" 
+       englishtitle = "Bold"></button>
+
+      <button class="gorilla-presenter-editor-button icon-italic" type="button" englishtitle="Italic"></button>
+      <button class="gorilla-presenter-editor-button icon-list-bullet" type="button" englishtitle="Bulleted List"></button>
+      <button class="gorilla-presenter-editor-button icon-list-numbered" type="button" englishtitle="Numbered List"></button>
+      <button class="gorilla-presenter-editor-button icon-quote-left" type="button" englishtitle="Block Quote"></button>
+      <button class="gorilla-presenter-editor-button icon-scissors" type="button" englishtitle="Cut"></button>
+      <button class="gorilla-presenter-editor-button icon-docs" type="button" englishtitle="Copy"></button>
+      <button class="gorilla-presenter-editor-button icon-paste" type="button" englishtitle="Paste"></button>
+      <button class="gorilla-presenter-editor-button icon-sticky-note-o" type="button" englishtitle="Insert Note"></button>
+      <button class="gorilla-presenter-editor-button icon-comment-empty" type="button" englishtitle="Insert Comment"></button>
+      <button class="gorilla-presenter-editor-button icon-minus-squared-alt" type="button" id= "split-editor" englishtitle="Split Editor"></button>
+      <button class="gorilla-presenter-editor-button hidden-editor-button  icon-check-empty" type="button" id="unsplit-editor" style="display:none;" englishtitle= "Unsplit Editor"></button>
+    
+      <button class="gorilla-presenter-editor-button icon-download" type="button" englishtitle="Save Presentation"></button>
+      <button class="gorilla-presenter-editor-button icon-upload" type="button" englishtitle="Import Presentation"></button>
+      <button class="gorilla-presenter-editor-button icon-question-circle-o" type="button" englishtitle="Help"></button>
     </span>
     </div>
-      <textarea title="Slide Text Editor" id="gorilla-presenter-slide-text-editor" class = "gorilla-presenter-text-editor"></textarea>
+    <div id="gorilla-presenter-slide-text-editor-wrapper">
+      <textarea title="Slide Text Editor" id="gorilla-presenter-slide-text-editor" class="gorilla-presenter-text-editor"></textarea>
+      <textarea title="Secondary Slide Text Editor" id="gorilla-presenter-secondary-slide-text-editor" class="gorilla-presenter-text-editor"></textarea>
+    </div>
   </div>
     
   <div id="gorilla-presenter-media-library-container" class="gorilla-presenter-screen gorilla-presenter-editor-container">
