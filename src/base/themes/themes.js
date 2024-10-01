@@ -1,6 +1,5 @@
 GorillaPresenter.themes  = {};
 
-
 GorillaPresenter.loadThemes = function(){
   if(BrowserFileSystem.fileExists("userdata/themes.csx") === false){
     alert("Themes are missing! Cannot proceed without a theme!");
@@ -13,6 +12,7 @@ GorillaPresenter.loadThemes = function(){
 }
 
 GorillaPresenter.setTheme = function(){
+  console.log("Setting Theme");
     let themeData = GorillaPresenter.themes[GorillaPresenter.config.themeName];
     if(themeData === undefined){
         console.error("Theme not found. Using Default");

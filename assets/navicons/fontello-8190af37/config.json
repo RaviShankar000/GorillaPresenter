@@ -191,6 +191,36 @@
       "css": "question-circle-o",
       "code": 62108,
       "src": "fontawesome"
+    },
+    {
+      "uid": "288f930b765216bc04e475740331bdf5",
+      "css": "recycle",
+      "code": 61880,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "bbfb51903f40597f0b70fd75bc7b5cac",
+      "css": "trash",
+      "code": 61944,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f48ae54adfb27d8ada53d0fd9e34ee10",
+      "css": "trash-empty",
+      "code": 59407,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f9c3205df26e7778abac86183aefdc99",
+      "css": "ccw",
+      "code": 59408,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "bc71f4c6e53394d5ba46b063040014f1",
+      "css": "cw",
+      "code": 59409,
+      "src": "fontawesome"
     }
   ]
 }

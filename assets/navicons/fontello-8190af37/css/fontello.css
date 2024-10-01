@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'fontello';
-  src: url('../font/fontello.eot?86764802');
-  src: url('../font/fontello.eot?86764802#iefix') format('embedded-opentype'),
-       url('../font/fontello.woff2?86764802') format('woff2'),
-       url('../font/fontello.woff?86764802') format('woff'),
-       url('../font/fontello.ttf?86764802') format('truetype'),
-       url('../font/fontello.svg?86764802#fontello') format('svg');
+  src: url('../font/fontello.eot?32650605');
+  src: url('../font/fontello.eot?32650605#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff2?32650605') format('woff2'),
+       url('../font/fontello.woff?32650605') format('woff'),
+       url('../font/fontello.ttf?32650605') format('truetype'),
+       url('../font/fontello.svg?32650605#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('../font/fontello.svg?86764802#fontello') format('svg');
+    src: url('../font/fontello.svg?32650605#fontello') format('svg');
   }
 }
 */
@@ -69,6 +69,9 @@
 .icon-align-right:before { content: '\e80c'; } /* '' */
 .icon-align-justify:before { content: '\e80d'; } /* '' */
 .icon-scissors:before { content: '\e80e'; } /* '' */
+.icon-trash-empty:before { content: '\e80f'; } /* '' */
+.icon-ccw:before { content: '\e810'; } /* '' */
+.icon-cw:before { content: '\e811'; } /* '' */
 .icon-link-ext:before { content: '\f08e'; } /* '' */
 .icon-check-empty:before { content: '\f096'; } /* '' */
 .icon-docs:before { content: '\f0c5'; } /* '' */
@@ -82,6 +85,8 @@
 .icon-quote-right:before { content: '\f10e'; } /* '' */
 .icon-code:before { content: '\f121'; } /* '' */
 .icon-minus-squared-alt:before { content: '\f147'; } /* '' */
+.icon-recycle:before { content: '\f1b8'; } /* '' */
 .icon-file-audio:before { content: '\f1c7'; } /* '' */
+.icon-trash:before { content: '\f1f8'; } /* '' */
 .icon-sticky-note-o:before { content: '\f24a'; } /* '' */
 .icon-question-circle-o:before { content: '\f29c'; } /* '' */

@@ -5,8 +5,21 @@ function isInStandaloneMode() {
 
 
 
+GorillaPresenter.checkMobileSafari = function() {
+  GorillaPresenter.isMobileSafari =
+    /iPhone|iPad|iPod/.test(navigator.userAgent) && 
+    /Safari/.test(navigator.userAgent) && 
+    !/CriOS|FxiOS|OPiOS|EdgiOS/.test(navigator.userAgent) &&
+    'ontouchstart' in window 
+
+}
+
 
 GorillaPresenter.startup = function() {
+    GorillaPresenter.checkMobileSafari();
+    if(GorillaPresenter.isMobileSafari){
+      alert("iOS");
+    }
     GorillaPresenter.loadConfig();
     GorillaPresenter.loadThemes();
     GorillaPresenter.loadSlides();

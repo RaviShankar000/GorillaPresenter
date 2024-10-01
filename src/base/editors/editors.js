@@ -1,4 +1,6 @@
-GorillaPresenter.syncEditorTextAreas = function (event) {
+GorillaPresenter.editor = {};
+
+GorillaPresenter.editor.syncEditorTextAreas = function (event) {
   const source = event.target;
   let mainEditor = document.getElementById("gorilla-presenter-slide-text-editor");
   let splitEditor = document.getElementById("gorilla-presenter-secondary-slide-text-editor");
@@ -6,57 +8,72 @@ GorillaPresenter.syncEditorTextAreas = function (event) {
 
   // Save scroll positions
   const sourceScroll = source.scrollTop;
+  const sourceCaret = source.selectionStart;
   const targetScroll = target.scrollTop;
 
   // Synchronize text
-  mainEditor.value = splitEditor.value = source.value;
-  
+  if (target.value !== source.value) {
+    target.value = source.value;
+  } 
   // Restore scroll positions
   source.scrollTop = sourceScroll;
+  source.selectionStart = source.selectionEnd = sourceCaret;
   target.scrollTop = targetScroll;
+  
 }
 
-GorillaPresenter.editorResized = function() {
+GorillaPresenter.editor.editorResized = function() {
   console.log("editors resized");
-  let height = GorillaPresenter.slideEditor.offsetHeight;
-  let containerHeight = GorillaPresenter.slideEditor.parentElement.offsetHeight;
-  GorillaPresenter.splitEditor.style.height =  (containerHeight - height) + "px";
+  let height = GorillaPresenter.editor.slideEditor.offsetHeight;
+  GorillaPresenter.slideEditorSize = height + "px";
+  let containerHeight = GorillaPresenter.editor.slideEditor.parentElement.offsetHeight;
+  GorillaPresenter.editor.splitEditorSize  = (containerHeight - height) + "px";
+  GorillaPresenter.editor.splitEditor.style.height =  GorillaPresenter.editor.splitEditorSize;
  }
 
 GorillaPresenter.initSlideEditor = function(){
     const slideEditor = document.getElementById("gorilla-presenter-slide-text-editor");
-    slideEditor.style.height = '100%';
-    GorillaPresenter.slideEditor = slideEditor;
+    slideEditor.style.height = '94vh';
+    GorillaPresenter.editor.slideEditor = slideEditor;
+    GorillaPresenter.editor.slideEditorSize = "50vh";
     const splitEditor = document.getElementById("gorilla-presenter-secondary-slide-text-editor");
     splitEditor.style.height = '0%';
-    new ResizeObserver(GorillaPresenter.editorResized).observe(slideEditor);
-    GorillaPresenter.splitEditor = splitEditor;
+    GorillaPresenter.editor.splitEditor = splitEditor;
+    GorillaPresenter.editor.splitEditorSize = "50vh";
     const showButton = document.getElementById('split-editor');
     const hideButton = document.getElementById('unsplit-editor');
-    GorillaPresenter.initEditorButtons();
-    GorillaPresenter.setButtonTranslations();
+    GorillaPresenter.editor.initEditorButtons();
+    GorillaPresenter.editor.setButtonTranslations();
     slideEditor.value = GorillaPresenter.slideData;
     splitEditor.value = GorillaPresenter.slideData;
-    slideEditor.addEventListener('input', GorillaPresenter.saveEditorCursors);
-    slideEditor.addEventListener('paste', GorillaPresenter.handleEditorPaste);
+    slideEditor.addEventListener('input', GorillaPresenter.editor.saveEditorCursors);
+    slideEditor.addEventListener('paste', GorillaPresenter.editor.handleEditorPaste);
     slideEditor.focus();
     console.log("adding split editor event listeners");
 ['input', 'cut', 'paste'].forEach(eventType => {
-    slideEditor.addEventListener(eventType, GorillaPresenter.syncEditorTextAreas);
-    splitEditor.addEventListener(eventType, GorillaPresenter.syncEditorTextAreas);
+    slideEditor.addEventListener(eventType, GorillaPresenter.editor.syncEditorTextAreas);
+    splitEditor.addEventListener(eventType, GorillaPresenter.editor.syncEditorTextAreas);
+   
+   // GorillaPresenter.editorResizeObserver.observe(slideEditor);
 });
+GorillaPresenter.editor.editorResizeObserver = new ResizeObserver(GorillaPresenter.editor.editorResized);
+GorillaPresenter.editor.editorResizeObserver.unobserve(slideEditor);
 showButton.addEventListener('click', () => {
-    slideEditor.style.height = "50%";
-    splitEditor.style.height = "50%";
+    //GorillaPresenter.editorResizeObserver.unobserve(slideEditor);
+    slideEditor.style.height = GorillaPresenter.editor.slideEditorSize;
+    splitEditor.style.height = GorillaPresenter.editor.splitEditorSize;
     splitEditor.style.display = 'block';
     showButton.style.display = 'none';
     hideButton.style.display = 'inline';
+    GorillaPresenter.editor.editorResizeObserver.observe(slideEditor);
+    
 });
 hideButton.addEventListener('click', () => {
+    GorillaPresenter.editor.editorResizeObserver.unobserve(slideEditor);
     splitEditor.style.display = 'none';
     showButton.style.display = 'inline';
     hideButton.style.display = 'none';
-    GorillaPresenter.slideEditor.style.height = '100%';
+    GorillaPresenter.editor.slideEditor.style.height = '94vh';
 });
   }
 
@@ -79,12 +96,12 @@ hideButton.addEventListener('click', () => {
       
   },100);
   }
-GorillaPresenter.saveEditorCursors = function(){
+GorillaPresenter.editor.saveEditorCursors = function(){
     let slideEditor = document.getElementById("gorilla-presenter-slide-text-editor");
     GorillaPresenter.config.slideEditorPosition = slideEditor.selectionStart;
   }
 
-GorillaPresenter.updateEditorData = function(){
+GorillaPresenter.editor.updateEditorData = function(){
     let editor = document.getElementById("gorilla-presenter-slide-text-editor");
     GorillaPresenter.slideData = editor.value;
     GorillaPresenter.config.slideEditorPosition = editor.selectionStart;
@@ -94,7 +111,7 @@ GorillaPresenter.updateEditorData = function(){
 }
 
   
-GorillaPresenter.insertTextAtCaret = function(text) {
+GorillaPresenter.editor.insertTextAtCaret = function(text) {
     var sel, range;
     if (window.getSelection) {
         sel = window.getSelection();
@@ -109,28 +126,60 @@ GorillaPresenter.insertTextAtCaret = function(text) {
   },
  
 
-GorillaPresenter.handleEditorPaste = function(event) {
+GorillaPresenter.editor.handleEditorPaste = function(event) {
     console.log("handling editor paste");
     let element = event.target;
     if(element.classList.contains('gorilla-presenter-editor')){
       let text = event.clipboardData.getData('text/plain');
-      GorillaPresenter.insertTextAtCaret(text);
+      GorillaPresenter.editor.insertTextAtCaret(text);
     }
 }
 
-GorillaPresenter.performEditorFunction = function(event){
-  alert("performing editor function: " + event.target.title);
-}
+GorillaPresenter.editor.performEditorFunction = function(event){
+  console.log("performing editor function: " + event.target.title);
+  switch(event.target.title){
+    case "Bold":
+      GorillaPresenter.editor.toggleBold();
+      break;
+    case "Italic":
+      GorillaPresenter.editor.toggleItalic();
+      break;
+     case "Bulleted List":
+      GorillaPresenter.editor.toggleBulletedList();
+      break;
+    case "Numbered List":
+      GorillaPresenter.editor.toggleNumberedList();
+      break;
+    case "Block Quote":
+      GorillaPresenter.editor.toggleBlockQuote();
+      break;
+    case "Cut":
+      GorillaPresenter.editor.cut();
+      break;
+    case "Copy":
+      GorillaPresenter.editor.copy();
+      break;
+    case "Paste":
+      GorillaPresenter.editor.paste();
+      break;
+    case "Undo":
+      GorillaPresenter.editor.undo();
+      break;
+    case "Redo":
+      GorillaPresenter.editor.redo();
+      break;
 
-GorillaPresenter.initEditorButtons = function(){
+}
+}
+GorillaPresenter.editor.initEditorButtons = function(){
   let editorButtons = document.querySelectorAll('.gorilla-presenter-editor-button');
   editorButtons.forEach(function(button){
-    button.addEventListener('click', GorillaPresenter.performEditorFunction);
+    button.addEventListener('click', GorillaPresenter.editor.performEditorFunction);
   });
-  GorillaPresenter.setButtonTranslations();
+  GorillaPresenter.editor.setButtonTranslations();
 }
 
-GorillaPresenter.setButtonTranslations = function(){
+GorillaPresenter.editor.setButtonTranslations = function(){
   let currentLanguage = GorillaPresenter.config.currentLanguage;
   let buttons = document.querySelectorAll('.gorilla-presenter-editor-button');
   buttons.forEach(function(button){

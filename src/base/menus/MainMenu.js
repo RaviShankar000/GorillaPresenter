@@ -44,7 +44,7 @@ GorillaPresenter.setMenuHandlers = function (element) {
     const isCmdOrCtrl = event.ctrlKey || event.metaKey;
     if (isCmdOrCtrl && event.key.toLowerCase() === 's') {
       event.preventDefault();
-      GorillaPresenter.updateEditorData();
+      GorillaPresenter.editor.updateEditorData();
       GorillaPresenter.downloadSlides();
       return;
     }
@@ -187,7 +187,7 @@ GorillaPresenter.setMenuHandlers = function (element) {
 
 GorillaPresenter.showSlideShowScreen = function () {
   GorillaPresenter.showUIScreen("gorilla-presenter-slideroot");
-  GorillaPresenter.updateEditorData();
+  GorillaPresenter.editor.updateEditorData();
   GorillaPresenter.displaySlide("cutIn");
   GorillaPresenter.currentScreen = "Slide Show";
 }
@@ -202,7 +202,7 @@ GorillaPresenter.showMainMenu = function (event) {
   GorillaPresenter.renderMainMenu();
 
   GorillaPresenter.mainMenuVisible = true;
-  GorillaPresenter.saveEditorCursors();
+  GorillaPresenter.editor.saveEditorCursors();
   let slideElement = document.getElementById(GorillaPresenter.slideRoot);
   const slideStyles = window.getComputedStyle(slideElement);
   let mainMenu = document.getElementById("gorilla-presenter-main-menu");

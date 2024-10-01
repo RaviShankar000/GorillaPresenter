@@ -1,24 +1,16 @@
-// Lines that begin with // (like this one) are comments and only appear in the slide editor. They don't appear on the slides.
-// A line that begins with an octothorpe (#), like the next one, begins a new slide.
 # Gorilla Presenter
-
-// The line below will be explained later. For now, don't worry about how it works.
 
 {{{image Bob | Our Founder Says "Hi"}}}
 
-// Markdown uses lines beginning with * to create a bulleted (unnumbered) list. 
-
-* 100% self-contained
+* 100% self-contained {{{branch Branch Test|Editing Slides}}}
 * No app
 * No server 
 * No net connection needed
 
 # Gorilla Presenter
 
-// Markdown uses lines beginning with a number and a closing parenthesis to create a numbered list.
-// The numbers do NOT have to be sequential. Markdown figures that out for you.
-1) Produces a standard HTML file
-1) Compatible with all standard modern browsers
+* Produces a standard HTML file
+* Compatible with all standard modern browsers
 
 # Gorilla Presenter
 
@@ -32,21 +24,17 @@ You're soaking in it, mang!
 * Control+click (long press on mobile) 
 * Choose "Save Presentation"
 * That's it! Look wherever your machine puts downloaded files and you should see a copy of this file. Open it and you have a full working copy of Gorilla Presenter.
-// See the discussion on Apple mobile devices at the end of this slide deck for more information on this.
-(iOS and iPadOS require adding a home screen shortcut)
+(iOS and iPadOS require adding a home screen shortcut -- see the note at the end of this presentation)
 
 # Editing Slides
 
 * Control-click/long press
 * Choose "Edit Slides"
-* Use standard Markdown formatting, plus GorillaPresenter extensions (discussed later in this deck)
+* Uses standard Markdown formatting, plus GorillaPresenter extensions (discussed later in this deck)
 * To see your changes, switch back to the Slide Show from the menu, or click the check button at the top of the editor.
-
-In general, just open the editor to see how a specific effect is carried out.
 
 # New Slides
 
-// Whatever is after the # becomes the slide title (in this case, "New Slides")
 An octophorpe, #, (aka "hash mark", "pound sign") at the beginning of a new line begins a new slide.
 
 # New Paragraphs
@@ -56,26 +44,21 @@ To separate paragraphs, use blank lines. This is in one paragraph.
 This is in another.
 
 # Bold and Italic
+
 * *This is italic*
 * **This is Bold**
 *  ***This is Bold Italic***
-; You can use either * or _, i.e., *This is Italic* and _This is Italic_ produce the same output.
+; You can use either \* or \_, i.e., *This is Italic* and _This is Italic_ produce the same output.
 
 # Lists
 
-Bulleted list items begin with \*. Numbered list  items begin with a number followed by a parenthesis.
+Bulleted list items begin with \*. Numbered list items begin with a number followed by a parenthesis. The numbers don't have to be in order or even unique. Markdown figures that out for you.
 
 * Bullet Point 1
 * Bullet Point 2
 
 1) Numbered Point 1
-2) Numbered Point 2
-
-# Paragraphs
-
-Paragraphs are created simply by adding a blank line between them.
-
-For instance, this line is in a new paragraph.
+1) Numbered Point 2
 
 # Block Quotes
 
@@ -88,23 +71,25 @@ Code
 
 # Advanced Functions and Directives
 
-None of information on the following slides is required for basic functionality. You definitely *don't*  need to memorize all the directives to use Gorilla Presenter. Think of the following as reference material. 
+None of the information on the following slides is required for basic functionality. You definitely *don't*  need to memorize all this stuff to use Gorilla Presenter. Think of the following as reference material. 
 
-# Speaker Notes
+# Comments and Speaker Notes
 
-Lines that begin with a semicolon (;) will not appear on the slide, but will appear in the speaker notes.
+Lines that begin with two slashes (//) are comments. They will not appear anywhere but in the editor.
+Lines that begin with a semicolon (;) are speaker notes. They will appear in the editor and in the speaker notes.
 
-; This line will appear in the speaker notes, but not on the slide.
-
-This is not the same as a normal comment. Lines that begin with two slashes (//) will only appear in the editor. They will not appear on the slide *or* in the speaker notes.
-
-// This line will only appear in the editor.
+// This line will only appear in the editor, not in the speaker notes or the slide.
+; This line will appear in the editor and the speaker notes, but not on the slide.
 
 You can view the speaker notes by choosing that option in the main menu.
 
-# Mathematics
+# LaTeX Mathematics
 
-Gorilla Presenter uses \\(\KaTeX\\) to render \\(\LaTeX\\) math on your slides, in either inline format \\(x^2)\\  or display format: 
+Gorilla Presenter uses \\(\KaTeX\\) to render \\(\LaTeX\\) math on your slides, in either inline format  or display format.
+
+Inline format example: This sentence has a  math expression \\(log(x^2)\\) in the middle of it.
+
+Display format example:
 
 $$\int_a^b x^2 dx  = \frac{x^3}{3}\LARGE{|}{_{\small a}^{\small b}}$$
 
@@ -118,10 +103,7 @@ At present, Gorilla Presenter supports .jpg,.gif,.png, and .svg images, .mp3 aud
 
 Media files are stored within your presentation bundle, meaning that they can potentially make the bundle quite large (especially for video). There's no real way around this.
 
-You can also embed external media files using standard HTML methods (for example, the embed code from a YouTube video) Of course, going that way means that your presentation will not work offline. You win some, you lose some.
-
 # image
-// Use {{{image (image name) | (image description)}}}
 
 {{{image Bob | Our Founder Says "Hi"}}}
 
@@ -129,10 +111,17 @@ You can also embed external media files using standard HTML methods (for example
 
 {{{audio BWV764 | Excerpt from Wie schön leuchtet der Morgenstern, BWV 764, Johann Sebastian Bach (variation of completion, performed by Thomas A. Schneider)}}}
 
-# video
+# Local video
 
 {{{video TalkingHead | Video sample}}}
 
+# YouTube videos
+
+YouTube is easy. Just copy the embed code that YouTube provides and paste it into the slide. Not all video providers allow embedding, and, of course, YouTube videos only work if there's an Internet connection.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4rW_-FuzYKY?si=TG7O9osLHrbZMsSB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+You can also embed other external media files this way, using whatever code the source uses. Of course, using any external media source means your presentation will not work offline. You win some, you lose some.
 
 # isbn
 
@@ -142,25 +131,13 @@ Given an International Standard Book Number (ISBN) this generates a menu of pote
 
 # mailto
 
-{{{mailto Send some mail|example@example.com|This is the test subject|This is the test body. Please attach (something) to this email. Thanks!}}}
-
-# fontsize
-
-{{{fontsize tiny This is tiny text.}}}
-
-Available sizes are tiny, footnotesize, small, normalsize, large, Large, LARGE, huge, Huge, and HUGE.
-
-These are designed to match the corresponding font sizes in \\(\LaTeX\\). For example, fontsize Large  should produce text of approximately the same size as \Large in \\(\LaTeX\\).
+{{{mailto Send some mail|example@example.com|This is the test subject|This is the test body. Thanks!}}}
 
 # quiz
-
-This lets you add a self-test quiz to a slide (note: these are *not* intended to be used for grading purposes).
-The first line should contain the quiz title, right after the directive.
-Subsequent lines have the questions and answers. The first line has the question text, while succeeding lines have answer candidates.
-The correct answer (or answers) should be preceded by an asterisk (*). Add a blank line to begin a new question/answers set.
+The first line is the title. Question and answer sets are separated by blank lines. The correct answer)s) should preceded with an asterisk (*).
 
 {{{quiz This is the quiz title
-The quiz directive allows you to add a quiz to a slide.
+True or false: the quiz directive allows you to add a quiz to a slide.
 * True
 False
 LOL WAT?
@@ -172,18 +149,18 @@ By hitting enter enough times to go to a new page
 It can't be done. A self-test can only have one question and answer set.
 }}}
 
-# quizresponses
+# quizconfig
 
 This lets you customize the correct/incorrect responses for quizzes. 
 
-{{{quizresponses "Woohoo! That is correct!" | "I'm sorry. That is incorrect."}}}
+{{{quizconfig "Woohoo! That is correct!" | "I'm sorry. That is incorrect."}}}
 
-would change the default responses of "Correct" and "Incorrect"  to "Woohoo! That is correct! and "I'm sorry. That is incorrect." respectively. This is a global setting (i.e., it affects all the slides, regardless of which slide contains the directive). This behavior may change at a future time.
+would change the default responses of "Correct" and "Incorrect"  to "Woohoo! That is correct! and "I'm sorry. That is incorrect." respectively. This is a global setting (i.e., it affects all the slides, regardless of which slide contains the directive).
 
 # transition
 
 {{{transition zoom}}} 
-Allows you to use a custom transition when moving between slides.
+
 Navigating to this slide will produce a zoom effect.
 
 Available transitions are: swiperight, swipeleft, swipetop, swipebottom, cut, crossdissolve, iris, spin, and zoom.
@@ -201,9 +178,12 @@ Archive.org|https://archive.org
 
 # branch
 
+
+# branches
+
 This lets you navigate within the slide show. As with media files, you only have to use enough of the slide's name to make it unique.
 
-{{{branch Directives Table of Contents
+{{{branches Directives Table of Contents
 The image directive|image
 The audio directivedirective|audio
 The video directive|video
@@ -217,6 +197,34 @@ The transition directive|transition
 The externallinks directive|externallinks
 The branch directive|branch
 }}}
+
+
+# notitle
+
+{{{notitle}}}
+* This slide displays no title
+* However, the title still appears in the slide selector in the main menu.
+* This is useful if you need more room on the slide, for whatever reason.
+
+# fontsize
+
+{{{fontsize tiny This is tiny text.}}}
+
+Available sizes are tiny, footnotesize, small, normalsize, large, Large, LARGE, huge, Huge, and HUGE.
+
+These are designed to match the corresponding font sizes in \\(\LaTeX\\). For example, fontsize Large  should produce text of approximately the same size as \Large in \\(\LaTeX\\).
+
+# fontfamily
+
+This sets a span of text to the specified font stack.
+
+{{{fontfamily slab-serif This is in slab serif.}}}
+
+{{{fontfamily cursive This is in cursive}}}
+
+Available stacks are:
+
+{{{fontfamily serif serif}}} {{{fontfamily sans-serif sans-serif}}} {{{fontfamily monospace monospace}}} {{{fontfamily cursive cursive}}} {{{fontfamily system-ui system-ui}}} {{{fontfamily transitional transitional}}} {{{fontfamily old-style old-style}}} {{{fontfamily humanist humanist}}} {{{fontfamily geometric-humanist geometric-humanist}}} {{{fontfamily classical-humanist classical-humanist}}} {{{fontfamily neo-grotesque neo-grotesque}}} {{{fontfamily monospace-slab-serif monospace-slab-serif}}} {{{fontfamily monospace-code monopace-code}}} {{{fontfamily industrial industrial}}} {{{fontfamily rounded-sans rounded-sans}}} {{{fontfamily slab-serif slab-serif}}} {{{fontfamily antique antique}}} {{{fontfamily didone didone}}} {{{fontfamily handwritten handwritten}}}
 
 # Special instructions for Apple mobile devices
 

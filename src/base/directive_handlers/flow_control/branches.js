@@ -23,7 +23,30 @@ GorillaPresenter.navigateToSlide = function(evt,slideName){
     }
 }
 
-GorillaPresenter.processBranch = function(titleparts,links){
+GorillaPresenter.processBranch = function(branchparts){
+    let branch = branchparts.join(" ").trim();
+    if(branch === "")
+    {
+        return "<span class='gorilla-presenter-error-message'>Found branch directive without content.</span>";
+    }
+    let parsedBranch = branch.split("|");
+    if(parsedBranch.length < 2){
+        return "<span class='gorilla-presenter-error-message'>Found branch directive without enough arguments; need display text and slide name</span>";
+    }
+    let displayText = parsedBranch[0];
+    let slideName = parsedBranch[1];
+    console.log("Branch display text is " + displayText);
+    console.log("Branch slide name is " + slideName);
+    GorillaPresenter.clickHandlers["gorilla-presenter-branch"] = function(evt){
+        evt.preventDefault();
+        evt.stopPropagation()
+        evt.stopImmediatePropagation();
+        GorillaPresenter.navigateToSlide(evt,evt.target.getAttribute("parameter"));
+    }
+    return "<a class='gorilla-presenter-branch link icon-right-hand' parameter='" + slideName + "'>" + displayText + "</a>";
+    }
+
+GorillaPresenter.processBranches = function(titleparts,links){
     let title = titleparts.join(" ").trim();
     if(title === "")
     {
@@ -35,7 +58,7 @@ GorillaPresenter.processBranch = function(titleparts,links){
         return "<span class='gorilla-presenter-error-message'>Found branch directive without slide list</span>";
     }
     let linksobject = {
-        customClass: "gorilla-presenter-branch icon-right-hand",
+        customClass: "gorilla-presenter-branches icon-right-hand",
         items: []
     };
     linksobject.items.push({
@@ -60,7 +83,7 @@ GorillaPresenter.processBranch = function(titleparts,links){
             parameter: slidename
         }); 
     }
-    GorillaPresenter.clickHandlers["gorilla-presenter-branch"] = function(evt){
+    GorillaPresenter.clickHandlers["gorilla-presenter-branches"] = function(evt){
         evt.preventDefault();
         evt.stopPropagation()
         evt.stopImmediatePropagation();

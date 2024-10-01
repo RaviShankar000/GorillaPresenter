@@ -154,6 +154,10 @@ GorillaPresenter.renderSlides = function(){
       GorillaPresenter.slideTransitions[slideNumber] = ["swipeInFromRight","swipeInFromLeft"];
       slidetext = GorillaPresenter.processDirectives(slidetext,slideNumber);
       slidetext = GorillaPresenter.processMultilineDirectives(slidetext,slideNumber);
+      if(GorillaPresenter.notitle === true){
+        GorillaPresenter.notitle = false;
+        slidetext = slidetext.replace(/^# .*/,"");
+      }
       newSlide.innerHTML =  `<div class="gorilla-presenter-editable"><div class="gorilla-presenter-slide-container">` + GorillaPresenter.markdown.render(slidetext) + "</div></div>";
       document.getElementById(GorillaPresenter.slideRoot).appendChild(newSlide);
       GorillaPresenter.sicTransit.transferPanel(newSlide);

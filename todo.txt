@@ -1,3 +1,4 @@
+Editor cheatsheet.
 
 Right margin is a little tight on plain text slides.
 
@@ -5,40 +6,21 @@ Need to replace spaces in title for audio (and maybe other media) with %20, mayb
 
 Need to add history stack so going back from a branch works properly.
 
-* selfTest (change back to quiz)
-* Mailto
-* Branch
-* External links
-* Images
-* Audio
-* Video
-YouTube
-* ISBN
-Font
-* Font Size
-No Title
-* Transitions
+Outlines?
 
-* Need to define class for second-level heading in navigable list (e.g., question from a quiz)
+
+* Need to define class for second-level heading in navigable list (e.g., question from a quiz) Make questions stand out from answers with CSS. Still needs some work.
+
+
+Need classes and directives for single inline links and branches.
 
 Weirdness in media library "Can't rename". 
 
-Media library screen is a little plain. Make it prettier. Add trash button.
+Media library screen is a little plain. Make it prettier. Add trash buttons.
 
 Some sort of bug with the screen time for popup messages (e.g. the one about experimental languages)
-
-Split screen editor?
-
-* Test importing of audio and video.
-
-Nope, don't do this. Make CTRL-S and CMD-S save the current editor (as well as ESC). Or save all editors and download? Maybe that would be better, come to think about it. Weird stuff happening here in general. Fix it.
 
 Clicking too fast skips transitions. Need to queue them up somehow. This is still happening somehow. Unrecognized race condition? Continue to investigate. Seems to be fixed? Torture test this.
 
 Icons needed: Video, audio, book, external link, internal link...
 
-Inline LaTeX example on slide isn't working.
-
-Change self-test back to quiz.
-
-Make questions stand out from answers with CSS.
