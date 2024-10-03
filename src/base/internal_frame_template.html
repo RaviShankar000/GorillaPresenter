@@ -71,10 +71,10 @@
     </div>
   </div>
 
-  <div id="gorilla-presenter-main-menu-wrapper">
+  <dialog id="gorilla-presenter-main-menu-wrapper">
   <div id="gorilla-presenter-main-menu" class="gorilla-presenter-unselectable">
   </div>
-  </div>
+</dialog>
     <div id="gorilla-presenter-warning-message">
       This is a warning, y'all.
     </div>
@@ -373,7 +373,6 @@ let BrowserFileSystem = {};
     }
   }
   window.onload = function(){
-    console.log("calling GorillaPresenter.startup()");
     GorillaPresenter.startup()
   }
 

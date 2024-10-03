@@ -1,20 +1,16 @@
 GorillaPresenter.processExternalLinks = function(titleparts,links){
-    let title = titleparts.join(" ").trim();;
-    console.log("externalLinks title is " + title);
-    console.log("externalLinks links are " + links);
-    console.log("externalLinks links length is " + links.length);
+    let title = titleparts.join(" ").trim();
     if(title === "")
     {
         return "<span class='gorilla-presenter-error-message'>Found externallinks directive without title.</span>";
     }
-    console.log("externalLinks title is " + title);
 
     if(links.length < 0){
         return "<span class='gorilla-presenter-error-message'>Found externalLinks directive without links.</span>";
     }
 
     let linksobject = {
-        customClass: "gorilla-presenter-externallinks icon-link-ext",
+        customClass: "gorilla-presenter-external-link",
         items: []
     };
     linksobject.items.push({
@@ -23,7 +19,6 @@ GorillaPresenter.processExternalLinks = function(titleparts,links){
         parameter: "title"
     });
     for(i = 0; i < links.length; i++){
-        console.log("externalLinks link is " + links[i]);
         if(links[i].trim() === ""){
             continue;
         }
@@ -39,7 +34,7 @@ GorillaPresenter.processExternalLinks = function(titleparts,links){
             parameter: url
         }); 
     }
-    GorillaPresenter.clickHandlers["gorilla-presenter-externallinks"] = function(evt){
+    GorillaPresenter.clickHandlers["gorilla-presenter-external-link"] = function(evt){
         evt.preventDefault();
         evt.stopPropagation()
         evt.stopImmediatePropagation();

@@ -177,7 +177,7 @@ gorilla-presenter-img {
   height: 62.7vw;
   max-height: calc(100vh - 4vw);
   border-radius: 5vw;
-  font-size: 3vw;
+  font-size: 4vw;
   resize: none;
   margin: 2vw;
   padding: 0;
@@ -209,10 +209,47 @@ gorilla-presenter-img {
   margin-top:0;
 }
 
+#gorilla-presenter-main-menu-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  padding: 0;
+  overflow: auto;
+  margin: 0 auto;
+  border-radius: 10px;
+  width: max-content;
+  background-color: rgba(0,0,0,0.5);
+  font-size: 90%;
+}
+
+
+
+#gorilla-presenter-main-menu {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  margin: 0 auto;
+  word-break: break-word;
+  word-wrap: break-word;
+  display: block;
+  width: auto;
+  max-width:50vw;
+  color: white;
+  border-radius: 20px;
+  line-height: 1.2em;
+  overflow: auto;
+}
+
+/*#gorilla-presenter-main-menu-wrapper{
+  max-width: 1vw;
+  max-height: 1vh;
+  overflow: auto;
+} */
+
 .gorilla-presenter-main-menu-item select {
     min-width: 30%;
     max-width: 50%;
-    width:auto;
     margin: auto;
 }
 
@@ -226,36 +263,6 @@ gorilla-presenter-img {
   padding: 3em;
   background: #e3e5eb;
   color: #092303;
-}
-
-
-#gorilla-presenter-main-menu-wrapper{
-  max-width: 1vw;
-  max-height: 1vh;
-  overflow: auto;
-}
-#gorilla-presenter-main-menu {
-  padding-left:0.5em;
-  padding-right:0.5em;
-  padding-top:0.5em;
-  padding-bottom:0.5em;
-  font-size:100%;
-  margin:auto;
-  width:auto;
-  word-break:break-word;
-  word-wrap:break-word;
-  max-width:100vw;
-  max-height:100vh;
-  display: none;
-  position: absolute;
-  height: max-content;
-  width: max-content;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 500;
-  color: white;
-  border-radius: 20px;
-  line-height: 1.2em;
-  overflow:auto;
 }
 
 .gorilla-presenter-unselectable {
@@ -305,17 +312,14 @@ gorilla-presenter-img {
 
 .gorilla-presenter-editable h1 {
   font-weight: bold;
-  box-sizing: border-box;
   font-style: normal;
-  font-size: 6vw;
-  line-height: 6vw; /* Replacing height with line-height */
+  font-size:140%;
+  line-height: 6vw;
   font-family: var(--slide-heading-font-stack);
   margin: 0;
   display: block;
   padding-left: 0.6em;
-
-  /* padding-top: .75em; */
-  border-bottom:2px solid black;
+  border-bottom:1px solid black;
 }
 
 .gorilla-presenter-editable p {
@@ -324,6 +328,7 @@ gorilla-presenter-img {
   line-height: 1.5;
   padding-top: 0.5em;
   padding-left: 0.5em;
+  padding-right:0.5em;
   display: block;
 }
 
@@ -564,7 +569,26 @@ gorilla-presenter-img {
       content: "〉";
       margin-left: auto; /* Pushes the arrow to the right */
   }
-  
+ 
+
+.navigable-list-item.link.gorilla-presenter-external-link:after {
+  content: "🔗 ";
+  margin-left: auto; /* Pushes the arrow to the right */
+}
+
+.navigable-list-item.link.gorilla-presenter-isbn:after {
+  content: "🔗 ";
+  margin-left: auto; /* Pushes the arrow to the right */
+}
+
+.navigable-list-item.link.gorilla-presenter-mailto:after {
+  content: "📩 ";
+  margin-left: auto; /* Pushes the arrow to the right */
+}
+
+
+
+ 
     .navigable-list-item.untrash-item:after { 
       content:  "〉";
       float: right;
@@ -575,18 +599,8 @@ gorilla-presenter-img {
       border-radius:10px;
 
     }
-    .gorilla-presenter-branch {
-      display: inline-block;
-      color: darkslategray;
-      text-decoration: none;
-      border-radius: 5px;
-      background-color: floralwhite;
-      border: 1px solid darkslategray;
-      font-size: 100%;
-      cursor: pointer;
-      padding-left: 0.25em;
-      padding-right: 0.25em;
-  }
+ 
+
    
 iframe {
   display:block;

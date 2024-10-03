@@ -12,7 +12,6 @@ GorillaPresenter.transitionTable = {
 
 GorillaPresenter.setTransition = function(directiveparts,slideIndex){
     let transition = directiveparts[0];
-    console.log("transition is " + transition);
     if(GorillaPresenter.transitionTable[transition] === undefined){
         GorillaPresenter.slideTransitions[slideIndex] = ["cut","cut"]
         return "Unrecognized transition: " + directiveparts[0];

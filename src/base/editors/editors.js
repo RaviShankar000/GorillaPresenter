@@ -23,7 +23,6 @@ GorillaPresenter.editor.syncEditorTextAreas = function (event) {
 }
 
 GorillaPresenter.editor.editorResized = function() {
-  console.log("editors resized");
   let height = GorillaPresenter.editor.slideEditor.offsetHeight;
   GorillaPresenter.slideEditorSize = height + "px";
   let containerHeight = GorillaPresenter.editor.slideEditor.parentElement.offsetHeight;
@@ -49,7 +48,6 @@ GorillaPresenter.initSlideEditor = function(){
     slideEditor.addEventListener('input', GorillaPresenter.editor.saveEditorCursors);
     slideEditor.addEventListener('paste', GorillaPresenter.editor.handleEditorPaste);
     slideEditor.focus();
-    console.log("adding split editor event listeners");
 ['input', 'cut', 'paste'].forEach(eventType => {
     slideEditor.addEventListener(eventType, GorillaPresenter.editor.syncEditorTextAreas);
     splitEditor.addEventListener(eventType, GorillaPresenter.editor.syncEditorTextAreas);
@@ -105,7 +103,6 @@ GorillaPresenter.editor.updateEditorData = function(){
     let editor = document.getElementById("gorilla-presenter-slide-text-editor");
     GorillaPresenter.slideData = editor.value;
     GorillaPresenter.config.slideEditorPosition = editor.selectionStart;
-    console.log("rendering slides from updateEditorData");
     GorillaPresenter.renderPresentationData();
     GorillaPresenter.saveConfig();
 }
@@ -127,7 +124,6 @@ GorillaPresenter.editor.insertTextAtCaret = function(text) {
  
 
 GorillaPresenter.editor.handleEditorPaste = function(event) {
-    console.log("handling editor paste");
     let element = event.target;
     if(element.classList.contains('gorilla-presenter-editor')){
       let text = event.clipboardData.getData('text/plain');

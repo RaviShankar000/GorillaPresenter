@@ -96,6 +96,8 @@ GorillaPresenter.renderSlideSelector = function(){
   document.getElementById("gorilla-presenter-main-menu").appendChild(menuItem);
   slideSelector.onchange = function(event){
     setTimeout(function(){
+        GorillaPresenter.slidenav.forwardHistory = [];
+        GorillaPresenter.slidenav.addSlideToHistory(GorillaPresenter.config.slidePosition);
         GorillaPresenter.config.slidePosition = parseInt(slideSelector.value);
         GorillaPresenter.displaySlide("swipeInFromRight");
         GorillaPresenter.hideMainMenu(event);
@@ -114,14 +116,17 @@ GorillaPresenter.renderSlides = function(){
         slideElement.remove();
       }
     }
+    console.log("made it to 117")
     GorillaPresenter.slideIDs = [];
     GorillaPresenter.slideOffsets = [];
     GorillaPresenter.slideTitles = [];
+    GorillaPresenter.slideTransitions = [];
     let decommentedlines = ""
     let text = GorillaPresenter.slideData;
     text = text + "\n# Gorilla Presenter\nMade with &hearts; by Tony Hursh. See \"About\" for full credits.\n" + "<a href='https://www.gorillapresenter.com/support'><img src=" + BrowserFileSystem.readInternalFileDataURL("icons/logo-small.png") + " width='25%' height='25%' style='display:block;margin-left:auto;margin-right:auto;'></a>\r\n";
     let lines = text.split("\n");
     let slideOffset = 0;
+    console.log("made it to 127")
     for(let i = 0; i < lines.length; i++){
         let line = lines[i];
         slideOffset = slideOffset + line.length + 1;
@@ -142,28 +147,33 @@ GorillaPresenter.renderSlides = function(){
           }
         }
       }
-
+     console.log("made it to 147")
     let slidetexts = decommentedlines.split(/^# /gm);
     slidetexts.shift();
-    for(let slideNumber=0;slideNumber < slidetexts.length;slideNumber++){
+    for(let slideNumber = 0; slideNumber < slidetexts.length; slideNumber++){
       let slidetext = "# " + slidetexts[slideNumber];
       let newSlide = document.createElement("div");
       let id = GorillaPresenter.slideIdFragment + uuid();
       newSlide.setAttribute("class", GorillaPresenter.slideClass);
       newSlide.setAttribute("id", id);
+     
       GorillaPresenter.slideTransitions[slideNumber] = ["swipeInFromRight","swipeInFromLeft"];
+      console.log("made it to 158");
       slidetext = GorillaPresenter.processDirectives(slidetext,slideNumber);
+      console.log("made it to 160")
       slidetext = GorillaPresenter.processMultilineDirectives(slidetext,slideNumber);
+      
       if(GorillaPresenter.notitle === true){
         GorillaPresenter.notitle = false;
         slidetext = slidetext.replace(/^# .*/,"");
       }
+      console.log("made it to 165")
       newSlide.innerHTML =  `<div class="gorilla-presenter-editable"><div class="gorilla-presenter-slide-container">` + GorillaPresenter.markdown.render(slidetext) + "</div></div>";
       document.getElementById(GorillaPresenter.slideRoot).appendChild(newSlide);
       GorillaPresenter.sicTransit.transferPanel(newSlide);
-    //  renderMathInElement(newSlide);
       GorillaPresenter.slideIDs.push(id);
     }
+    console.log("made it to 168")
     renderMathInElement(document.body);
     GorillaPresenter.adjustImageSizes();
     GorillaPresenter.patchHyperlinks();
@@ -204,55 +214,12 @@ GorillaPresenter.renderSlides = function(){
     }
  }
  
-GorillaPresenter.slideForward = function(){
-  if(GorillaPresenter.transitionBusy === true){
-    return;
-  }
-  if(GorillaPresenter.slideIDs.length === 0){
-    GorillaPresenter.warn(GorillaPresenter.translate("No slides. You'll have to make some first.",GorillaPresenter.config.currentLanguage));
-    return;
-  }
-  GorillaPresenter.config.slidePosition = GorillaPresenter.config.slidePosition + 1;
-  if(GorillaPresenter.config.slidePosition >= GorillaPresenter.slideIDs.length){
-    GorillaPresenter.config.slidePosition = (GorillaPresenter.slideIDs).length -1 ;
-    GorillaPresenter.warn(GorillaPresenter.translate("At last slide.",GorillaPresenter.config.currentLanguage));
-    return;
-  }
-  let transition = GorillaPresenter.slideTransitions[GorillaPresenter.config.slidePosition][0];
-  if(transition === undefined){
-    transition = "swipeInFromRight";
-  }
-  
-  GorillaPresenter.displaySlide(transition);
-}
-
-GorillaPresenter.slideBack = function(){
-  if(GorillaPresenter.transitionBusy === true){
-    return;
-  }
-  if(GorillaPresenter.slideIDs.length === 0){
-    GorillaPresenter.warn(GorillaPresenter.translate("No slides. You'll have to make some first.",GorillaPresenter.config.currentLanguage));
-    return;
-  }
-  GorillaPresenter.config.slidePosition = GorillaPresenter.config.slidePosition - 1;
-  if(GorillaPresenter.config.slidePosition < 0){
-    GorillaPresenter.config.slidePosition = 0;
-    GorillaPresenter.warn(GorillaPresenter.translate("At first slide.",GorillaPresenter.config.currentLanguage));
-    return;
-  }
-  let transition = GorillaPresenter.slideTransitions[GorillaPresenter.config.slidePosition][1];
-  if(transition === undefined){
-    transition = "swipeInFromLeft"
-  }
-  GorillaPresenter.displaySlide(transition);
-}
 
 GorillaPresenter.transitionDone = function(){
   GorillaPresenter.transitionBusy = false;
   document.getElementById(GorillaPresenter.slideIDs[GorillaPresenter.config.slidePosition]).focus();
 }
 GorillaPresenter.displaySlide = function(transition){
-  console.log("using transition " + transition);
   if(GorillaPresenter.sicTransit.isValidTransition(transition) === false){
     GorillaPresenter.warn(GorillaPresenter.translate("Unrecognized transition",GorillaPresenter.config.currentLanguage) + ": " + transition);
     return;

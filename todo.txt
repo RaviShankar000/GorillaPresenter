@@ -1,13 +1,23 @@
+Menu runs off the screen on mobile? Possibly this was fixed -- check
+
+CSS for inline code is a little ugly.
+
+
+Look into making menu a dialog. 
+
+
+Wire up editor buttons
+
 Editor cheatsheet.
 
 Right margin is a little tight on plain text slides.
 
 Need to replace spaces in title for audio (and maybe other media) with %20, maybe.
 
-Need to add history stack so going back from a branch works properly.
+Need to add history stack so going back from a branch works properly. Done? Needs more testing.
+
 
 Outlines?
-
 
 * Need to define class for second-level heading in navigable list (e.g., question from a quiz) Make questions stand out from answers with CSS. Still needs some work.
 

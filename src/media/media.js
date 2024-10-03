@@ -35,13 +35,10 @@ GorillaPresenter.showMediaLibrary = function () {
     mediaElement.className = "gorilla-presenter-media-library-item";
     let mediaNickname = BrowserFileSystem.file_basename_no_extension(mediaInfoFile);
     let mediaType = GorillaPresenter.getMediaType(mediaFileName);
-    console.log("mediaType is " + mediaType);
     let mediaIcon = GorillaPresenter.getMediaIcon(mediaType);
     mediaElement.innerHTML = mediaIcon;
     if(mediaType === "image"){
-       console.log("adding image thumbnail");
        mediaElement.innerHTML = mediaElement.innerHTML + "<img src='" + mediaFileData + "' height='100px'/>";
-       console.log("mediaElement.innerHTML is now " + mediaElement.innerHTML);
       }
       mediaElement.innerHTML = mediaElement.innerHTML +  "&nbsp;&nbsp;<span class='gorilla-presenter-media-file-name' original-file-name='" + mediaNickname + "' contenteditable='plaintext-only'>" + mediaNickname + "</span>";
     mediaLibrary.appendChild(mediaElement);

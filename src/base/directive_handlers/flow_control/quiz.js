@@ -25,7 +25,6 @@ GorillaPresenter.processQuiz = function(titleparts,directivelines){
     {
         return "<span class='gorilla-presenter-error-message'>Found quiz directive without title.</span>";
     }
-    console.log("Quiz title is " + title);
 
     if(directivelines.length < 0){
         return "<span class='gorilla-presenter-error-message'>Found quiz directive without body.</span>";
@@ -41,8 +40,6 @@ GorillaPresenter.processQuiz = function(titleparts,directivelines){
         parameter: "title"
     });
     let questions = directivelines.join("\n").split("\n\n");
-    console.log("quiz: there are " + questions.length + " questions");
-    console.log("the questions are " + questions);
     for(i = 0; i < questions.length; i++){
         if(questions[i].trim() === ""){
             continue;

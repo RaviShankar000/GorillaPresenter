@@ -40,6 +40,16 @@ GorillaPresenter.setMenuHandlers = function (element) {
       GorillaPresenter.fullScreen = false;
     }
   };
+  // Handle back button when going back past first slide
+
+  window.addEventListener('popstate', (event) => {
+    if (GorillaPresenter.slidenav.backHistory.length > 0) {
+        GorillaPresenter.slidenav.slideBack();
+    } else {
+        history.back();
+    }
+});
+
   element.addEventListener('keydown', function (event) {
     const isCmdOrCtrl = event.ctrlKey || event.metaKey;
     if (isCmdOrCtrl && event.key.toLowerCase() === 's') {
@@ -63,23 +73,23 @@ GorillaPresenter.setMenuHandlers = function (element) {
     }
     // Try to handle any keys that someone might try to use to navigate the slides.
     if (event.key === "ArrowRight") {
-      GorillaPresenter.slideForward();
+      GorillaPresenter.slidenav.slideForward();
       return;
     }
     if (event.key === "ArrowLeft") {
-      GorillaPresenter.slideBack();
+      GorillaPresenter.slidenav.slideBack();
       return;
     }
     if (event.key === "Enter") {
-      GorillaPresenter.slideForward();
+      GorillaPresenter.slidenav.slideForward();
       return;
     }
     if (event.key === "Backspace") {
-      GorillaPresenter.slideBack();
+      GorillaPresenter.slidenav.slideBack();
       return;
     }
     if (event.code === "Space") {
-      GorillaPresenter.slideForward();
+      GorillaPresenter.slidenav.slideForward();
       return;
     }
     // In case a desperate user tries to escape full screen mode. :-)
@@ -118,9 +128,9 @@ GorillaPresenter.setMenuHandlers = function (element) {
     const touchStartX = GorillaPresenter.touchStartX;
     const touchThreshold = 50;
     if (touchEndX - touchStartX > touchThreshold) {
-      GorillaPresenter.slideBack();
+      GorillaPresenter.slidenav.slideBack();
     } else if (touchStartX - touchEndX > touchThreshold) {
-      GorillaPresenter.slideForward();
+      GorillaPresenter.slidenav.slideForward();
     }
   });
   element.addEventListener('touchmove', function (event) {
@@ -147,11 +157,11 @@ GorillaPresenter.setMenuHandlers = function (element) {
       const viewportWidth = window.innerWidth;
       const x = event.clientX;
     if (x < viewportWidth / 2) {
-      GorillaPresenter.slideBack();
+      GorillaPresenter.slidenav.slideBack();
     } else {
       // Mouseup on the right half
   
-      GorillaPresenter.slideForward();
+      GorillaPresenter.slidenav.slideForward();
     }
       return;
     }
@@ -200,15 +210,16 @@ GorillaPresenter.showAbout = function () {
 
 GorillaPresenter.showMainMenu = function (event) {
   GorillaPresenter.renderMainMenu();
-
   GorillaPresenter.mainMenuVisible = true;
   GorillaPresenter.editor.saveEditorCursors();
   let slideElement = document.getElementById(GorillaPresenter.slideRoot);
   const slideStyles = window.getComputedStyle(slideElement);
-  let mainMenu = document.getElementById("gorilla-presenter-main-menu");
+ /* let mainMenu = document.getElementById("gorilla-presenter-main-menu");
   mainMenu.style.opacity = 1;
   mainMenu.style.display = "block";
-  GorillaPresenter.centerElement(mainMenu);
+  GorillaPresenter.centerElement(mainMenu); */
+  let mainMenu = document.getElementById("gorilla-presenter-main-menu-wrapper");
+  mainMenu.showModal();
 }
 
 GorillaPresenter.hideMainMenu = function (event) {
@@ -216,7 +227,9 @@ GorillaPresenter.hideMainMenu = function (event) {
     return
   }
   GorillaPresenter.eatMouseUp = true;
-  let mainMenu = document.getElementById("gorilla-presenter-main-menu");
-  mainMenu.style.display = "none";
+  /*let mainMenu = document.getElementById("gorilla-presenter-main-menu");
+  mainMenu.style.display = "none";*/
+  let mainMenu = document.getElementById("gorilla-presenter-main-menu-wrapper");
+  mainMenu.close();
   GorillaPresenter.mainMenuVisible = false;
 }

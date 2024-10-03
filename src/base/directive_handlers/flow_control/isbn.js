@@ -6,12 +6,9 @@ GorillaPresenter.processISBN = function(directiveparts){
     }
     let isbn = directiveparts[0];
     let title = directiveparts[1];
-   // console.log("ISBN: " + isbn);
-  //  console.log("Title: " + title);
     let coverId = uuid();
     let bookSources = {
         customClass:"gorilla-presenter-isbn",
-        iconBefore:"icon-book",
         items: [
             {
                 type:"title",

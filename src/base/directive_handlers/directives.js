@@ -40,7 +40,6 @@ GorillaPresenter.processDirectives = function(text,slideIndex){
   GorillaPresenter.processMultilineDirectives = function(text,slideIndex){
     text = text.replace(/(?<!\\)\{\{\{([\s\S]*?)\}\}\}/gi,function(match){
        match = match.substring(3,match.length - 3);
-       console.log("multiline match is " + match);
        directivelines = match.split("\n");
        directiveparts = directivelines[0].split(" ");
        directivelines.shift();

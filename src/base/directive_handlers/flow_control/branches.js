@@ -9,12 +9,14 @@ GorillaPresenter.getMatchingSlideName = function(nickname){
     return null;
 }
 
-GorillaPresenter.navigateToSlide = function(evt,slideName){
+GorillaPresenter.navigateToBranch = function(evt,slideName){
     evt.preventDefault();
     evt.stopImmediatePropagation();
     let slideNumber = GorillaPresenter.getMatchingSlideName(slideName);
     if(slideNumber !== null){
         console.log("Navigating to slide " + slideNumber);
+        GorillaPresenter.slidenav.forwardHistory = [];
+        GorillaPresenter.slidenav.addSlideToHistory(GorillaPresenter.config.slidePosition);
         GorillaPresenter.config.slidePosition = slideNumber;
         GorillaPresenter.displaySlide("cutIn");
     }
@@ -41,9 +43,9 @@ GorillaPresenter.processBranch = function(branchparts){
         evt.preventDefault();
         evt.stopPropagation()
         evt.stopImmediatePropagation();
-        GorillaPresenter.navigateToSlide(evt,evt.target.getAttribute("parameter"));
+        GorillaPresenter.navigateToBranch(evt,evt.target.getAttribute("parameter"));
     }
-    return "<a class='gorilla-presenter-branch link icon-right-hand' parameter='" + slideName + "'>" + displayText + "</a>";
+    return "<a class='gorilla-presenter-branch link' parameter='" + slideName + "'>" + displayText + "</a>";
     }
 
 GorillaPresenter.processBranches = function(titleparts,links){
@@ -58,7 +60,7 @@ GorillaPresenter.processBranches = function(titleparts,links){
         return "<span class='gorilla-presenter-error-message'>Found branch directive without slide list</span>";
     }
     let linksobject = {
-        customClass: "gorilla-presenter-branches icon-right-hand",
+        customClass: "gorilla-presenter-branch", // icon-right-hand",
         items: []
     };
     linksobject.items.push({
@@ -83,11 +85,11 @@ GorillaPresenter.processBranches = function(titleparts,links){
             parameter: slidename
         }); 
     }
-    GorillaPresenter.clickHandlers["gorilla-presenter-branches"] = function(evt){
+    GorillaPresenter.clickHandlers["gorilla-presenter-branch"] = function(evt){
         evt.preventDefault();
         evt.stopPropagation()
         evt.stopImmediatePropagation();
-        GorillaPresenter.navigateToSlide(evt,evt.target.getAttribute("parameter"));
+        GorillaPresenter.navigateToBranch(evt,evt.target.getAttribute("parameter"));
     }
     return GorillaPresenter.navigableList(linksobject);
 }

@@ -192,7 +192,7 @@ The mailto directive|mailto
 The fontsize directive|fontsize
 The fontfamily directive|fontfamily
 The quiz directive|quiz
-The quizresponses directive|quizresponses
+The quizconfig directive|quizconfig
 The transition directive|transition
 The externallinks directive|externallinks
 The branch directive|branch

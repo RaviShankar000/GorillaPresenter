@@ -10,7 +10,7 @@ GorillaPresenter.processMailto = function(directiveparts){
     let subject = directiveparts[2];
     let body = directiveparts[3];
     let mailtoSources = {
-    customClass:"gorilla-presenter-isbn",
+    customClass:"gorilla-presenter-mailto",
     items: [
         {
             type: "clickable",
