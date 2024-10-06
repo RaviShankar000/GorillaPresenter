@@ -24,7 +24,7 @@ You're soaking in it, mang!
 * Control+click (long press on mobile) 
 * Choose "Save Presentation"
 * That's it! Look wherever your machine puts downloaded files and you should see a copy of this file. Open it and you have a full working copy of Gorilla Presenter.
-(iOS and iPadOS require adding a home screen shortcut -- see the note at the end of this presentation)
+(iOS and iPadOS require special handling -- see the note at the end of this presentation)
 
 # Editing Slides
 
@@ -36,6 +36,10 @@ You're soaking in it, mang!
 # New Slides
 
 An octophorpe, #, (aka "hash mark", "pound sign") at the beginning of a new line begins a new slide.
+This is the standard Markdown first leve heading. You can also use ##, ###, etc. to get heading levels in the slide.
+
+## This line is on the second level.
+### This line is on the third level.
 
 # New Paragraphs
 
@@ -43,12 +47,23 @@ To separate paragraphs, use blank lines. This is in one paragraph.
 
 This is in another.
 
-# Bold and Italic
+# Italic
 
-* *This is italic*
-* **This is Bold**
-*  ***This is Bold Italic***
-; You can use either \* or \_, i.e., *This is Italic* and _This is Italic_ produce the same output.
+Italic text is set off by either asterisks (\*) or underscores (\_)
+
+*This is italic*, and _so is this_
+
+If you need a "real" \* or \_ to show up on the slide, precede it with a backslash.
+
+# Bold
+
+* **This is bold** and __so is this__
+
+# Bold Italic
+
+To get bold *and* italic, use three of your chosen delimiter (\* or \_)
+
+***This is bold italic*** and ___so is this___.
 
 # Lists
 
@@ -63,6 +78,7 @@ Bulleted list items begin with \*. Numbered list items begin with a number follo
 # Block Quotes
 
 > This is a block quote
+> Here's some more quoted material.
 
 # Code
 ```
@@ -74,9 +90,6 @@ Code
 None of the information on the following slides is required for basic functionality. You definitely *don't*  need to memorize all this stuff to use Gorilla Presenter. Think of the following as reference material. 
 
 # Comments and Speaker Notes
-
-Lines that begin with two slashes (//) are comments. They will not appear anywhere but in the editor.
-Lines that begin with a semicolon (;) are speaker notes. They will appear in the editor and in the speaker notes.
 
 // This line will only appear in the editor, not in the speaker notes or the slide.
 ; This line will appear in the editor and the speaker notes, but not on the slide.
@@ -103,18 +116,6 @@ At present, Gorilla Presenter supports .jpg,.gif,.png, and .svg images, .mp3 aud
 
 Media files are stored within your presentation bundle, meaning that they can potentially make the bundle quite large (especially for video). There's no real way around this.
 
-# image
-
-{{{image Bob | Our Founder Says "Hi"}}}
-
-# audio
-
-{{{audio BWV764 | Excerpt from Wie schön leuchtet der Morgenstern, BWV 764, Johann Sebastian Bach (variation of completion, performed by Thomas A. Schneider)}}}
-
-# Local video
-
-{{{video TalkingHead | Video sample}}}
-
 # YouTube videos
 
 YouTube is easy. Just copy the embed code that YouTube provides and paste it into the slide. Not all video providers allow embedding, and, of course, YouTube videos only work if there's an Internet connection.
@@ -123,49 +124,26 @@ YouTube is easy. Just copy the embed code that YouTube provides and paste it int
 
 You can also embed other external media files this way, using whatever code the source uses. Of course, using any external media source means your presentation will not work offline. You win some, you lose some.
 
-# isbn
 
-Given an International Standard Book Number (ISBN) this generates a menu of potential sources for the book.
+# Directive: image
 
-{{{isbn 978-0743261692|Gilgamesh: A New English Version}}}
+{{{image Bob | Our Founder Says "Hi"}}}
 
-# mailto
+# Directive: audio
+
+{{{audio BWV764 | Excerpt from Wie schön leuchtet der Morgenstern, BWV 764, Johann Sebastian Bach (variation of completion, performed by Thomas A. Schneider)}}}
+
+# Directive: video
+
+{{{video TalkingHead | Video sample}}}
+
+
+# Directive: mailto
 
 {{{mailto Send some mail|example@example.com|This is the test subject|This is the test body. Thanks!}}}
 
-# quiz
-The first line is the title. Question and answer sets are separated by blank lines. The correct answer)s) should preceded with an asterisk (*).
 
-{{{quiz This is the quiz title
-True or false: the quiz directive allows you to add a quiz to a slide.
-* True
-False
-LOL WAT?
-
-How do you separate question/answer sets from each other?
-With an asterisk
-* With a blank line
-By hitting enter enough times to go to a new page
-It can't be done. A self-test can only have one question and answer set.
-}}}
-
-# quizconfig
-
-This lets you customize the correct/incorrect responses for quizzes. 
-
-{{{quizconfig "Woohoo! That is correct!" | "I'm sorry. That is incorrect."}}}
-
-would change the default responses of "Correct" and "Incorrect"  to "Woohoo! That is correct! and "I'm sorry. That is incorrect." respectively. This is a global setting (i.e., it affects all the slides, regardless of which slide contains the directive).
-
-# transition
-
-{{{transition zoom}}} 
-
-Navigating to this slide will produce a zoom effect.
-
-Available transitions are: swiperight, swipeleft, swipetop, swipebottom, cut, crossdissolve, iris, spin, and zoom.
-
-# externallinks
+# Directive: externallinks
 
 Provides a menu of clickable links to external resources. These open in a new window or tab (depending on how the user's browser is configured).
 
@@ -176,10 +154,11 @@ Wikipedia|https://en.wikipedia.com
 Archive.org|https://archive.org
 }}}
 
-# branch
+# Directive: branch
 
+{{{branch LaTeX|Go to the LaTeX slide}}}
 
-# branches
+# Directive: branches
 
 This lets you navigate within the slide show. As with media files, you only have to use enough of the slide's name to make it unique.
 
@@ -198,15 +177,47 @@ The externallinks directive|externallinks
 The branch directive|branch
 }}}
 
+# Directive: quiz
+The first line is the title. Question and answer sets are separated by blank lines. The correct answer)s) should preceded with an asterisk (*).
 
-# notitle
+{{{quiz This is the quiz title
+True or false: the quiz directive allows you to add a quiz to a slide.
+* True
+False
+LOL WAT?
+
+How do you separate question/answer sets from each other?
+With an asterisk
+* With a blank line
+By hitting enter enough times to go to a new page
+It can't be done. A quiz can only have one question and answer set.
+}}}
+
+# Directive: quizconfig
+
+This lets you customize the correct/incorrect responses for quizzes. 
+
+{{{quizconfig "Woohoo! That is correct!" | "I'm sorry. That is incorrect."}}}
+
+would change the default responses of "Correct" and "Incorrect"  to "Woohoo! That is correct! and "I'm sorry. That is incorrect." respectively. This is a global setting (i.e., it affects all the slides, regardless of which slide contains the directive).
+
+# Directive: transition
+
+{{{transition zoom}}} 
+
+Navigating to this slide will produce a zoom effect.
+
+Available transitions are: swiperight, swipeleft, swipetop, swipebottom, cut, crossdissolve, iris, spin, and zoom.
+
+
+# Directive: notitle
 
 {{{notitle}}}
 * This slide displays no title
 * However, the title still appears in the slide selector in the main menu.
 * This is useful if you need more room on the slide, for whatever reason.
 
-# fontsize
+# Directive: fontsize
 
 {{{fontsize tiny This is tiny text.}}}
 
@@ -214,7 +225,7 @@ Available sizes are tiny, footnotesize, small, normalsize, large, Large, LARGE, 
 
 These are designed to match the corresponding font sizes in \\(\LaTeX\\). For example, fontsize Large  should produce text of approximately the same size as \Large in \\(\LaTeX\\).
 
-# fontfamily
+# Directive: fontfamily
 
 This sets a span of text to the specified font stack.
 
@@ -225,6 +236,13 @@ This sets a span of text to the specified font stack.
 Available stacks are:
 
 {{{fontfamily serif serif}}} {{{fontfamily sans-serif sans-serif}}} {{{fontfamily monospace monospace}}} {{{fontfamily cursive cursive}}} {{{fontfamily system-ui system-ui}}} {{{fontfamily transitional transitional}}} {{{fontfamily old-style old-style}}} {{{fontfamily humanist humanist}}} {{{fontfamily geometric-humanist geometric-humanist}}} {{{fontfamily classical-humanist classical-humanist}}} {{{fontfamily neo-grotesque neo-grotesque}}} {{{fontfamily monospace-slab-serif monospace-slab-serif}}} {{{fontfamily monospace-code monopace-code}}} {{{fontfamily industrial industrial}}} {{{fontfamily rounded-sans rounded-sans}}} {{{fontfamily slab-serif slab-serif}}} {{{fontfamily antique antique}}} {{{fontfamily didone didone}}} {{{fontfamily handwritten handwritten}}}
+
+# Directive: isbn
+
+Given an International Standard Book Number (ISBN) this generates a menu of potential sources for the book.
+
+{{{isbn 978-0743261692|Gilgamesh: A New English Version}}}
+
 
 # Special instructions for Apple mobile devices
 

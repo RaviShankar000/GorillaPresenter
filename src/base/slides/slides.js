@@ -116,7 +116,6 @@ GorillaPresenter.renderSlides = function(){
         slideElement.remove();
       }
     }
-    console.log("made it to 117")
     GorillaPresenter.slideIDs = [];
     GorillaPresenter.slideOffsets = [];
     GorillaPresenter.slideTitles = [];
@@ -126,7 +125,6 @@ GorillaPresenter.renderSlides = function(){
     text = text + "\n# Gorilla Presenter\nMade with &hearts; by Tony Hursh. See \"About\" for full credits.\n" + "<a href='https://www.gorillapresenter.com/support'><img src=" + BrowserFileSystem.readInternalFileDataURL("icons/logo-small.png") + " width='25%' height='25%' style='display:block;margin-left:auto;margin-right:auto;'></a>\r\n";
     let lines = text.split("\n");
     let slideOffset = 0;
-    console.log("made it to 127")
     for(let i = 0; i < lines.length; i++){
         let line = lines[i];
         slideOffset = slideOffset + line.length + 1;
@@ -147,7 +145,6 @@ GorillaPresenter.renderSlides = function(){
           }
         }
       }
-     console.log("made it to 147")
     let slidetexts = decommentedlines.split(/^# /gm);
     slidetexts.shift();
     for(let slideNumber = 0; slideNumber < slidetexts.length; slideNumber++){
@@ -158,31 +155,29 @@ GorillaPresenter.renderSlides = function(){
       newSlide.setAttribute("id", id);
      
       GorillaPresenter.slideTransitions[slideNumber] = ["swipeInFromRight","swipeInFromLeft"];
-      console.log("made it to 158");
       slidetext = GorillaPresenter.processDirectives(slidetext,slideNumber);
-      console.log("made it to 160")
       slidetext = GorillaPresenter.processMultilineDirectives(slidetext,slideNumber);
       
       if(GorillaPresenter.notitle === true){
         GorillaPresenter.notitle = false;
         slidetext = slidetext.replace(/^# .*/,"");
       }
-      console.log("made it to 165")
       newSlide.innerHTML =  `<div class="gorilla-presenter-editable"><div class="gorilla-presenter-slide-container">` + GorillaPresenter.markdown.render(slidetext) + "</div></div>";
       document.getElementById(GorillaPresenter.slideRoot).appendChild(newSlide);
       GorillaPresenter.sicTransit.transferPanel(newSlide);
       GorillaPresenter.slideIDs.push(id);
     }
-    console.log("made it to 168")
     renderMathInElement(document.body);
     GorillaPresenter.adjustImageSizes();
     GorillaPresenter.patchHyperlinks();
+   /*  setTimeout(function(){
+      GorillaPresenter.swapColors(".gorilla-presenter-slide",".link");},50);
     Object.keys(GorillaPresenter.clickHandlers).forEach(function(key){
       let elements = document.getElementsByClassName(key);
       for(let i = 0; i < elements.length; i++){
         elements[i].addEventListener("click",GorillaPresenter.clickHandlers[key]);
       }
-    })
+    }) */
   }
 
 
@@ -214,6 +209,21 @@ GorillaPresenter.renderSlides = function(){
     }
  }
  
+ GorillaPresenter.swapColors = function(parentSelector, targetClass) {
+  console.log("Swapping colors");
+  const parentElement = document.querySelector(parentSelector);
+  if (!parentElement) return;
+  const parentStyles = getComputedStyle(parentElement);
+  const parentColor = parentStyles.color;
+  console.log("parentColor: " + parentColor);
+  const parentBackgroundColor = parentStyles.backgroundColor;
+  console.log("parentBackgroundColor: " + parentBackgroundColor);
+  const elements = document.querySelectorAll(targetClass);
+  elements.forEach(el => {
+      el.style.color = parentBackgroundColor;        // Swap text color
+      el.style.backgroundColor = parentColor;        // Swap background color
+  });
+}
 
 GorillaPresenter.transitionDone = function(){
   GorillaPresenter.transitionBusy = false;

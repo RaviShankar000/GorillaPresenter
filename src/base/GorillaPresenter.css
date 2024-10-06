@@ -500,9 +500,18 @@ gorilla-presenter-img {
         content:  "〉";
         float: right;
       }
+      .link{
+        padding:0.2em;
+        cursor:pointer
+      }
+      .link.standalone{
+        border-radius:10px;
+      }
+    
+
     
       .navigable-list {
-        padding-left:0.5em;
+      padding-left:0.5em;
       padding-right: 0.5em;
       padding-top: 0.5em;
       padding-bottom: 0.5em;
@@ -515,22 +524,27 @@ gorilla-presenter-img {
       list-style-type: none
      
 } 
-    .navigable-list .navigable-list-title {
-      font-family:var(--slide-heading-font-stack);
-      font-size:110%;
-      background-color:darkslategray;
-      color:floralwhite ;
-    }
-    .navigable-list .navigable-list-header {
-      font-family:var(--serif-font-stack);
-      font-style:italic;
-      background-color:darkslategray;
-      color:floralwhite ;
-    }
-    .navigable-list .navigable-list-item {
-      margin-top: 0;
-      font-size: 3vw;
-  }
+
+.navigable-list .navigable-list-item {
+  margin-top: 0;
+  font-size: 3vw;
+}
+
+.navigable-list-item.navigable-list-title {
+  font-family: var(--slide-heading-font-stack);
+  font-weight: bold;
+  text-align: center;
+  background-color: floralwhite;
+  color: darkslategray;
+}
+
+.navigable-list .navigable-list-header {
+  font-family: var(--serif-font-stack);
+  font-style: italic;
+  background-color: #d4e2d7;
+  color: black;
+}
+   
     .navigable-list-item:first-child {
       border-top: 1px solid #cacaca;
       border-top-left-radius: 10px;
@@ -544,8 +558,8 @@ gorilla-presenter-img {
       border-left: 1px solid #cacaca;
       border-bottom: 1px solid #cacaca;
       border-right: 1px solid #cacaca;
-      background-color:floralwhite;
-      color:darkslategray;
+      color:floralwhite;
+      background-color:darkslategray;
       display: block;
       width: auto;
       padding-left: 1em;
@@ -565,19 +579,15 @@ gorilla-presenter-img {
       display: flex;
       align-items: center; /* Optional: vertically center the content */
   }
-  .navigable-list-item.link:after {
-      content: "〉";
-      margin-left: auto; /* Pushes the arrow to the right */
-  }
+  
  
-
 .navigable-list-item.link.gorilla-presenter-external-link:after {
   content: "🔗 ";
   margin-left: auto; /* Pushes the arrow to the right */
 }
 
 .navigable-list-item.link.gorilla-presenter-isbn:after {
-  content: "🔗 ";
+  content: "📖 ";
   margin-left: auto; /* Pushes the arrow to the right */
 }
 
@@ -586,13 +596,13 @@ gorilla-presenter-img {
   margin-left: auto; /* Pushes the arrow to the right */
 }
 
+.link.gorilla-presenter-branch:after {
+  content: "↣ ";
+  margin-left: auto; /* Pushes the arrow to the right */
+}
 
 
- 
-    .navigable-list-item.untrash-item:after { 
-      content:  "〉";
-      float: right;
-    }
+
     .navigable-list-title-image{
       width: 100px;
       height: auto;

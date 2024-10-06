@@ -1,6 +1,8 @@
+Use horizontal rule --- to divide slides rather than first-level heading? How to do titles for the sorter, then?
+
 Menu runs off the screen on mobile? Possibly this was fixed -- check
 
-CSS for inline code is a little ugly.
+CSS for inline code is a little ugly. So is blockquote.
 
 
 Look into making menu a dialog. 

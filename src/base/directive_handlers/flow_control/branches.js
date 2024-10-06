@@ -45,7 +45,7 @@ GorillaPresenter.processBranch = function(branchparts){
         evt.stopImmediatePropagation();
         GorillaPresenter.navigateToBranch(evt,evt.target.getAttribute("parameter"));
     }
-    return "<a class='gorilla-presenter-branch link' parameter='" + slideName + "'>" + displayText + "</a>";
+    return "<a class='gorilla-presenter-branch link standalone' parameter='" + slideName + "'>" + displayText + "</a>";
     }
 
 GorillaPresenter.processBranches = function(titleparts,links){

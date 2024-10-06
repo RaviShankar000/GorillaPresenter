@@ -134,6 +134,9 @@ GorillaPresenter.editor.handleEditorPaste = function(event) {
 GorillaPresenter.editor.performEditorFunction = function(event){
   console.log("performing editor function: " + event.target.title);
   switch(event.target.title){
+    case "Done":
+      GorillaPresenter.showSlideShowScreen(); 
+      break;
     case "Bold":
       GorillaPresenter.editor.toggleBold();
       break;

@@ -15,10 +15,10 @@
       Yeah, there's absolutely no way this can work with JavaScript turned off. Sorry, my friend.
     </noscript>
     
-  <div id="gorilla-presenter-slideroot" class= "gorilla-presenter-screen">
+  <div id="gorilla-presenter-slideroot" class= "gorilla-presenter-screen nonprintable">
   </div>
  
-  <div id="gorilla-presenter-slide-editor-container" class= "gorilla-presenter-screen gorilla-presenter-editor-container">
+  <div id="gorilla-presenter-slide-editor-container" class= "gorilla-presenter-screen gorilla-presenter-editor-container nonprintable">
     <div id="gorilla-presenter-editor-controls">
       <span class="gorilla-presenter-button-bar">
       <button class="gorilla-presenter-editor-button icon-ok" type="button" englishtitle="Done""></button>
@@ -48,7 +48,7 @@
     </div>
   </div>
     
-  <div id="gorilla-presenter-media-library-container" class="gorilla-presenter-screen gorilla-presenter-editor-container">
+  <div id="gorilla-presenter-media-library-container" class="gorilla-presenter-screen gorilla-presenter-editor-container nonprintable">
     <div id="gorilla-presenter-media-library-uploader">
       <h1>Media Library</h1>
       <button id="gorilla-presenter-media-library-upload-button" onclick="GorillaPresenter.uploadMediaFile()">Import Media</button>
@@ -57,7 +57,7 @@
         
     </div>
   </div>
-  <div id="gorilla-presenter-about-container" class="gorilla-presenter-screen gorilla-presenter-editor-container">
+  <div id="gorilla-presenter-about-container" class="gorilla-presenter-screen gorilla-presenter-editor-container nonprintable">
     <div id="gorilla-presenter-about">
       <button onclick="GorillaPresenter.showSlideShowScreen()">Done</button>
       <h1>Summary</h1>
@@ -71,23 +71,21 @@
     </div>
   </div>
 
-  <dialog id="gorilla-presenter-main-menu-wrapper">
+  <dialog id="gorilla-presenter-main-menu-wrapper"  class="nonprintable">
   <div id="gorilla-presenter-main-menu" class="gorilla-presenter-unselectable">
   </div>
 </dialog>
-    <div id="gorilla-presenter-warning-message">
+    <div id="gorilla-presenter-warning-message" class="nonprintable">
       This is a warning, y'all.
     </div>
-  <div id="gorilla-presenter-printer-dialog"></div>
+  <div id="gorilla-presenter-printer-dialog" class="nonprintable"></div>
 
-<div id="gorilla-presenter-launcher" d>
+<div id="gorilla-presenter-launcher" class="nonprintable">
        <input type="file" id="gorilla-presenter-workspace-chooser" onchange="GorillaPresenter.workspaceChosen()" accept="html"/>
 </div>
-<div id="gorilla-presenter-1-up-container">
+
+<div id="print-container">
 </div>
-
-<div id="gorilla-presenter-6-up-container"></div>
-
   </body>
  
   <script type="text/javascript" id="Gorilla_presenter_file_system">
