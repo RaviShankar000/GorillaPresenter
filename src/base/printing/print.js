@@ -34,18 +34,12 @@ GorillaPresenter.printSlides = function (slideClass, paperSize, slidesPerPage) {
             let currentSlideHeight = GorillaPresenter.convertPixelsToInches(getComputedStyle(currentSlide).height);
             console.log("currentSlideWidth is " + currentSlideWidth);
             console.log("currentSlideHeight is " + currentSlideHeight);
-           // let scaleFactor =   currentSlideHeight / size.safeWidth;
-           // let scaleFactor = GorillaPresenter.convertPixelsToInches(getComputedStyle(currentSlide).width) / size.width;
-            //console.log("scaleFactor is " + scaleFactor);
             page.style.height = size.safeHeight + "in";
             page.style.width = size.safeWidth + "in";
-       //     page.style.left = -((page.width - size.safeWidth) / 2) + "in";
-       //     page.style.top = ((page.height - size.safeHeight) / 2) + "in";
             currentSlide.style.width = (size.safeHeight - 1) + "in";
             currentSlide.style.height = (size.safeWidth - 1) + "in";
             currentSlide.style.top = 2 * (size.height - size.safeHeight) + "in";
             currentSlide.style.left = -(size.width - size.safeWidth) + "in";
-           // let transformation = 'rotate(90deg) scale(' + scaleFactor + ')';
             let transformation = 'rotate(90deg)';
             console.log("transformation =" + transformation);
            currentSlide.style.transform = transformation
@@ -59,25 +53,16 @@ GorillaPresenter.printSlides = function (slideClass, paperSize, slidesPerPage) {
         let currentSlide;
         for (let i = 0; i < slides.length; i++) {
             currentSlide = document.querySelector('#' + slides[i]);
-  //          console.log("currentSlide is " + currentSlide);
             if (i % 6 === 0) {
                 rowContainer = document.createElement('div');
                 rowContainer.classList.add('print-page-6-up');
                 printContainer.appendChild(rowContainer);
             }
             let displayStyle = getComputedStyle(currentSlide);
-            let currentSlideWidth = GorillaPresenter.convertPixelsToInches(displayStyle.width);
             let currentSlideHeight = GorillaPresenter.convertPixelsToInches(displayStyle.height);
-            /* console.log("currentSlideWidth is " + currentSlideWidth);
-            console.log("currentSlideHeight is " + currentSlideHeight); */
-            let scaleFactorWidth = (size.safeWidth / 3) / currentSlideWidth;
             let scaleFactorHeight = (size.safeHeight / 3) / currentSlideHeight;
-            /* console.log("scaleFactorWidth is " + scaleFactorWidth);
-            console.log("scaleFactorHeight is " + scaleFactorHeight); */
             let thumbnailWidth = ((size.safeWidth - 0.5) / 2) + "in";
             let thumbnailHeight = ((size.safeHeight - 0.5) / 3) + "in";
-     /*        console.log("thumbnailWidth is " + thumbnailWidth);
-            console.log("thumbnailHeight is " + thumbnailHeight); */
             currentSlide.classList.remove('sic-transit-panel');
             currentSlide.style.width = thumbnailWidth;
             currentSlide.style.height = thumbnailHeight;
@@ -86,10 +71,8 @@ GorillaPresenter.printSlides = function (slideClass, paperSize, slidesPerPage) {
             currentSlide.style.minWidth = thumbnailWidth;
             currentSlide.style.minHeight = thumbnailHeight;
             currentSlide.style.position="relative";
-            let transform = 'scale(' + scaleFactorHeight  + ')' //+ ',' + scaleFactorWidth + ')';
-         //   console.log("transform is " + transform);
+            let transform = 'scale(' + scaleFactorHeight  + ')'
             currentSlide.style.transform = transform;
-            //clone.style.transformOrigin = 'center center';
             rowContainer.appendChild(currentSlide);
         }
       
@@ -106,22 +89,26 @@ GorillaPresenter.printSlides = function (slideClass, paperSize, slidesPerPage) {
     }
     );
     window.print();
- /*   for(let i = 0; i < slides.length; i++){
+    printContainer.style.display = 'none';
+    for(let i = 0; i < slides.length; i++){
         let currentSlide = document.querySelector('#' + slides[i]);
         currentSlide.classList.add('sic-transit-panel');
         currentSlide.style.width = templateSlide.style.width;
         currentSlide.style.height = templateSlide.style.height;
-        currentSlide.style.maxWidth = templateSlide.style.maxWidth;
-        currentSlide.style.maxHeight = templateSlide.style.maxHeight;
-        currentSlide.style.minWidth = templateSlide.style.minWidth;
-        currentSlide.style.minHeight = templateSlide.style.minHeight;
+        currentSlide.style.top = templateSlide.style.top;
+        currentSlide.style.left = templateSlide.style.left;
         currentSlide.style.position = templateSlide.style.position;
+        currentSlide.style.maxHeight = templateSlide.style.maxHeight;
+        currentSlide.style.maxWidth = templateSlide.style.maxWidth;
+        currentSlide.style.minHeight = templateSlide.style.minHeight;
+        currentSlide.style.minWidth = templateSlide.style.minWidth;
         currentSlide.style.transform = templateSlide.style.transform;
+        currentSlide.style.transformOrigin = templateSlide.style.transformOrigin;
         slideRoot.appendChild(currentSlide);
     }
+    printContainer.innerHTML = '';
     nonprintables.forEach(nonprintable => {
         nonprintable.style.display = nonprintablesDisplay[nonprintable];
     });
-    printContainer.innerHTML = '';
-    printContainer.style.display = 'none'; */
+   
 }
