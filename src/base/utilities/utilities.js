@@ -44,3 +44,10 @@ GorillaPresenter.getScreenSize = function(){
   let height = window.innerHeight;
   return {"width":width,"height":height};
 }
+
+GorillaPresenter.sendMail = function(evt,mailtourl){
+  setTimeout(function(){
+      document.location = mailtourl;
+  },100);
+  return true;
+}

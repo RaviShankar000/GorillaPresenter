@@ -2,17 +2,30 @@
     slideRoot: "slideroot",
     panelClass: "panel",
     slideClass: "slide",
+    slideSelector: "slide-selector",
+    useNumbering: true,
     mlaLevelCounters: [0, 0, 0, 0, 0, 0, 0, 0],
     currentSlideOffset:0,
     slideOffsets: [],
     slideIDs: [],
+    slideTitles: [],
+    untitledSlideCounter: 1,
     slideData: "",
+    currentSourceOffset:0,
     renderedSlideString: "",
     speakerNotes: "",
     inSlide: false,
+    inOutline:false,
+    domParser:  new DOMParser(),
     correctAnswerString: "That is correct!",
     incorrectAnswerString: "I'm sorry, that is incorrect.",
     markdown: window.markdownit({html:true,xhtmlOut:true,typographer:true}),
+    metadata:{
+        author: "Edmund Wells",
+        documentTitle: "The Manual of Everything",
+        publisher: "Wells Publishing",
+    },
+   
   init: function(){
     SlideRenderer.rootElement = document.getElementById(SlideRenderer.slideRoot);
     sicTransit = new SicTransit("#" + SlideRenderer.slideRoot, "." + SlideRenderer.panelClass);
@@ -23,20 +36,26 @@
         SlideRenderer.inSlide = false;
         SlideRenderer.renderedSlideString = "";
         SlideRenderer.speakerNotes = "";
+        SlideRenderer.currentSourceOffset = 0;
         SlideRenderer.lineType =  "P"; // Just plain slide paragraph entry.
         SlideRenderer.currentSlideOffset = 0;
         SlideRenderer.slideOffsets = [];
         SlideRenderer.slideIDs = [];
+        SlideRenderer.slideTitles = [];
+        SlideRenderer.untitledSlideCounter = 1;
         SlideRenderer.correctAnswerString =  "That is correct!"; // Correct answer string.
         SlideRenderer.incorrectAnswerString = "I'm sorry, that is incorrect."; // Incorrect answer string.
         SlideRenderer.alignment =  "left"; // Default alignment for slide components.
         SlideRenderer.useNumbering = true; // if false, no numbering/lettering is used in outline entries.
         SlideRenderer.mlaLevelCounters =  [0, 0, 0, 0, 0, 0, 0,0]; // Keeps track of the current heading counters for each level.
+        SlideRenderer.metadata.author =  "Edmund Wells";
+        SlideRenderer.metadata.documentTitle =  "The Manual of Everything";
+        SlideRenderer.metadata.publisher =  "Wells Publishing";
     },
     romanNumeralBands: [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1], // The bands of numbers that correspond to Roman numerals.
     romanNumeralStringsUpper: ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"], // The Roman numeral strings for each band.
     romanNumeralStringsLower: ["m", "cm", "d", "cd", "c", "xc", "l", "xl", "x", "ix", "v", "iv", "i"], // The Roman numeral strings for each band.
-
+   
     resetMLALevelCounters: function(){
         SlideRenderer.mlaLevelCounters = [0, 0, 0, 0, 0, 0, 0, 0];
     },
@@ -144,7 +163,7 @@
         let originalLine = line;
         if(line.trim() === ":"){
             SlideRenderer.resetMLALevelCounters(); // new outline, reset the counters.
-            return null;
+            return "";
           }
           if(line.indexOf(":") === 0){
             let slideObject = {
@@ -169,16 +188,18 @@
                     if(slideObject.levelSet === true){
                         GorillaPresenter.error("Error: found outline level parameter after level was set in line: " + originalLine + ".");
                     }
-                    slideObject.level = parseInt(parameter);
+                    slideObject.level = parseInt(parameter) - 1;
                     slideObject.levelSet = true;
                     continue;
                 }
                 switch(parameter){
-                    case "A": slideObject.type = "A"; // Author
+                    case "A": slideObject.type = "A"; // Document Author
                                 continue;
-                    case "C": slideObject.type = "C"; // Chapter title
+                    case "D": slideObject.type = "D"; // Document Title
                                 continue;
                     case "E": slideObject.type = "E"; // Email
+                                continue;
+                    case "G": slideObject.type = "G"; // Media
                                 continue;
                     case "H": slideObject.type = "H"; // Heading
                                 continue;
@@ -186,23 +207,25 @@
                                 continue;
                     case "L": slideObject.type = "L"; // Link
                                 continue;
-                    case "M": slideObject.type = "M"; // Media
-                                continue
-                    case "N": slideObject.useNumbering = true;
-                               continue;
-                    case "O": SlideRenderer.newOutline();
+                    case "M": slideObject.type = "M"; // Metadata
                                 continue;
-                    case "P": slideObject.type = "P"; // Normal paragraph entry
+                    case "N": SlideRenderer.useNumbering = true;
+                               continue;
+                    case "O": slideObject.type = "O"; // Outline
+                                continue;
+                    case "P": slideObject.type = "P"; // Publisher
                                 continue;
                     case "Q": slideObject.type = "Q"; // (question text)
                                 continue;
                     case "R": slideObject.type = "R"; // (right answer)
                                 continue;
                     case "S": slideObject.type = "S"; // (new section/slide)
+                              SlideRenderer.slideOffsets.push(SlideRenderer.currentSourceOffset);
+                        
                                 continue;
                     case "T": slideObject.type = "T"; // (title)
                                 continue;
-                    case "U": slideObject.useNumbering = false;
+                    case "U": SlideRenderer.useNumbering = false;
                                 continue;
                     case "V": slideObject.type = "V"; // (verso -- copyright, etc.)
                                 continue;
@@ -219,17 +242,21 @@
                     case "_": SlideRenderer.alignment = "justify";
                                 continue;
                     case "+": SlideRenderer.correctAnswerString = line;
-                                return null;
+                                return "";
                     case "-": SlideRenderer.incorrectAnswerString = line;
-                                return null;
-                    default: GorillaPresenter.error("Error: found unknown outline parameter: " + parameter + " in line: " + originalLine   + ".");  
-                    return null;
+                                return "";
+                    default: let errorMessage =  "<span class='error-message'>Error: found unknown outline parameter: " + parameter + " in line: " +              originalLine   + ".</span>";
+                            console.error(errorMessage);    
+                            return errorMessage;
                 }
             }
-            SlideRenderer.renderResult(line, slideObject);
+            if(slideObject.type === "M"){
+                return SlideRenderer.renderMetadata(line,slideObject);
+            }
+            else return SlideRenderer.renderResult(line, slideObject);
         }
         else{
-            return line;
+            return line + "\n";
         }
 
             
@@ -238,21 +265,24 @@
     renderResult: function(line, slideObject){
         let result = "";
         switch(slideObject.type){
-            case "A": result =  SlideRenderer.authorString(line,slideObject.level);
+            case "A": result =  SlideRenderer.metadataAuthorString(line,slideObject.level);
                         break;
-            case "C": result = SlideRenderer.chapterTitleString(line,slideObject.level);
+            case "D": result = SlideRenderer.metaData.documentTitleString(line,slideObject.level);
                         break;
             case "E": result =  SlideRenderer.emailString(line,slideObject.level);
+                        break;
+            case "G": result =  SlideRenderer.mediaString(line,slideObject.level);
                         break;
             case "H": result =  SlideRenderer.headingString(line,slideObject.level);
                         break;
             case "I": result =  SlideRenderer.isbnString(line,slideObject.level);
                         break;
             case "L": result = SlideRenderer.linkString(line,slideObject.level);
-                        break;  
-            case "M": result =  SlideRenderer.mediaString(line,slideObject.level);
                         break;
-            case "P":  result = SlideRenderer.normalString(line,slideObject.level);
+            case "N": result = SlideRenderer.metadataIDNumber(line,slideObject.level);
+            case "O": result = SlideRenderer.generateNewOutline(line,slideObject.level);
+                        break;
+            case "P":  result = SlideRenderer.metadataPublisher(line,slideObject.level);
                         break;
             case "Q": result = SlideRenderer.questionString(line,slideObject.level);
                         break;
@@ -261,6 +291,7 @@
             case "S": result= SlideRenderer.generateNewSlide(line,slideObject.level);
                         break;
             case "T": result =  SlideRenderer.titleString(line,slideObject.level);
+                        
                         break;
             case "V": result =  SlideRenderer.versoString(line,slideObject.level);
                         break;
@@ -269,7 +300,7 @@
             default: result = "<span class='error-message'>Error: found unknown slide componenet type: " + slideObject.type + " in line: " + originalLine + ".</span>";
                 console.error(result);
         }
-        SlideRenderer.renderedSlideString += "\n" +  result;
+       return "\n" +  result + "\n";
     },
 
 
@@ -298,7 +329,6 @@
     renderSlides: function(){
         SlideRenderer.resetSlides();
         let text = SlideRenderer.slideData + "\n:S Gorilla Presenter\nMade with &hearts; by Tony Hursh. See \"About\" for full credits.\n" + "<a href='https://www.gorillapresenter.com/support'><img src=" + BrowserFileSystem.readInternalFileDataURL("icons/logo-small.png") + " width='25%' height='25%' style='display:block;margin-left:auto;margin-right:auto;'></a>\r\n";
-        let rootElement = document.getElementById(SlideRenderer.slideRoot);
         let oldSlides = document.getElementsByClassName(SlideRenderer.slideClass);
         for(let i = 0; i < oldSlides.length; i++){
           oldSlides[i].remove();
@@ -309,95 +339,132 @@
             let line = lines[i];
             if(line.indexOf(";") === 0){
               SlideRenderer.speakerNotes += line.substring(1) + "\n";
-              continue;
             }
-            if(line.indexOf("//") === 0){
-              continue;
+           else if(line.indexOf("//") === 0){ // Comment line
+                continue;
             }
-          
-            if(line.indexOf(":") === 0){
-              let slideParseResult = SlideRenderer.parseSlideComponents(line);
-               console.log("slideParseResult is " + slideParseResult);
-               if(slideParseResult === null){
-                    continue;
-                }
-               SlideRenderer.renderedSlideString += slideParseResult;
-              
+            else if(line.indexOf(":") === 0){
+                SlideRenderer.renderedSlideString += SlideRenderer.parseSlideComponents(line);
             }
             else {
-                SlideRenderer.renderedSlideString += line;
+                SlideRenderer.renderedSlideString += SlideRenderer.textProcessor(line + "\n");
               }
-              continue;
+              SlideRenderer.currentSourceOffset += line.length + 1;
+          }
+          if(SlideRenderer.inOutline === true){
+            SlideRenderer.renderedSlideString += "</div>"; // Terminate any in-progress outline.
           }
           if(SlideRenderer.inSlide === true){
-            SlideRenderer.renderedSlideString += "</div>";
+            SlideRenderer.renderedSlideString += "</div></div>"; // Terminate any in-progress slide.
           }
-          let processedSlides = SlideRenderer.markdown.render(SlideRenderer.renderedSlideString);
-          SlideRenderer.rootElement.innerHTML =  SlideRenderer.rootElement.innerHTML + "\n" + processedSlides;
+         let processedSlides = SlideRenderer.markdown.render(SlideRenderer.renderedSlideString);
+          SlideRenderer.rootElement.innerHTML =  SlideRenderer.rootElement.innerHTML + "\n" + processedSlides; // the root element has some non-slide panels in in it, so we append the rendered slides to it.
           renderMathInElement(SlideRenderer.rootElement);
+          // debugging code
+        /*  let newSlides = document.getElementsByClassName(SlideRenderer.slideClass);
+          if(newSlides.length > 0){
+            newSlides[0].style.display = "block";
+            } */
+        SlideRenderer.renderSlideSelector();
+        SlideHandler.sicTransit.loadPanelStack();
+        SlideHandler.displaySlideByIndex(0);
+          
+        // end debugging code
     },
    
 
     generateNewSlide: function(line,level){
+        let returnValue = "";
         if(SlideRenderer.inSlide === true){
-            SlideRenderer.renderedSlideString += "</div>";
+           returnValue = "</div></div>"; // Need to finish off the previous slide if there was one.
+        }
+        if(SlideRenderer.inOutline === true){
+            returnValue += "</div>"; // Need to finish off the previous outline if there was one.
+            SlideRenderer.inOutline = false;
         }
         SlideRenderer.inSlide = true;
         let slideId = "slide" + uuid();
         SlideRenderer.slideIDs.push(slideId);
         let slideTitle = SlideRenderer.textProcessor(line.trim());
-            return SlideRenderer.renderedSlideString += "<div class='" + SlideRenderer.slideClass + " " + SlideRenderer.panelClass +"' id='" + slideId + "'><div class='slide-title'>" + slideTitle + "</div>";
+        if(slideTitle === ""){
+            slideTitle = "Slide " + SlideRenderer.untitledSlideCounter;
+            SlideRenderer.untitledSlideCounter++;
+        }
+        SlideRenderer.slideTitles.push(slideTitle);
+        return returnValue + "<div class='" + SlideRenderer.slideClass + " " + SlideRenderer.panelClass + "' id='" + slideId + "'><div class='slide-title'>" + slideTitle + "</div><div class='slide-body'>";
     },
-    authorString: function(line,level){
+    generateNewOutline: function(line,level){
+        let returnValue = "";
+        if(SlideRenderer.inOutline === true){
+           returnValue = "</div>"; // Need to finish off the previous outline if there was one.
+        }
+        if(line.trim() === "O"){
+            SlideRenderer.inOutline = false;
+            return returnValue;
+        }
+        SlideRenderer.inOutline = true;
+        SlideRenderer.resetMLALevelCounters();
+        return returnValue + "<div class='outline'>";
+    },
+    metadatAuthorString: function(line,level){
         let heading = SlideRenderer.mlaHeadingString(level);
-        SlideRenderer.renderedSlideString += "\n" + SEML.parseSEML("p",".navigable-list-item.author" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
+        return  SEML.parseSEML("p",".outline-item.author" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
     },
-    chapterTitleString: function(line,level){
+    metadataDocumentTitleString: function(line,level){
         let heading = SlideRenderer.mlaHeadingString(level);
-        SlideRenderer.renderedSlideString += "\n" +  SEML.parseSEML("p",".navigable-list-item.chapter-title" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
+        return  SEML.parseSEML("p",".outline-item.document-title" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
     },
-    sendMail: function(evt,mailtourl){
-        setTimeout(function(){
-            document.location = mailtourl;
-        },100);
-        return true;
+    metadataPublisher: function(line,level){
+        let heading = SlideRenderer.mlaHeadingString(level);
+        return  SEML.parseSEML("p",".outline-item.publisher" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
     },
+    metadataIDNumber: function(line,level){
+        let heading = SlideRenderer.mlaHeadingString(level);
+        let idParts = line.split("|");
+        if(idParts.length < 2){
+            let errorMessage = "<span class='error-message'>Error: found metadata ID number (:N) without enough arguments in line: " + line + ". Need idnumber|idtype</span>";
+            console.error(errorMessage);
+            return errorMessage;
+        }
+        return SEML.parseSEML("p",".outline-item.id-number" + ".outline-level-" + level + "id-number='" + idParts[0] + "' id-type='" + idParts[1] + "'",heading + " " + SlideRenderer.textProcessor(line));
+    },
+
     emailString: function(line,level){
         let heading = SlideRenderer.mlaHeadingString(level);
         let emailParts = line.split("|");
         if(emailParts.length < 4){
             let errorMessage = "<span class='error-message'>Error: found email item without enough arguments in line: " + line + ". Need prompt|email address|subject|body</span>";
             console.error(errorMessage);
-            SlideRenderer.renderedSlideString += "\n" +  errorMessage;
+            return errorMessage;
         }
         let emailPrompt = emailParts[0];
         let address = emailParts[1];
         let subject = emailParts[2];
         let body = emailParts[3];
-        SlideRenderer.renderedSlideString += "\n" +  SEML.parseSEML("p",".navigable-list-item.email" + ".outline-level-" + level + "!onclick=\"function(){SlideRenderer.sendMail(\'" + address + "\',\'" + subject + "\',\'" + body + "\')\";",heading + " " + SlideRenderer.textProcessor(emailPrompt));
+        return  SEML.parseSEML("p",".outline-item.email" + ".outline-level-" + level + "!onclick=\"function(){GorillaPresenter.sendMail(\'" + address + "\',\'" + subject + "\',\'" + body + "\')\";",heading + " " + SlideRenderer.textProcessor(emailPrompt));
     },
 
     normalString: function(line,level){
         let heading = SlideRenderer.mlaHeadingString(level);
-        console.log("Line is " + line);
-        return SEML.parseSEML("p",".navigable-list-item.link" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
+        return SEML.parseSEML("p",".outline-item.link" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
     },
+
     titleString: function(line,level){
         let heading = SlideRenderer.mlaHeadingString(level);
-        return SEML.parseSEML("p",".navigable-list-item.navigable-list-title" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
+        return SEML.parseSEML("p",".outline-item.outline-title" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
     },
 
     questionString: function(line,level){
         let heading = SlideRenderer.mlaHeadingString(level);
-        return SEML.parseSEML("p",".navigable-list-item.navigable-list-header.navigable-list-question" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
+        return SEML.parseSEML("p",".outline-item.outline-header.outline-question" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
     },
     correctAnswerString: function(line,level){
         let heading = SlideRenderer.mlaHeadingString(level);
-        return SEML.parseSEML("p",".navigable-list-item.navigable-list-correct-answer.outline-level-" + level + "!onclick=\"function(){displayAnswer(\"" + SlideRenderer.correctAnswer.trim() + "\")}\")", heading + SlideRenderer.textProcessor(line));
+        return SEML.parseSEML("p",".outline-item.outline-correct-answer.outline-level-" + level + "!onclick=\"function(){displayAnswer(\"" + SlideRenderer.correctAnswer.trim() + "\")}\")", heading + SlideRenderer.textProcessor(line));
     },
     incorrectAnswerString: function(line,level){
         let heading = SlideRenderer.mlaHeadingString(level);
-        return SEML.parseSEML("p",".navigable-list-item.navigable-list-incorrect-answer.outline-level-" + level + "!onclick=\"function(){'displayAnswer(\"" + SlideRenderer.incorrectAnswer.trim() + "\")}\")", heading + SlideRenderer.textProcessor(line));
+        return SEML.parseSEML("p",".outline-item.outline-incorrect-answer.outline-level-" + level + "!onclick=\"function(){'displayAnswer(\"" + SlideRenderer.incorrectAnswer.trim() + "\")}\")", heading + SlideRenderer.textProcessor(line));
     },
     linkString: function(line,level){
         let heading = SlideRenderer.mlaHeadingString(level);
@@ -412,15 +479,15 @@
         let linktext = linkParts[0].trim();
         let linkDestination = linkParts[1].trim();
         if(linkDestination.indexOf("http") === 0){
-            return SEML.parseSEML("p",".navigable-list-item.navigable-list-item.link.external-link.outline-level-" + level + "!param='" + linkParts[1] + "'", heading + SlideRenderer.textProcessor(linktext));
+            return SEML.parseSEML("p",".outline-item.link.external-link.outline-level-" + level + "!param='" + linkParts[1] + "'", heading + SlideRenderer.textProcessor(linktext));
         }
         else{
-            return SEML.parseSEML("p",".navigable-list-item.navigable-list-item.link.branch.outline-level-" + level + "!param='" + linkParts[1] + "'", heading + SlideRenderer.textProcessor(linktext));
+            return SEML.parseSEML("p",".outline-item.outline-item.link.branch.outline-level-" + level + "!param='" + linkParts[1] + "'", heading + SlideRenderer.textProcessor(linktext));
         }
     },
     versoString: function(line,level){
         let heading = SlideRenderer.mlaHeadingString(level);
-        return SEML.parseSEML("p",".navigable-list-item.verso" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
+        return SEML.parseSEML("p",".outline-item.verso" + ".outline-level-" + level,heading + " " + SlideRenderer.textProcessor(line));
     },
 
     mediaString:function (mediaSpec) {
@@ -451,9 +518,8 @@
             case "jpg": return '<img src="' + mediaURL + '" alt="' + description + '" aria-label="' + description + '">';
     
             default: let errorMessage = "<span class='error-message'>Unsupported media type " + mediaExtension + "in line " + mediaSpec + "</span>";
-                GorillaPresenter.error(errorMessage);
                 console.error(errorMessage);
-                return null;
+                return errorMessage;
         }
     },
     bookSources: {
@@ -466,21 +532,21 @@
     
     },
     isbnString: function(line,level){
-    isbnparts = line.split("|");
-    if(isbnparts.length < 2){
-        let errorMessage = "<span class='error-message'>Found ISBN without enough arguments; need ISBN and title</span>";
-        console.error(errorMessage);
-        return errorMessage;
-    }
-    let isbn = isbnparts[0];
-    let title = isbnparts[1];
-    let sources = Object.keys(SlideRenderer.bookSources);
-    let sourceList = "";
-    let bookLink;
-    sources.forEach(function(source){
-        bookLink = SlideRenderer.bookSources[source].replace("%%%%",isbn);
-        sourceList += SlideRenderer.linkString(source,bookLink,level);
-    })
+        isbnparts = line.split("|");
+        if(isbnparts.length < 2){
+            let errorMessage = "<span class='error-message'>Found ISBN without enough arguments; need ISBN and title</span>";
+            console.error(errorMessage);
+            return errorMessage;
+        }
+        let isbn = isbnparts[0];
+        let title = isbnparts[1];
+        let sources = Object.keys(SlideRenderer.bookSources);
+        let sourceList = "";
+        let bookLink;
+        sources.forEach(function(source){
+            bookLink = SlideRenderer.bookSources[source].replace("%%%%",isbn);
+            sourceList += SlideRenderer.linkString(source,bookLink,level);
+        })
         return SlideRenderer.titleString(title,level) + "\n" + sourceList;
     },
 
@@ -508,4 +574,20 @@
                 return "";
         }
     },
+    renderSlideSelector: function(){
+        let slideSelector = document.getElementById(SlideRenderer.slideSelector);
+        slideSelector.innerHTML = "";
+        for(let i = 0; i < SlideRenderer.slideTitles.length; i++){
+            let rawTitle = SlideRenderer.slideTitles[i];
+            let parsedDoc = SlideRenderer.domParser.parseFromString(rawTitle, 'text/html');
+            const slideTitle = parsedDoc.body.textContent || "";
+            let slideId = SlideRenderer.slideIDs[i];
+            let option = document.createElement("option");
+            option.value = slideId;
+            option.text = slideTitle;
+            slideSelector.add(option);
+        }
+
+      },
+      
  }

@@ -15,19 +15,13 @@
       Yeah, there's absolutely no way this can work with JavaScript turned off. Sorry, my friend.
     </noscript>
 
-  <!-- <div class="slide-title">Slide Title</div>
-  <div class="slide-body">Slide Body</div>
-  <div class="navigable-list-title">Navigable List Title</div>
-  <div class="navigable-list-header">Navigable List Header</div>
-  <div class="navigable-list-item">Navigable List Item</div> -->
-  
   <div id="slideroot" class= "nonprintable">
   </div>
   <dialog id="main-menu-wrapper" class="nonprintable">
     <div id="mainmenu" class="unselectable mainmenu">
       <div class="main-menu-item">
           <span class="translatable" english="Select Slide">Select Slide: </span>
-          <select title="Select slide" id="slide-selector"  onchange="SlideHandler.selectSlide(this.value)"></select>
+          <select title="Select slide" id="slide-selector"  onchange="SlideHandler.slideSelected(this.value)"></select>
       </div>
       <div class="main-menu-item menu-choice"><span class="translatable" english="Slide Editor"><bdi>Slide Editor</bdi></span></div>
       <div class="main-menu-item menu-choice"><span class="translatable" english="Save Presentation"><bdi>Save Presentation</bdi></span></div>
@@ -43,15 +37,15 @@
           </select>
       </div>
       <div class="main-menu-item"><span class="translatable" english="Heading"><bdi>Heading</bdi></span>: 
-          <select title="Heading Font" id="heading-font-stack-selector" onchange="UIHandler.headingFontStackSelected(this.value)">
+          <select title="Heading Font" id="heading-font-stack-selector" onchange="UIHandler.headingFontStackSelected()">
             </select>
       </div>
       <div class="main-menu-item"><span class="translatable" english="Body"><bdi>Body</bdi></span>: 
-          <select title="Body Font Stack" id="body-font-stack-selector" onchange="UIHandler.bodyFontStackSelected(this.value)">
+          <select title="Body Font Stack" id="body-font-stack-selector" onchange="UIHandler.bodyFontStackSelected()">
           </select>
       </div>
       <div class="main-menu-item"><span class="translatable" english="Code"><bdi>Code</bdi></span>: 
-          <select title="Code Font Stack" id="code-font-stack-selector" onchange="UIHandler.codeFontStackSelected(this.value)">
+          <select title="Code Font Stack" id="code-font-stack-selector" onchange="UIHandler.codeFontStackSelected()">
           </select>
       </div>
       <div class="main-menu-item"><span class="translatable" english="Language"><bdi>Language</bdi></span>: 

@@ -23,19 +23,28 @@ let UIHandler = {
     headingFontStack: "--didone-font-stack",
     bodyFontStack: "--humanist-font-stack",
     codeFontStack: "--monospace-code-font-stack",
-    headingFontStackSelected: function(fontStack){
-        UIHandler.headingFontStack = UIHandler.fontStackOptions[fontStack];
-        UIHandler.setFontStacks();
+
+    headingFontStackSelected: function(){
+        let fontStack = document.getElementById("heading-font-stack-selector").value;
+             UIHandler.headingFontStack = fontStack;
+                console.log("Heading font stack selected: " + UIHandler.headingFontStack);
+                UIHandler.setFontStacks();
     },
-    bodyFontStackSelected: function(fontStack){
-        UIHandler.bodyFontStack = UIHandler.fontStackOptions[fontStack];
-        UIHandler.setFontStacks();
+    bodyFontStackSelected: function(){
+            let fontStack = document.getElementById("body-font-stack-selector").value;
+                 UIHandler.bodyFontStack = fontStack; 
+                    console.log("Body font stack selected: " + UIHandler.bodyFontStack);
+                    UIHandler.setFontStacks();
     },
-    codeFontStackSelected: function(fontStack){
-        UIHandler.codeFontStack = UIHandler.fontStackOptions[fontStack];
-        UIHandler.setFontStacks();
+    codeFontStackSelected: function(){
+            let fontStack = document.getElementById("code-font-stack-selector").value;
+                 UIHandler.codeFontStack = fontStack;
+                    console.log("Code font stack selected: " + UIHandler.codeFontStack);
+                    UIHandler.setFontStacks();
     },
+
     setFontStacks: function(){
+        console.log("Setting font stacks");
         if(document.getElementById("ui-font-stack")){
             document.getElementById("ui-font-stack").remove();
           }

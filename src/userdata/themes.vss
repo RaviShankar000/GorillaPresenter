@@ -27,15 +27,15 @@
     line-height: 1.6;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #D6DBDF; 
     background-color: #212F3D; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #212F3D; 
     background-color: #D6DBDF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #2E86C1;
 }
@@ -55,17 +55,17 @@
     text-transform: uppercase; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #ECF0F1; 
     background-color: #2C3E50; 
 }
 
-.navigable-list-header{
+.outline-item.outline-header{
     color: #3498DB; 
     background-color: #FFFFFF; 
 }
 
-.navigable-list-item {
+.outline-item {
     color: #2C3E50; 
     background-color: #ECF0F1; 
 }
@@ -82,15 +82,15 @@
     border-bottom: 1px solid black;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #30628e;
     background-color: rgb(213 146 11);
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: rgb(213 146 11);
     background-color: #30628e;
 }
-.navigable-list-item {
+.outline-item {
     color: darkgreen;
     background-color: #FFFFFF;
 }
@@ -107,15 +107,15 @@
     background-color: #F0F0F0;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0F0F0;
     background-color: #000000;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #000000;
     background-color: #F0F0F0;
 }
-.navigable-list-item {
+.outline-item {
     color: #0A84FF;
     background-color: #FFFFFF;
 }
@@ -132,15 +132,15 @@
     background-color: #EAEAEA;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #EAEAEA;
     background-color: #050505;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #050505;
     background-color: #EAEAEA;
 }
-.navigable-list-item {
+.outline-item {
     color: #333333;
     background-color: #FDFDFD;
 }
@@ -157,15 +157,15 @@
     background-color: #FFF0E1;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFF0E1;
     background-color: #563F2E;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #563F2E;
     background-color: #FFF0E1;
 }
-.navigable-list-item {
+.outline-item {
     color: #D35400;
     background-color: #F4ECE6;
 }
@@ -182,15 +182,15 @@
     background: #333333;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #333333;
     background-color: #C0C0C0;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #C0C0C0;
     background-color: #333333;
 }
-.navigable-list-item {
+.outline-item {
     color: #FF0000;
     background-color: #000000;
 }
@@ -207,15 +207,15 @@
     background-color: #ECF0F1;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #ECF0F1;
     background-color: #34495E;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #34495E;
     background-color: #ECF0F1;
 }
-.navigable-list-item {
+.outline-item {
     color: #1ABC9C;
     background-color: #E8FFFF;
 }
@@ -232,15 +232,15 @@
     background-color: #FBEEE6;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FBEEE6;
     background-color: #3E2723;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #3E2723;
     background-color: #FBEEE6;
 }
-.navigable-list-item {
+.outline-item {
     color: #8E44AD;
     background-color: #FEFEE3;
 }
@@ -257,15 +257,15 @@
     background-color: #FBEEE6;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FBEEE6;
     background-color: #3E2723;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #3E2723;
     background-color: #FBEEE6;
 }
-.navigable-list-item {
+.outline-item {
     color: #E91E63;
     background-color: #FFECF5;
 }
@@ -282,15 +282,15 @@
     background: #8B4513;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #8B4513;
     background-color: #D2B48C;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #D2B48C;
     background-color: #8B4513;
 }
-.navigable-list-item {
+.outline-item {
     color: #6E260E;
     background-color: #FFA07A;
 }
@@ -307,17 +307,17 @@
     background-color: #EAEDED;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #EAEDED;
     background-color: #2C3E50;
 }
-.navigable-list-header {
+.outline-item.outline-header {
     font-family: var(--serif-font-stack);
     font-style: italic;
     background-color: #c2cedf;
     color: black;
 }
-.navigable-list-item {
+.outline-item {
     color: #252a2a;
     background-color: #5DADE2;
 }
@@ -334,15 +334,15 @@
     background-color: #D5D8DC;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #D5D8DC;
     background-color: #5D6D7E;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #CACFD2;
     background-color: #7D3C98;
 }
-.navigable-list-item {
+.outline-item {
     color: #BDC3C7;
     background-color: #6C3483;
 }
@@ -359,15 +359,15 @@
     background-color: #E9F7EF;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #E9F7EF;
     background-color: #196F3D;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #D5F5E3;
     background-color: #27AE60;
 }
-.navigable-list-item {
+.outline-item {
     color: #F1C40F;
     background-color: #2ECC71;
 }
@@ -384,15 +384,15 @@
     background-color: #EAECEE;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #EAECEE;
     background-color: #17202A;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #CACFD2;
     background-color: #5D6D7E;
 }
-.navigable-list-item {
+.outline-item {
     color: #B2BABB;
     background-color: #7F8C8D;
 }
@@ -409,15 +409,15 @@
     background-color: #FFF5EE; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFF5EE;
     background-color: #8B4513;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFE4E1;
     background-color: #CD5C5C;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFB6C1;
     background-color: #FF69B4;
 }
@@ -434,15 +434,15 @@
     background-color: #FFFFFF; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF;
     background-color: #000000;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #E6E6E6;
     background-color: #000080;
 }
-.navigable-list-item {
+.outline-item {
     color: #A9A9A9;
     background-color: #0000FF;
 }
@@ -459,15 +459,15 @@
     background-color: #F0E68C; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0E68C;
     background-color: #2E8B57;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFD700;
     background-color: #FF4500;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFF00;
     background-color: #FFD700;
 }
@@ -484,15 +484,15 @@
     background-color: #F0FFFF; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0FFFF;
     background-color: #2C3E50; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #EAF3F8; 
     background-color: #4682B4;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #5F9EA0; 
 }
@@ -510,15 +510,15 @@
     background-color: #708090; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #708090;
     background-color: #F5F5F5;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #484848;
     background-color: #FF6347;
 }
-.navigable-list-item {
+.outline-item {
     color: #A52A2A;
     background-color: #484848;
 }
@@ -535,15 +535,15 @@
     background-color: #F0FFF0; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0FFF0;
     background-color: #6B8E23;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #DFFF00;
     background-color: #8FBC8F;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFD700;
     background-color: #556B2F;
 }
@@ -560,15 +560,15 @@
     background-color: #000000; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #000000;
     background-color: #87CEFA;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #1E90FF;
     background-color: #191970;
 }
-.navigable-list-item {
+.outline-item {
     color: #00FA9A;
     background-color: #00008B;
 }
@@ -585,15 +585,15 @@
     background-color: #E0FFFF; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #E0FFFF;
     background-color: #2F4F4F;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #C8FFF9;
     background-color: #20B2AA;
 }
-.navigable-list-item {
+.outline-item {
     color: #F0E68C;
     background-color: #008B8B;
 }
@@ -612,15 +612,15 @@
     background-color: #800080; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #800080;
     background-color: #FFD700;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #8B008B;
     background-color: #FFFF00;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #FF4500;
 }
@@ -637,15 +637,15 @@
     background-color: #FFF0F5; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFF0F5;
     background-color: #696969;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #D6EAF8;
     background-color: #5DADE2;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFC0CB;
     background-color: #6495ED;
 }
@@ -665,15 +665,15 @@
     background-color: #708090; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #708090;
     background-color: #FFFFFF;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #A0A0A0;
     background-color: #2C3E50;
 }
-.navigable-list-item {
+.outline-item {
     color: #FF4500;
     background-color: #000000;
 }
@@ -690,15 +690,15 @@
     background-color: #F0E68C; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0E68C;
     background-color: #333330;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFD700;
     background-color: #FF4500;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFA07A;
     background-color: #008B8B;
 }
@@ -715,15 +715,15 @@
     background: #1A237E; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #1A237E;
     background-color: #FFFFFF;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFD700;
     background-color: #1A237E;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFD700;
     background-color: #B22222;
 }
@@ -740,15 +740,15 @@
     background: #FFF8E7;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0E6D2; 
     background-color: #4A3F36;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #D7CCC8;
     background-color: #5D4037;
 }
-.navigable-list-item {
+.outline-item {
     color: #8D7B67;
     background-color: #F0E6D2;
 }
@@ -765,15 +765,15 @@
     background: #FF007F;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFD700;
     background-color: #FF007F;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFC0CB;
     background-color: #FF00FF;
 }
-.navigable-list-item {
+.outline-item {
     color: #00FFFF;
     background-color: #000000;
 }
@@ -789,15 +789,15 @@
     border-bottom: 1px solid #f0ab8d;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #f0ab8d;
     background-color: #f6e4ad;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #f0ab8d;
     background-color: #240747;
 }
-.navigable-list-item {
+.outline-item {
     color: #f0ab8d;
     background-color: #eb2632;
 }
@@ -812,15 +812,15 @@
     border-bottom: 1px solid #bbb;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #ddd;
     background-color: #000;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #bbb;
     background-color: #222;
 }
-.navigable-list-item {
+.outline-item {
     color: #bbb;
     background-color: #111;
 }
@@ -836,15 +836,15 @@
     display: block;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #000;
     background-color: #fff;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #fff;
     background-color: #000;
 }
-.navigable-list-item {
+.outline-item {
     color: #000;
     background-color: #ddd;
 }
@@ -861,15 +861,15 @@
     background: #6DD5FA; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #6DD5FA;
     background-color: #000000;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #2980B9;
     background-color: #2E3192;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #1BFFFF;
 }
@@ -886,15 +886,15 @@
     background: #F9D423; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FF4E50;
     background-color: #FFC371;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FF5F6D;
     background-color: #2C3E50;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #CB2D3E;
 }
@@ -911,15 +911,15 @@
     background: #C8E6C9; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #E8F5E9;
     background-color: #1B5E20;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #4CAF50;
     background-color: #004D40;
 }
-.navigable-list-item {
+.outline-item {
     color: #004D40;
     background-color: #E8F5E9;
 }
@@ -936,15 +936,15 @@
     background:#FFD54F; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #3E2723; 
     background-color: #FFEB3B; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #3E2723; 
     background-color: #FFC107; 
 }
-.navigable-list-item {
+.outline-item {
     color: #FF9800;
     background-color: #FFD54F; 
 }
@@ -961,15 +961,15 @@
     background: #FFF0F5; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #D4AF37;
     background-color: #FFF0F5;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #8C7853;
     background-color: #FAEBD7;
 }
-.navigable-list-item {
+.outline-item {
     color: #763C28;
     background-color: #EDEAE0;
 }
@@ -986,15 +986,15 @@
     background: #696969; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #808080;
     background-color: #696969;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #505050;
     background-color: #A9A9A9;
 }
-.navigable-list-item {
+.outline-item {
     color: #E0E0E0;
     background-color: #303030;
 }
@@ -1011,15 +1011,15 @@
     background: #345D7E;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF;
     background-color: #345D7E;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #3A6F8F;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #3A6F8F;
 }
@@ -1036,15 +1036,15 @@
     background: #B0C4DE; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #000080; 
     background-color: #FFFFFF; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #B0C4DE; 
     background-color: #000080; 
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #4682B4; 
 }
@@ -1062,16 +1062,16 @@
     background: #8B4513; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FAFAD2;
     background-color: #8B4513;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #d98f1e;
     background-color: #A0522D;
 }
 
-.navigable-list-item {
+.outline-item {
     color: #FFD700;
     background-color: #5D4037;
 }
@@ -1089,15 +1089,15 @@ background-color: #D5D8DC;
 border-bottom: 2px solid #AEB6BF;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FDFEFE;
     background-color: #566573;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #AEB6BF;
     background-color: #17202A;
 }
-.navigable-list-item {
+.outline-item {
     color: #D5D8DC;
     background-color: #626567;
 }
@@ -1114,15 +1114,15 @@ color: #DEB887;
 background-color: #2F4F4F;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #2F4F4F;
     background-color: #DEB887;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #013220;
     background-color: #F5F5DC;
 }
-.navigable-list-item {
+.outline-item {
     color: #004225;
     background-color: #F5F5DC;
 }
@@ -1139,15 +1139,15 @@ color: #4A4A4A;
 background-color: #ECECEC;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #ECECEC;
     background-color: #4A4A4A;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #9eb4cf;
     background-color: #3E4A59;
 }
-.navigable-list-item {
+.outline-item {
     color: #4A4A4A;
     background-color: #FBF6E1;
 }
@@ -1164,15 +1164,15 @@ color: #32CD32;
 background-color: #FAFAD2;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FAFAD2;
     background-color: #32CD32;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #48D1CC;
     background-color: #00008B;
 }
-.navigable-list-item {
+.outline-item {
     color: #00FF00;
     background-color: #48D1CC;
 }
@@ -1189,15 +1189,15 @@ color: #E1D9C0;
 background-color: #9A7B4F;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #E1D9C0;
     background-color: #9A7B4F;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #8E6B23;
     background-color: #5E3A06;
 }
-.navigable-list-item {
+.outline-item {
     color: #F4F4F2;
     background-color: #8E6B23;
 }
@@ -1213,17 +1213,17 @@ border-bottom: 2px solid #2685A8;
 color: #F4EFE9;
 background-color: #88B04B;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #668635;
     background-color: #f7efe6;
 }
 
-.navigable-list-header{
+.outline-item.outline-header{
     color: #1dade2;
     background-color: #136A8A;
 }
 
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #2685A8;
 }
@@ -1240,15 +1240,15 @@ background-color: #88B04B;
     background-color: #F5F5DC;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F5F5DC;
     background-color: #5B4B0E; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #C2B280;
     background-color: #6E664E; 
 }
-.navigable-list-item {
+.outline-item {
     color: #9A8B68;
     background-color: #5B4B0E; 
 }
@@ -1265,15 +1265,15 @@ color: #DAA520;
 background-color: #3E2723;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #3E2723;
     background-color: #DAA520;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #8B0000;
     background-color: #F5F5F5;
 }
-.navigable-list-item {
+.outline-item {
     color: #660000;
     background-color: #DAA520;
 }
@@ -1290,17 +1290,17 @@ background-color: #3E2723;
     background-color: #46C7C7;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #013ADF; 
     background-color: #EEDFCC; 
 }
 
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FF4500;
     background-color: #013ADF;
 }
 
-.navigable-list-item {
+.outline-item {
     color: #FA8072;
     background-color: #FF4500;
 }
@@ -1317,15 +1317,15 @@ color: #DCDCDC;
 background-color: #000000;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #000000;
     background-color: #DCDCDC;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #333333;
     background-color: #C0C0C0;
 }
-.navigable-list-item {
+.outline-item {
     color: #5b5858;
     background-color: #DCDCDC;
 }
@@ -1342,15 +1342,15 @@ color: #F5F5F5;
 background-color: #778899;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #778899;
     background-color: #F5F5F5;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #A9A9A9;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #696969;
     background-color: #A9A9A9;
 }
@@ -1367,15 +1367,15 @@ color: #D3D3D3;
 background-color: #8A2BE2;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #8A2BE2;
     background-color: #D3D3D3;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #00008B;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #B0C4DE;
     background-color: #8A2BE2;
 }
@@ -1392,15 +1392,15 @@ color: #7d1f1f;
 background-color: #F0E68C;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0E68C;
     background-color: #7d1f1f;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #6495ED;
     background-color: #FAEBD7;
 }
-.navigable-list-item {
+.outline-item {
     color: #B0E0E6;
     background-color: #6495ED;
 }
@@ -1417,15 +1417,15 @@ background-color: #F0E68C;
     background-color: #000000;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF; 
     background-color: #000000; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FF4500;
     background-color: #FFD700;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFD700; 
     background-color: #FF4500;
 }
@@ -1445,15 +1445,15 @@ background-color: #F0E68C;
     background-color: #ECF0F1;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #ECF0F1;
     background-color: #34495E;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #2C3E50;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #BDC3C7;
     background-color: #2C3E50;
 }
@@ -1471,15 +1471,15 @@ background-color: #F0E68C;
     background-color: #EFEFEF;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #EFEFEF;
     background-color: #2D2D2D; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #2D2D2D;
     background-color: #E8E8E8;
 }
-.navigable-list-item {
+.outline-item {
     color: #EFEFEF; 
     background-color: #5A5A5A; 
 }
@@ -1497,15 +1497,15 @@ background-color: #F0E68C;
     background-color: #FFF0F5;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F5FFFA; 
     background-color: #2F4F4F; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FF4500; 
     background-color: #F5FFFA; 
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #FF4500; 
 }
@@ -1522,15 +1522,15 @@ background-color: #F0E68C;
     background-color: #FAFAD2;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FAFAD2;
     background-color: #4B0082;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #8B4513;
     background-color: #FFD700;
 }
-.navigable-list-item {
+.outline-item {
     color: #DAA520;
     background-color: #8B4513;
 }
@@ -1550,15 +1550,15 @@ background-color: #F0E68C;
     background-color: #F4A460;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F4A460;
     background-color: #8B4513;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #DAA520;
     background-color: #FDF5E6;
 }
-.navigable-list-item {
+.outline-item {
     color: #FDF5E6; 
     background-color: #B8860B;
 }
@@ -1576,15 +1576,15 @@ background-color: #F0E68C;
     background-color: #A5D6A7;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #A5D6A7;
     background-color: #004d40;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #2E8B57;
     background-color: #E8F5E9;
 }
-.navigable-list-item {
+.outline-item {
     color: #006400;
     background-color: #4cce86;
 }
@@ -1601,15 +1601,15 @@ background-color: #F0E68C;
     background-color: #E0FFFF;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #E0FFFF;
     background-color: #2F4F4F;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #008080;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #20B2AA;
     background-color: #008080;
 }
@@ -1626,15 +1626,15 @@ background-color: #F0E68C;
     background-color: #FFE4B5;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFE4B5;
     background-color: #4B0082;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #8B0000;
     background-color: #FDFEFE;
 }
-.navigable-list-item {
+.outline-item {
     color: #ff3c3c;
     background-color: #8B0000;
 }
@@ -1651,15 +1651,15 @@ background-color: #F0E68C;
     background-color: #E0FFFF;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #E0FFFF;
     background-color: #2F4F4F;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #4682B4;
     background-color: #F0F8FF;
 }
-.navigable-list-item {
+.outline-item {
     color: #97fcff;
     background-color: #4682B4;
 }
@@ -1676,15 +1676,15 @@ background-color: #F0E68C;
     background-color: #C8E6C9;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #C8E6C9;
     background-color: #004d40;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #388E3C;
     background-color: #E8F5E9;
 }
-.navigable-list-item {
+.outline-item {
     color: #144217;
     background-color: #41a145;
 }
@@ -1701,15 +1701,15 @@ background-color: #F0E68C;
     background-color: #FAF0E6;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FAF0E6;
     background-color: #8B4513;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #DAA520;
     background-color: #FFF8DC;
 }
-.navigable-list-item {
+.outline-item {
     color: #694d07;
     background-color: #DAA520;
 }
@@ -1726,15 +1726,15 @@ background-color: #F0E68C;
     background-color: #FFF5EE;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF; 
     background-color: #2E8B57; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FF4500; 
     background-color: #FFF5EE; 
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #FF4500; 
 }
@@ -1751,15 +1751,15 @@ background-color: #F0E68C;
     background-color: #D6DBDF;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #D6DBDF;
     background-color: #2F4F4F; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #2F4F4F;
     background-color: #E0E0E0;
 }
-.navigable-list-item {
+.outline-item {
     color: #D6DBDF; 
     background-color: #5D6D7E;
 }
@@ -1776,15 +1776,15 @@ background-color: #F0E68C;
     background-color: #E6E6FA;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0FFFF; 
     background-color: #2F4F4F; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #4682B4; 
     background-color: #F0FFFF; 
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #4682B4; 
 }
@@ -1802,15 +1802,15 @@ background-color: #F0E68C;
     background-color: #E0FFE0;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0FFF0; 
     background-color: #2E8B57; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #2E8B57; 
     background-color: #F0FFF0; 
 }
-.navigable-list-item {
+.outline-item {
     color: #F0FFF0; 
     background-color: #228B22; 
 }
@@ -1828,15 +1828,15 @@ background-color: #F0E68C;
     background-color: #F5DEB3;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FDF5E6; 
     background-color: #8B4513; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #8B4513; 
     background-color: #FDF5E6; 
 }
-.navigable-list-item {
+.outline-item {
     color: #8B4513; 
     background-color: #D2B48C; 
 }
@@ -1854,15 +1854,15 @@ background-color: #F0E68C;
     background-color: #F0FFF0;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0FFF0;
     background-color: #2E8B57;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #006400;
     background-color: #F5FFFA;
 }
-.navigable-list-item {
+.outline-item {
     color: #228B22;
     background-color: #006400;
 }
@@ -1878,15 +1878,15 @@ background-color: #F0E68C;
     background-color: #F5DEB3;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF; 
     background-color: #800000; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #A52A2A; 
     background-color: #F5DEB3; 
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #A52A2A; 
 }
@@ -1904,15 +1904,15 @@ background-color: #F0E68C;
     background-color: #F0FFF0;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0FFF0;
     background-color: #2E8B57;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #32CD32;
     background-color: #F5FFFA;
 }
-.navigable-list-item {
+.outline-item {
     color: #228B22;
     background-color: #32CD32;
 }
@@ -1929,15 +1929,15 @@ background-color: #F0E68C;
     background-color: #E0FFFF;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #E0FFFF;
     background-color: #2E8B57;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #20B2AA;
     background-color: #F0FFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #008B8B;
     background-color: #20B2AA;
 }
@@ -1954,15 +1954,15 @@ background-color: #F0E68C;
     background-color: #EEE8AA;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #EEE8AA;
     background-color: #8B4513;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #BDB76B;
     background-color: #F5F5F5;
 }
-.navigable-list-item {
+.outline-item {
     color: #8B4513;
     background-color: #BDB76B;
 }
@@ -1979,15 +1979,15 @@ background-color: #F0E68C;
     background-color: #C8E6C9;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F5FFFA; 
     background-color: #2F4F4F;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #006400;
     background-color: #E0F2E9; 
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #2E8B57; 
 }
@@ -2004,15 +2004,15 @@ background-color: #F0E68C;
     background-color: #E8F5E9;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #E8F5E9;
     background-color: #2E4D40;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #2E8B57;
     background-color: #F0FFF0;
 }
-.navigable-list-item {
+.outline-item {
     color: #006400;
     background-color: #2E8B57;
 }
@@ -2029,15 +2029,15 @@ background-color: #F0E68C;
     background-color: #FAEBD7;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F5F5F5; 
     background-color: #8B4513; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #B22222; 
     background-color: #F5F5F5; 
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #B22222; 
 }
@@ -2057,15 +2057,15 @@ background-color: #F0E68C;
     background: #191970;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #191970;
     background-color: #1E90FF;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFD700;
     background-color: #000080;
 }
-.navigable-list-item {
+.outline-item {
     color: #6495ED;
     background-color: #FFD700;
 }
@@ -2082,15 +2082,15 @@ background-color: #F0E68C;
     background: #B0C4DE;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #B0C4DE; 
     background-color: #000080; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #ADD8E6;
     background-color: #000080; 
 }
-.navigable-list-item {
+.outline-item {
     color: #5F9EA0;
     background-color: #ADD8E6; 
 }
@@ -2107,15 +2107,15 @@ background-color: #F0E68C;
     background: #AFEEEE;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF; 
     background-color: #2E8B57; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #6B8E23;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #4682B4; 
 }
@@ -2132,15 +2132,15 @@ background-color: #F0E68C;
     background: #2F4F4F;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF; 
     background-color: #2F4F4F; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFFFFF;
     background-color: #8B4513;
 }
-.navigable-list-item {
+.outline-item {
     color: #8B4513; 
     background-color: #F0F0F0; 
 }
@@ -2158,15 +2158,15 @@ background-color: #F0E68C;
     background: #FF0000;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FF0000;
     background-color: #0000FF;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FF00FF;
     background-color: #FFFF00;
 }
-.navigable-list-item {
+.outline-item {
     color: #00FFFF;
     background-color: #FF00FF;
 }
@@ -2182,15 +2182,15 @@ background-color: #F0E68C;
     background: #F4A460;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F4A460;
     background-color: #556B2F;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #E9967A;
     background-color: #8B0000;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFD700;
     background-color: #E9967A;
 }
@@ -2207,15 +2207,15 @@ background-color: #F0E68C;
     background: #FFDAB9;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFDAB9;
     background-color: #2E8B57;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FF6347;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFD700;
     background-color: #FF6347;
 }
@@ -2232,15 +2232,15 @@ background-color: #F0E68C;
     background: #F0F8FF;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0F8FF;
     background-color: #000080;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #1E90FF;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #4682B4;
     background-color: #1E90FF;
 }
@@ -2257,15 +2257,15 @@ background-color: #F0E68C;
     background: #F5F5DC;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F5F5DC;
     background-color: #2F4F4F;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFD700;
     background-color: #708090;
 }
-.navigable-list-item {
+.outline-item {
     color: #8B4513;
     background-color: #FFD700;
 }
@@ -2282,15 +2282,15 @@ background-color: #F0E68C;
     background: #FFDEAD;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFDEAD;
     background-color: #8B4513;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFD700;
     background-color: #000000;
 }
-.navigable-list-item {
+.outline-item {
     color: #32CD32;
     background-color: #FFD700;
 }
@@ -2307,15 +2307,15 @@ background-color: #F0E68C;
     background: #FFE4B5;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFE4B5;
     background-color: #8B0000;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #DAA520;
     background-color: #000000;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFD700;
     background-color: #DAA520;
 }
@@ -2332,15 +2332,15 @@ background-color: #F0E68C;
     background: #696969;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #A9A9A9; 
     background-color: #000000; 
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFD700;
     background-color: #000000;
 }
-.navigable-list-item {
+.outline-item {
     color: #D3D3D3;
     background-color: #FFD700;
 }
@@ -2357,15 +2357,15 @@ background-color: #F0E68C;
     background: #C0C0C0;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #C0C0C0;
     background-color: #8B4513;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #228B22;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #B22222;
     background-color: #228B22;
 }
@@ -2382,15 +2382,15 @@ background-color: #F0E68C;
     background: #FFFF00;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFF00;
     background-color: #0000FF;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFFFFF;
     background-color: #000000;
 }
-.navigable-list-item {
+.outline-item {
     color: #FF0000;
     background-color: #FFFFFF;
 }
@@ -2407,15 +2407,15 @@ background-color: #F0E68C;
     background: #FFE4B5;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFE4B5;
     background-color: #2E8B57;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFD700;
     background-color: #8B4513;
 }
-.navigable-list-item {
+.outline-item {
     color: #FF4500;
     background-color: #FFD700;
 }
@@ -2432,15 +2432,15 @@ background-color: #F0E68C;
     background: #FFF8DC;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFE4B5; 
     background-color: #8B4513;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FF6347;
     background-color: #FFF8DC; 
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #2E8B57;
 }
@@ -2458,15 +2458,15 @@ background-color: #F0E68C;
     background: #D3D3D3;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #D3D3D3;
     background-color: #000000;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFFFFF;
     background-color: #A9A9A9;
 }
-.navigable-list-item {
+.outline-item {
     color: #FF69B4;
     background-color: #FFFFFF;
 }
@@ -2483,15 +2483,15 @@ background-color: #F0E68C;
     background: #F5F5F5;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F5F5F5;
     background-color: #000000;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #32CD32;
     background-color: #8B4513;
 }
-.navigable-list-item {
+.outline-item {
     color: #FF4500;
     background-color: #32CD32;
 }
@@ -2511,15 +2511,15 @@ background-color: #F0E68C;
     background-color: #2F2F2F; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #2F2F2F;
     background-color: #DCDCDC;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #3C3C3C;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #da1111;
     background-color: #3C3C3C;
 }
@@ -2536,16 +2536,16 @@ background-color: #F0E68C;
     background-color: #DEB887; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #DEB887;
     background-color: #8B4513;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFD700;
     background-color: #8B4513;
 }
 
-.navigable-list-item {
+.outline-item {
     color: #6f5412;
     background-color: #FFD700;
 }
@@ -2563,17 +2563,17 @@ background-color: #F0E68C;
     background-color: #E6E6FA; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF; 
     background-color: #2F4F4F;
 }
 
-.navigable-list-header{
+.outline-item.outline-header{
     color: #4B0082; 
     background-color: #F0F8FF; 
 }
 
-.navigable-list-item {
+.outline-item {
     color: #708090; 
     background-color: #4B0082;
 }
@@ -2591,17 +2591,17 @@ background-color: #F0E68C;
     background-color: #F0E68C; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF; 
     background-color: #4B0082;
 }
 
-.navigable-list-header{
+.outline-item.outline-header{
     color: #32CD32; 
     background-color: #FFFACD; 
 }
 
-.navigable-list-item {
+.outline-item {
     color: #FFD700; 
     background-color: #32CD32;
 }
@@ -2619,17 +2619,17 @@ background-color: #F0E68C;
     background-color: #A9A9A9; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF; 
     background-color: #8B0000;
 }
 
-.navigable-list-header{
+.outline-item.outline-header{
     color: #2F4F4F; 
     background-color: #D3D3D3; 
 }
 
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #2F4F4F;
 }
@@ -2647,17 +2647,17 @@ background-color: #F0E68C;
     background-color: #800000; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF; 
     background-color: #D2B48C;
 }
 
-.navigable-list-header{
+.outline-item.outline-header{
     color: #8B0000; 
     background-color: #FFE4C4; 
 }
 
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #8B0000;
 }
@@ -2675,17 +2675,17 @@ background-color: #F0E68C;
     background-color: #F0F8E7; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F0F8E7; 
     background-color: #4B5320;
 }
 
-.navigable-list-header{
+.outline-item.outline-header{
     color: #A8E6A1; 
     background-color: #2C5F2D; 
 }
 
-.navigable-list-item {
+.outline-item {
     color: #6B8E23; 
     background-color: #A8E6A1;
 }
@@ -2703,17 +2703,17 @@ background-color: #F0E68C;
     background-color: #EEE8AA; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF; 
     background-color: #2F4F4F;
 }
 
-.navigable-list-header{
+.outline-item.outline-header{
     color: #556B2F; 
     background-color: #FFF8DC; 
 }
 
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #556B2F;
 }
@@ -2731,17 +2731,17 @@ background-color: #F0E68C;
     background-color: #1C1C1C; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #1C1C1C; 
     background-color: #DCDCDC; 
 }
 
-.navigable-list-header{
+.outline-item.outline-header{
     color: #2C0A0A; 
     background-color: #F5F3CE; 
 }
 
-.navigable-list-item {
+.outline-item {
     color: #F5F3CE; 
     background-color: #2C0A0A; 
 }
@@ -2759,17 +2759,17 @@ background-color: #F0E68C;
     background-color: #E5E8E8; 
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF; 
     background-color: #2E4053;
 }
 
-.navigable-list-header{
+.outline-item.outline-header{
     color: #2C3E50; 
     background-color: #F8F9F9; 
 }
 
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF; 
     background-color: #2C3E50;
 }
@@ -2786,15 +2786,15 @@ background-color: #F0E68C;
     color: #8B0000;
     background-color: #F5E1E1;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #F5E1E1;
     background-color: #8B0000;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #9B111E;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color:#e3cfcf;
     background-color: #9B111E;
 }
@@ -2810,15 +2810,15 @@ background-color: #F0E68C;
     color: #2F4F4F;
     background-color: #FAF0E6;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FAF0E6;
     background-color: #2C3E50;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #F0F8FF;
     background-color: #2F4F4F;
 }
-.navigable-list-item {
+.outline-item {
     color: #B0C4DE;
     background-color: #2C3E50;
 }
@@ -2834,15 +2834,15 @@ background-color: #F0E68C;
     color: #2F4F4F;
     background-color: #98FB98;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #98FB98;
     background-color: #2F4F4F;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #2E8B57;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #3CB371;
 }
@@ -2858,15 +2858,15 @@ background-color: #F0E68C;
     color: #2F4F4F;
     background-color: #AFEEEE;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #AFEEEE;
     background-color: #2F4F4F;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #40E0D0;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #008B8B;
 }
@@ -2882,15 +2882,15 @@ background-color: #F0E68C;
     color: #4B3B0A;
     background-color: #FFE4B5;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFE4B5;
     background-color: #4B3B0A;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFBF00;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #FF8C00;
 }
@@ -2906,15 +2906,15 @@ background-color: #F0E68C;
     color: #E0E0E0;
     background-color: #1034A6;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #E0E0E0;
     background-color: #1034A6;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #0F52BA;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #002366;
 }
@@ -2930,15 +2930,15 @@ background-color: #F0E68C;
     color: #E6E6FA;
     background-color: #8A2BE2;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #E6E6FA;
     background-color: #8A2BE2;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #9932CC;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #4B0082;
 }
@@ -2954,15 +2954,15 @@ background-color: #F0E68C;
     color: #FFC0CB;
     background-color: #DC143C;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFC0CB;
     background-color: #DC143C;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FF007F;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #8B0000;
 }
@@ -2978,15 +2978,15 @@ background-color: #F0E68C;
     color: #FFFFFF;
     background-color: #FFEA00;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFFFFF;
     background-color: #FFEA00;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FFD700;
     background-color: #000000;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #FFA500;
 }
@@ -3002,15 +3002,15 @@ background-color: #F0E68C;
     color: #E6E6FA;
     background-color: #9370DB;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #E6E6FA;
     background-color: #9370DB;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #800080;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #4B0082;
 }
@@ -3026,15 +3026,15 @@ background-color: #F0E68C;
     color: #FFEFD5;
     background-color: #FFA500;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #FFEFD5;
     background-color: #FFA500;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #FF8C00;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #FF4500;
 }
@@ -3050,15 +3050,15 @@ background-color: #F0E68C;
     color: #E0FFFF;
     background-color: #4169E1;
 }
-.navigable-list-title {
+.outline-item.outline-title {
     color: #E0FFFF;
     background-color: #4169E1;
 }
-.navigable-list-header{
+.outline-item.outline-header{
     color: #1E90FF;
     background-color: #FFFFFF;
 }
-.navigable-list-item {
+.outline-item {
     color: #FFFFFF;
     background-color: #0000CD;
 }
@@ -3078,17 +3078,17 @@ color: #2C3E50;
 background-color: #FDE3A7;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #FDE3A7;
 background-color: #2C3E50;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #E74C3C;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #E74C3C;
 }
@@ -3106,17 +3106,17 @@ color: #2C3E50;
 background-color: #EAF2E3;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #EAF2E3;
 background-color: #2C3E50;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #27AE60;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #27AE60;
 }
@@ -3134,17 +3134,17 @@ color: #6E2C00;
 background-color: #FEF5E7;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #FEF5E7;
 background-color: #6E2C00;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #D35400;
 background-color: #FEF5E7;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #6E2C00;
 background-color: #FAD7A0;
 }
@@ -3162,17 +3162,17 @@ color: #5D4037;
 background-color: #FFCCBC;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #FFCCBC;
 background-color: #5D4037;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #C0392B;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #C0392B;
 }
@@ -3190,17 +3190,17 @@ color: #6E2C00;
 background-color: #FDEBD0;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #FDEBD0;
 background-color: #6E2C00;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #D35400;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #D35400;
 }
@@ -3218,17 +3218,17 @@ color: #5D4037;
 background-color: #F5CBA7;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #F5CBA7;
 background-color: #5D4037;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #D35400;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #D35400;
 }
@@ -3246,17 +3246,17 @@ color: #5B5C43;
 background-color: #FCF3CF;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #FCF3CF;
 background-color: #5B5C43;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #7D6608;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #7D6608;
 }
@@ -3274,17 +3274,17 @@ color: #2C3E50;
 background-color: #D4E6F1;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #D4E6F1;
 background-color: #2C3E50;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #1F618D;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #1F618D;
 }
@@ -3302,17 +3302,17 @@ color: #4D2000;
 background-color: #FDEBD0;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #FDEBD0;
 background-color: #4D2000;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #6E2C00;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #6E2C00;
 }
@@ -3330,17 +3330,17 @@ color: #34495E;
 background-color: #E8F8F5;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #E8F8F5;
 background-color: #34495E;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #1ABC9C;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #1ABC9C;
 }
@@ -3358,17 +3358,17 @@ color: #5D4037;
 background-color: #FCF3CF;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #FCF3CF;
 background-color: #5D4037;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #F39C12;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #F39C12;
 }
@@ -3386,17 +3386,17 @@ color: #5D4037;
 background-color: #F5CBA7;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #F5CBA7;
 background-color: #5D4037;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #A93226;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #A93226;
 }
@@ -3414,17 +3414,17 @@ color: #5D4037;
 background-color: #FDEBD0;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #FDEBD0;
 background-color: #5D4037;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #7E5109;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #7E5109;
 }
@@ -3442,17 +3442,17 @@ color: #4E342E;
 background-color: #FBE9E7;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #FBE9E7;
 background-color: #4E342E;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #D35400;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #D35400;
 }
@@ -3470,17 +3470,17 @@ color: #5D4037;
 background-color: #FDEDEC;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #FDEDEC;
 background-color: #5D4037;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #922B21;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #922B21;
 }
@@ -3498,17 +3498,17 @@ color: #4E342E;
 background-color: #F6DDCC;
 }
 
-.navigable-list-title {
+.outline-item.outline-title {
 color: #F6DDCC;
 background-color: #4E342E;
 }
 
-.navigable-list-header {
+.outline-item.outline-header {
 color: #784212;
 background-color: #FFFFFF;
 }
 
-.navigable-list-item {
+.outline-item {
 color: #FFFFFF;
 background-color: #784212;
 }
@@ -3582,20 +3582,20 @@ CSS rule for images within the slide:
 
 CSS rule for navigable list titles (for example, quizzes or branches):
 
-.navigable-list-title
+.outline-item.outline-title
 {
 }
 
 CSS rule for navigable list intermediate headers (for example, the individual questions in a quiz):
 
-.navigable-list-item.navigable-list-header
+.outline-item.outline-header
 {
 }
 
 
 CSS rule for navigable list items (for example, the individual answers in a quiz):
 
-.navigable-list-item link {
+.outline-item link {
 }
 
 

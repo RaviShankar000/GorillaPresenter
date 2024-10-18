@@ -1,18 +1,35 @@
 SlideHandler = {
+  inverseTransformations: {
+    "swipeInFromRight":"swipeInFromLeft",
+    "swipeInFromLeft":"swipeInFromRight",
+    "swipeInFromTop":"swipeInFromBottom",
+    "swipeInFromBottom":"swipeInFromTop",
+    "zoomIn":"zoomIn",
+    "cutIn":"cutIn",
+    "crossDisolveIn":"crossDisolveIn",
+    "fadeInFromBlack":"fadeInFromBlack",
+    "fadeInFromWhite":"fadeInFromWhite",
+    "fadeInFromGray":"fadeInFromGray",
+    "irisIn":"irisIn",
+    "irisInFromWhite":"irisInFromWhite",
+    "irisInFromBlack":"irisInFromBlack",
+    "irisInFromGray":"irisInFromGray",
+    "spinIn":"spinIn",
+  },
+
   workspaceChooser: "slidehandler-workspace-chooser",
   slideSelector: "slidehandler-slide-selector",
-  slidePosition: 0,
+  slideClass: "slide",
+  slideSelector: "slide-selector",
+  slideIndex: 0,
+  slideID: null,
   speakerNotesWindow: null,
-  sicTransit:null,
-  inSlide:false,
-  slides:{
+  sicTransit: new SicTransit("#slideroot",".panel"),
 
-  },
-  
-
-  selectSlide: function(index){
-    SlideHandler.slidePosition = index;
-    SlideHandler.displaySlide(index);
+  slideSelected: function(id){
+    SlideHandler.slideID = id;
+    SlideHandler.slideIndex = SlideHandler.getSlideIndex(id);
+    SlideHandler.displaySlide(id);
   },
 
   loadPresentation: function(){
@@ -51,20 +68,41 @@ SlideHandler = {
     BrowserFileSystem.downloadFile("GorillaPresenter" + SlideHandler.downloadDate(),index_template,"text/html");
     }
   },
-  renderSlideSelector: function(){
-    let slideSelector = document.getElementById(SlideHandler.slideSelector);
-    slideSelector.innerHTML = "hooha";
-  },
-  
  
-  displaySlide: function(index){
-  let slideId = SlideHandler.slideIDs[index];
+  getSlideIndex: function(slideID){
+    let ids = SlideRenderer.slideIDs;
+    for(slideIndex = 0; slideIndex < ids.length; slideIndex++){
+      if(ids[slideIndex] === slideID){
+        return slideIndex;
+      }
+    }
+    UIHandler.warn(LanguageHandler.translate("No slide with this ID:",Language.currentLanguage) + slideID);
+    return -1;
+  },
+ 
+  displaySlideByIndex: function(slideIndex,reverse=false){
+    let slideId = SlideRenderer.slideIDs[slideIndex];
+    SlideHandler.displaySlide(slideId,reverse);
+  },
+
+  displaySlide: function(slideId,reverse=false){
   if(slideId === undefined){
-    UI.warn(Language.translate("No slide with this ID:",Language.currentLanguage) + slideId);
+    UIHandler.warn(LanguageHandler.translate("No slide with this ID:",Language.currentLanguage) + slideId);
     return;
   }
-  let slideData = SlideHandler.slides[slideId];
-  alert(slideData)
+  console.log("Displaying slide " + slideId);
+  /* let slides = document.getElementsByClassName("slide");
+  for(let i = 0; i < slides.length; i++){
+    slides[i].style.display = "none";
+  } */
+  let transition = "swipeInFromRight";
+  if(reverse === true){
+    transition = SlideHandler.inverseTransformations[transition];
+  }
+
+  /*let slide = document.getElementById(slideId);
+  slide.style.display = "block"; */
+  SlideHandler.sicTransit.performTransition({"panelSelector":"#" + slideId, "transitionName":transition,"stackRotationNumber":0});
 },
 
 showSpeakerNotes: function(){

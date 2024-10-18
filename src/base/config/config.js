@@ -5,7 +5,7 @@ ConfigHandler = {
     headingFontStack :"--didone-font-stack",
     bodyFontStack :"--humanist-font-stack",
     codeFontStack : "--monospace-code-font-stack",
-    slidePosition: -1,
+    slidePosition:0,
     editorPosition: 0,
     slidesperpage: "6up",
     papersize: "letter",
