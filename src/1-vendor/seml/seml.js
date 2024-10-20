@@ -12,7 +12,6 @@
   */
 SEML = {
     parseSEML:function(elementType,queryString,content){
-      console.log("queryString is " + queryString);
    let index = 0;
    let idstring = "";
    let classstring = "";

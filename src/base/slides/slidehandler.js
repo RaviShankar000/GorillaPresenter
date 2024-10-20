@@ -1,118 +1,172 @@
-SlideHandler = {
+let SlideHandler = {
   inverseTransformations: {
-    "swipeInFromRight":"swipeInFromLeft",
-    "swipeInFromLeft":"swipeInFromRight",
-    "swipeInFromTop":"swipeInFromBottom",
-    "swipeInFromBottom":"swipeInFromTop",
-    "zoomIn":"zoomIn",
-    "cutIn":"cutIn",
-    "crossDisolveIn":"crossDisolveIn",
-    "fadeInFromBlack":"fadeInFromBlack",
-    "fadeInFromWhite":"fadeInFromWhite",
-    "fadeInFromGray":"fadeInFromGray",
-    "irisIn":"irisIn",
-    "irisInFromWhite":"irisInFromWhite",
-    "irisInFromBlack":"irisInFromBlack",
-    "irisInFromGray":"irisInFromGray",
-    "spinIn":"spinIn",
+    "swipeInFromRight": "swipeInFromLeft",
+    "swipeInFromLeft": "swipeInFromRight",
+    "swipeInFromTop": "swipeInFromBottom",
+    "swipeInFromBottom": "swipeInFromTop",
+    "zoomIn": "zoomIn",
+    "cutIn": "cutIn",
+    "crossDissolveIn": "crossDissolveIn",
+    "fadeInFromBlack": "fadeInFromBlack",
+    "fadeInFromWhite": "fadeInFromWhite",
+    "fadeInFromGray": "fadeInFromGray",
+    "irisIn": "irisIn",
+    "irisInFromWhite": "irisInFromWhite",
+    "irisInFromBlack": "irisInFromBlack",
+    "irisInFromGray": "irisInFromGray",
+    "spinIn": "spinIn",
   },
 
-  workspaceChooser: "slidehandler-workspace-chooser",
+  transformationLookup: {
+    "right": "swipeInFromRight",
+    "left": "swipeInFromLeft",
+    "top": "swipeInFromTop",
+    "bottom": "swipeInFromBottom",
+    "zoom": "zoomIn",
+    "cut": "cutIn",
+    "dissolve": "crossDissolveIn",
+    "fadeblack": "fadeInFromBlack",
+    "fadewhite": "fadeInFromWhite",
+    "fadegray": "fadeInFromGray",
+    "iris": "irisIn",
+    "iriswhite": "irisInFromWhite",
+    "irisblack": "irisInFromBlack",
+    "irisgray": "irisInFromGray",
+    "spin": "spinIn",
+  },
+  backHistory: [],
+  forwardHistory: [],
+  directNavigationHistory: [],
+  nextTransition: "right",
   slideSelector: "slidehandler-slide-selector",
   slideClass: "slide",
   slideSelector: "slide-selector",
   slideIndex: 0,
   slideID: null,
-  speakerNotesWindow: null,
-  sicTransit: new SicTransit("#slideroot",".panel"),
+  sicTransit: new SicTransit("#slideroot", ".panel"),
 
-  slideSelected: function(id){
-    SlideHandler.slideID = id;
-    SlideHandler.slideIndex = SlideHandler.getSlideIndex(id);
-    SlideHandler.displaySlide(id);
+  slideSelected: function (id) {
+    SlideHandler.directNavigate(id);
   },
 
-  loadPresentation: function(){
-    document.getElementById(SlideHandler.workspaceChooser).click();
-  },
-  workspaceChosen: function(){
-    let uploader = document.getElementById(SlideHandler.workspaceChooser);
-    let workspace = uploader.files[0];
-    let reader = new FileReader();
-    reader.onloadend = function(evt){
-      let newfile = evt.target.result;
-      parent.clearDocumentAndWrite(newfile);
-    };
-    reader.readAsText(workspace);
-  },
-  downloadPresentation: function(){
-    SlideHandler.saveSlides();
-    let iframe_template = BrowserFileSystem.readInternalTextFile("base/internal_frame_template.html");
-    let version = BrowserFileSystem.readInternalTextFile("build/version").trim();
-    let build = BrowserFileSystem.readInternalTextFile("build/build").trim();
-    let date = BrowserFileSystem.readInternalTextFile("build/build_date").trim();
-    iframe_template = iframe_template.replace(/___VERSION___/g, version);
-    iframe_template = iframe_template.replace(/___BUILD___/g, build);
-    iframe_template = iframe_template.replace(/___BUILD_DATE___/g, date);
-    iframe_template = iframe_template.replace(/___FILESYSTEM___/g, "BrowserFileSystem.fs=" + JSON.stringify(BrowserFileSystem.fs));
-    iframe_template = iframe_template.replace(/___DEBUGGING___/g,debugging);
-    iframe_data =  "var iframeContent = \"" + BrowserFileSystem.bytesToBase64(iframe_template) + "\";\n";
-    let index_template = BrowserFileSystem.readInternalTextFile("base/index_template.html");
-    index_template = index_template.replace(/___IFRAMECONTENT___/,iframe_data);
-    if(debugging){
-      console.log("Downloading debuggable file");
-      BrowserFileSystem.downloadFile("GorillaPresenter" + SlideHandler.downloadDate(),iframe_template,"text/html");
-    }
-    else{
-      console.log("Downloading base file");
-    BrowserFileSystem.downloadFile("GorillaPresenter" + SlideHandler.downloadDate(),index_template,"text/html");
-    }
-  },
- 
-  getSlideIndex: function(slideID){
+
+  getSlideIndex: function (slideID) {
     let ids = SlideRenderer.slideIDs;
-    for(slideIndex = 0; slideIndex < ids.length; slideIndex++){
-      if(ids[slideIndex] === slideID){
-        return slideIndex;
+    for (let index = 0; index < ids.length; index++) {
+      if (ids[index] === slideID) {
+        return index;
       }
     }
-    UIHandler.warn(LanguageHandler.translate("No slide with this ID:",Language.currentLanguage) + slideID);
+    UIHandler.warn(LanguageHandler.translate("No slide with this ID:", LanguageHandler.currentLanguage) + slideID);
     return -1;
   },
- 
-  displaySlideByIndex: function(slideIndex,reverse=false){
-    let slideId = SlideRenderer.slideIDs[slideIndex];
-    SlideHandler.displaySlide(slideId,reverse);
+
+  getSlideId: function (index) {
+    return SlideRenderer.slideIDs[index];
   },
 
-  displaySlide: function(slideId,reverse=false){
-  if(slideId === undefined){
-    UIHandler.warn(LanguageHandler.translate("No slide with this ID:",Language.currentLanguage) + slideId);
-    return;
-  }
-  console.log("Displaying slide " + slideId);
-  /* let slides = document.getElementsByClassName("slide");
-  for(let i = 0; i < slides.length; i++){
-    slides[i].style.display = "none";
-  } */
-  let transition = "swipeInFromRight";
-  if(reverse === true){
-    transition = SlideHandler.inverseTransformations[transition];
-  }
+  displaySlideByIndex: function (index, reverse = false) {
+    let slideId = SlideHandler.getSlideId(index);
+    SlideHandler.displaySlide(slideId, reverse);
+  },
 
-  /*let slide = document.getElementById(slideId);
-  slide.style.display = "block"; */
-  SlideHandler.sicTransit.performTransition({"panelSelector":"#" + slideId, "transitionName":transition,"stackRotationNumber":0});
-},
+  displaySlide: function (slideId, reverse = false) {
+    if (slideId === undefined) {
+      UIHandler.warn(LanguageHandler.translate("No slide with this ID:", LanguageHandler.currentLanguage) + slideId);
+      return;
+    }
+    SlideHandler.slideID = slideId;
+    let transition = SlideHandler.transformationLookup[SlideHandler.nextTransition];
+    if (reverse === true) {
+      transition = SlideHandler.inverseTransformations[transition];
+    }
+    SlideHandler.sicTransit.performTransition({ "panelSelector": "#" + slideId, "transitionName": transition, "stackRotationNumber": 0 });
+  },
 
-showSpeakerNotes: function(){
-  if(SlideHandler.speakerNotesWindow === null || SlideHandler.speakerNotesWindow.closed){
-    SlideHandler.speakerNotesWindow = window.open("",Language.translate("Speaker Notes",Language.currentLanguage),"scrollbars=yes,resizable=yes,location=no,toolbar=no,menubar=no,width=800,height=600");
-}
-else{
-   SlideHandler.speakerNotesWindow.focus();
-}
-let notes = SlideHandler.speakerNotes.replace(/\n/g,"<br/><br/>\n");
- SlideHandler.speakerNotesWindow.document.write("<html><head><title>" + Language.translate("Speaker Notes",Language.currentLanguage) + "</title></head><body>" + notes + "</body></html>");
-},
+  addSlideToHistory: function (slideID) {
+    if (slideID !== null) {
+      SlideHandler.backHistory.push(slideID);
+    }
+  },
+
+
+
+
+  directNavigate: function (slideID) {
+    SlideHandler.forwardHistory = [];
+    SlideHandler.addSlideToHistory(SlideHandler.slideID); // Save old slide.
+    SlideHandler.directNavigationHistory.push(slideID);
+    let slideNumber = SlideHandler.getSlideIndex(slideID);
+    SlideHandler.slideIndex = slideNumber;
+    SlideHandler.nextTransition = SlideRenderer.transitions[SlideHandler.getSlideId(SlideHandler.slideIndex)];
+    SlideHandler.displaySlide(slideID, false);
+  },
+
+  directNavigateByIndex: function (index) {
+    let slideID = SlideHandler.getSlideId(index);
+    SlideHandler.directNavigate(slideID);
+  },
+
+  slideForward: function () {
+    /*  if(GorillaPresenter.transitionBusy === true){
+      return;
+    } */
+    if (SlideRenderer.slideIDs.length === 0) {
+      GorillaPresenter.warn(LanguageHandler.translate("No slides. You'll have to make some first.", LanguageHandler.currentLanguage));
+      return;
+    }
+    SlideHandler.backHistory.push(SlideHandler.slideID);
+    if ((SlideHandler.forwardHistory.length > 0) && (SlideHandler.directNavigationHistory.length === 0)) {
+      SlideHandler.slideID = SlideHandler.forwardHistory.pop();
+      SlideHandler.slideIndex = SlideHandler.getSlideIndex(SlideHandler.slideID);
+    }
+    else {
+      SlideHandler.slideIndex = SlideHandler.slideIndex + 1;
+    }
+    if (SlideHandler.slideIndex >= SlideRenderer.slideIDs.length) {
+      SlideHandler.backHistory.pop()
+      SlideHandler.slideIndex = SlideRenderer.slideIDs.length - 1;
+      UIHandler.notify(LanguageHandler.translate("At last slide.", LanguageHandler.currentLanguage));
+      // SlideHandler.displaySlideByIndex(SlideHandler.slideIndex);
+      return;
+    }
+    SlideHandler.nextTransition = SlideRenderer.transitions[SlideHandler.getSlideId(SlideHandler.slideIndex)];
+    SlideHandler.displaySlideByIndex(SlideHandler.slideIndex, false);
+  },
+
+  slideBack: function () {
+    /*  if(GorillaPresenter.transitionBusy === true){
+        return;
+      } */
+    if (SlideRenderer.slideIDs.length === 0) {
+      UIHandler.warn(LanguageHandler.translate("No slides. You'll have to make some first.", LanguageHandler.currentLanguage));
+      return;
+    }
+    SlideHandler.forwardHistory.push(SlideHandler.slideID);
+    if (SlideHandler.backHistory.length > 0) {
+      let previousSlideID = SlideHandler.backHistory.pop();
+      let previousSlideIndex = SlideHandler.getSlideIndex(previousSlideID);
+      SlideHandler.slideIndex = previousSlideIndex;
+
+    }
+    else {
+      SlideHandler.slideIndex = SlideHandler.slideIndex - 1;
+    }
+    if (SlideHandler.directNavigationHistory.length > 0) {
+      SlideHandler.directNavigationHistory.pop();
+      if (SlideHandler.directNavigationHistory.length === 0) {
+        SlideHandler.forwardHistory = [];
+      }
+    }
+    if (SlideHandler.slideIndex < 0) {
+      SlideHandler.slideIndex = 0;
+      UIHandler.notify(LanguageHandler.translate("At first slide.", LanguageHandler.currentLanguage));
+      SlideHandler.forwardHistory.pop();
+      return;
+    }
+    SlideHandler.nextTransition = SlideRenderer.transitions[SlideHandler.getSlideId(SlideHandler.slideIndex)];
+    SlideHandler.displaySlideByIndex(SlideHandler.slideIndex, true);
+  },
+
+
 }

@@ -1,4 +1,4 @@
-GorillaPresenter.isOnline = function() {
+GorillaPresenter.isOnline = function () {
     if (navigator.onLine) {
         return true;
     } else {

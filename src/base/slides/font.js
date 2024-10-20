@@ -1,5 +1,5 @@
-GorillaPresenter.processFontFamily = function(directiveparts){
-    if(directiveparts.length === 0){
+GorillaPresenter.processFontFamily = function (directiveparts) {
+    if (directiveparts.length === 0) {
         return "Found {{{fontfamily}}} without a font family";
     }
     let family = directiveparts[0];

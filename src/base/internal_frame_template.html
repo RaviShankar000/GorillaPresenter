@@ -1,85 +1,106 @@
 <!DOCTYPE html>
 <html lang="en-us" style="visibility: hidden;">
 <!-- Gorilla Presenter. Copyright 2024 by Anthony W. Hursh. -->
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
-    <meta http-equiv="Cache-Control" content="no-store,must-revalidate,max-age=-1">
-    <meta http-equiv="Pragma" content="no-store">
-    <meta http-equiv="Expires" content="0">
-    <title>GorillaPresenter</title>
-  </head>
 
-  <body>
-    <noscript id="noscript">
-      Yeah, there's absolutely no way this can work with JavaScript turned off. Sorry, my friend.
-    </noscript>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-store,must-revalidate,max-age=-1">
+  <meta http-equiv="Pragma" content="no-store">
+  <meta http-equiv="Expires" content="0">
+  <title>GorillaPresenter</title>
+</head>
 
-  <div id="slideroot" class= "nonprintable">
+<body>
+  <noscript id="noscript">
+    Yeah, there's absolutely no way this can work with JavaScript turned off. Sorry, my friend.
+  </noscript>
+
+  <div id="slideroot" class="nonprintable">
+    <div id="slideeditor" class="slide panel sic-transit-panel">
+      slide editor
+    </div>
+    <div id="csseditor" class="slide panel sic-transit-panel">
+      css editor
+    </div>
+
   </div>
+
   <dialog id="main-menu-wrapper" class="nonprintable">
     <div id="mainmenu" class="unselectable mainmenu">
       <div class="main-menu-item">
-          <span class="translatable" english="Select Slide">Select Slide: </span>
-          <select title="Select slide" id="slide-selector"  onchange="SlideHandler.slideSelected(this.value)"></select>
+        <span class="translatable" data-english-text="Select Slide">Select Slide: </span>
+        <select title="Select slide" id="slide-selector" onchange="SlideHandler.slideSelected(this.value)"></select>
       </div>
-      <div class="main-menu-item menu-choice"><span class="translatable" english="Slide Editor"><bdi>Slide Editor</bdi></span></div>
-      <div class="main-menu-item menu-choice"><span class="translatable" english="Save Presentation"><bdi>Save Presentation</bdi></span></div>
-      <div class="main-menu-item menu-choice"><span class="translatable" english = "Load Presentation"><bdi>Load Presentation</bdi></span></div>
-      <div class="main-menu-item menu-choice"><span class="translatable" english="Enter/Exit Full Screen"><bdi>Enter/Exit Full Screen</bdi></span></div>
-      <div class="main-menu-item menu-choice"><span class="translatable" english="Show Speaker Notes"><bdi>Show Speaker Notes</bdi></span></div>
-      <div class="main-menu-item menu-choice"><span class="translatable" english="Media Library"><bdi>Media Library</bdi></span></div>
-      <div class="main-menu-item menu-choice"><span class="translatable" english="Print Slides"><bdi>Print Slides</bdi></span></div>
-      <div class="main-menu-item menu-choice"><span class="translatable" english="Theme Editor"><bdi>Theme Editor</bdi></span></div>
-      <div class="main-menu-item menu-choice"><span class="translatable" english="About"><bdi>About</bdi></span></div>
-      <div class="main-menu-item menu-choice"><span class="translatable" english="Theme"><bdi>Theme</bdi></span>: 
-          <select id="theme-selector" onchange="ThemeHandler.themeSelected(this.value)">
-          </select>
+      <div class="main-menu-item menu-choice"><span class="translatable" data-english-text="Slide Editor"><bdi>Slide
+            Editor</bdi></span></div>
+      <div class="main-menu-item menu-choice"><span class="translatable" data-english-text="Save Presentation"><bdi>Save
+            Presentation</bdi></span></div>
+      <div class="main-menu-item menu-choice"><span class="translatable" data-english-text="Load Presentation"><bdi>Load
+            Presentation</bdi></span></div>
+      <div class="main-menu-item menu-choice"><span class="translatable"
+          data-english-text="Enter/Exit Full Screen"><bdi>Enter/Exit Full Screen</bdi></span></div>
+      <div class="main-menu-item menu-choice"><span class="translatable"
+          data-english-text="Show Speaker Notes"><bdi>Show Speaker Notes</bdi></span></div>
+      <div class="main-menu-item menu-choice"><span class="translatable" data-english-text="Media Library"><bdi>Media
+            Library</bdi></span></div>
+      <div class="main-menu-item menu-choice"><span class="translatable" data-english-text="Print Slides"><bdi>Print
+            Slides</bdi></span></div>
+      <div class="main-menu-item menu-choice"><span class="translatable" data-english-text="Theme Editor"><bdi>Theme
+            Editor</bdi></span></div>
+      <div class="main-menu-item menu-choice"><span class="translatable"
+          data-english-text="About"><bdi>About</bdi></span></div>
+      <div class="main-menu-item"><span class="translatable" data-english-text="Theme"><bdi>Theme</bdi></span>:
+        <select id="theme-selector" onchange="ThemeHandler.themeSelected(this.value)">
+        </select>
       </div>
-      <div class="main-menu-item"><span class="translatable" english="Heading"><bdi>Heading</bdi></span>: 
-          <select title="Heading Font" id="heading-font-stack-selector" onchange="UIHandler.headingFontStackSelected()">
-            </select>
+      <div class="main-menu-item"><span class="translatable" data-english-text="Heading"><bdi>Heading</bdi></span>:
+        <select title="Heading Font" id="heading-font-stack-selector" onchange="UIHandler.headingFontStackSelected()">
+        </select>
       </div>
-      <div class="main-menu-item"><span class="translatable" english="Body"><bdi>Body</bdi></span>: 
-          <select title="Body Font Stack" id="body-font-stack-selector" onchange="UIHandler.bodyFontStackSelected()">
-          </select>
+      <div class="main-menu-item"><span class="translatable" data-english-text="Body"><bdi>Body</bdi></span>:
+        <select title="Body Font Stack" id="body-font-stack-selector" onchange="UIHandler.bodyFontStackSelected()">
+        </select>
       </div>
-      <div class="main-menu-item"><span class="translatable" english="Code"><bdi>Code</bdi></span>: 
-          <select title="Code Font Stack" id="code-font-stack-selector" onchange="UIHandler.codeFontStackSelected()">
-          </select>
+      <div class="main-menu-item"><span class="translatable" data-english-text="Code"><bdi>Code</bdi></span>:
+        <select title="Code Font Stack" id="code-font-stack-selector" onchange="UIHandler.codeFontStackSelected()">
+        </select>
       </div>
-      <div class="main-menu-item"><span class="translatable" english="Language"><bdi>Language</bdi></span>: 
-          <select title="Language Selector" id="language-selector" onchange="LanguageHandler.languageSelected(this.value)">
-          </select>
+      <div class="main-menu-item"><span class="translatable" data-english-text="Language"><bdi>Language</bdi></span>:
+        <select title="Language Selector" id="language-selector"
+          onchange="LanguageHandler.languageSelected(this.value)">
+        </select>
       </div>
-  </div>
+    </div>
   </dialog>
+  <input type="file" id="iohandler-workspace-chooser" style="display:none" onchange="IOHandler.workspaceChosen()" />
+
 </body>
 
-  <script type="text/javascript" id="Gorilla_presenter_file_system">
+<script type="text/javascript" id="Gorilla_presenter_file_system">
 
-    function setGlobalVariable(varname, value) {
-      window[varname] = value;
-    }
+  function setGlobalVariable(varname, value) {
+    window[varname] = value;
+  }
 
-    function isClassDefined(className) {
+  function isClassDefined(className) {
     return typeof window[className] === 'function' && /^\s*class\s+/.test(window[className].toString());
-    }
-let BrowserFileSystem = {};
-    ___FILESYSTEM___
+  }
+  let BrowserFileSystem = {};
+  ___FILESYSTEM___
 
 
-  </script>
-  <script type="text/javascript" id="Gorilla_presenter_system_boot">
+</script>
+<script type="text/javascript" id="Gorilla_presenter_system_boot">
   let debugging = ___DEBUGGING___;
-  if(debugging === true){
+  if (debugging === true) {
     console.log("Debugging is enabled.");
   }
-  else{
+  else {
     console.log("Debugging is disabled.");
   }
- let launcher = {
-    initSystem: function(){
+  let launcher = {
+    initSystem: function () {
       console.log("initSystem: GorillaPresenter version: " + "___VERSION___" + " build: " + "___BUILD___" + " compiled: " + "___BUILD_DATE___");
       this.version = "___VERSION___";
       this.build = "___BUILD___";
@@ -90,12 +111,12 @@ let BrowserFileSystem = {};
       this.cssErrors = [];
       this.jsLoaded = [];
       this.jsErrors = [];
-      self:this;
+      self: this;
       this.loadError = false;
       this.currentSourceFile = null;
-      window.onerror = function (msg, url, lineNo, columnNo, error){
+      window.onerror = function (msg, url, lineNo, columnNo, error) {
         let errmsg = "";
-        if(this.currentSourceFile !== null){
+        if (this.currentSourceFile !== null) {
           errmsg = "Error in source file:" + this.currentSourceFile + " ->  ";
         }
         errmsg = errmsg + msg + "\n" + error.stack;
@@ -103,137 +124,137 @@ let BrowserFileSystem = {};
         return false;
       }
     },
-    launchSystem:function(){
-    this.loadError = false;
-    let jsQueue = [];
-    let cssQueue = [];
-    let BrowserFileSystemObject = BrowserFileSystem.fs["1-vendor/BrowserFileSystem/BrowserFileSystem.js"];
-    let BrowserFileSystemDataStart = BrowserFileSystemObject["data"].indexOf("base64,") + 7;
-    let BrowserFileSystemData = BrowserFileSystemObject["data"].substring(BrowserFileSystemDataStart);
-    let BrowserFileSystemCode = this.decodeText(BrowserFileSystemData);
-    let script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.appendChild(document.createTextNode(BrowserFileSystemCode));
-    document.body.appendChild(script);
-    let filenames = Object.keys(BrowserFileSystem.fs).sort(naturalSort());
-    for(let i = 0; i < filenames.length; i++){
+    launchSystem: function () {
+      this.loadError = false;
+      let jsQueue = [];
+      let cssQueue = [];
+      let BrowserFileSystemObject = BrowserFileSystem.fs["1-vendor/BrowserFileSystem/BrowserFileSystem.js"];
+      let BrowserFileSystemDataStart = BrowserFileSystemObject["data"].indexOf("base64,") + 7;
+      let BrowserFileSystemData = BrowserFileSystemObject["data"].substring(BrowserFileSystemDataStart);
+      let BrowserFileSystemCode = this.decodeText(BrowserFileSystemData);
+      let script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.appendChild(document.createTextNode(BrowserFileSystemCode));
+      document.body.appendChild(script);
+      let filenames = Object.keys(BrowserFileSystem.fs).sort(naturalSort());
+      for (let i = 0; i < filenames.length; i++) {
         let filename = filenames[i];
-      if(filename.match(/\.css$/) !== null){
+        if (filename.match(/\.css$/) !== null) {
           cssQueue.push(filename)
-      }
-      if(filename.match(/\.js$/) !== null){
-        if(filename !== "vendor/BrowserFileSystem/BrowserFileSystem.js"){ // Don't load the file system again.
-        jsQueue.push(filename);
+        }
+        if (filename.match(/\.js$/) !== null) {
+          if (filename !== "vendor/BrowserFileSystem/BrowserFileSystem.js") { // Don't load the file system again.
+            jsQueue.push(filename);
+          }
         }
       }
-    }
-    for(let i = 0; i < cssQueue.length; i++){
-      this.addCSS(cssQueue[i])
-      if(this.loadError === true){
-        return;
+      for (let i = 0; i < cssQueue.length; i++) {
+        this.addCSS(cssQueue[i])
+        if (this.loadError === true) {
+          return;
+        }
       }
-    }
-    for(let i = 0; i < jsQueue.length; i++){
-      this.addJS(jsQueue[i]);
-      if(this.loadError === true){
-        return;
+      for (let i = 0; i < jsQueue.length; i++) {
+        this.addJS(jsQueue[i]);
+        if (this.loadError === true) {
+          return;
+        }
       }
-    }
-    setTimeout(function(){
-      if(launcher.CumulativeErrors.length !== 0){
-        let msg = launcher.CumulativeErrors.join("\n");
-        console.error(msg);
-        launcher.CumulativeErrors = [];
-      }
-    },100);
-  },
-  addCSS: function(filename,id){
+      setTimeout(function () {
+        if (launcher.CumulativeErrors.length !== 0) {
+          let msg = launcher.CumulativeErrors.join("\n");
+          console.error(msg);
+          launcher.CumulativeErrors = [];
+        }
+      }, 100);
+    },
+    addCSS: function (filename, id) {
       try {
         let code = BrowserFileSystem.getBase64Data(filename);
         let style = document.createElement('style');
         style.type = 'text/css';
-        if(id !== undefined){
-        style.id = id;
+        if (id !== undefined) {
+          style.id = id;
         }
         style.appendChild(document.createTextNode(this.decodeText(code)));
         document.head.appendChild(style);
       }
-      catch(e){
-        this.handleLoadError(filename,e);
+      catch (e) {
+        this.handleLoadError(filename, e);
       }
       this.currentSourceFile = null;
     },
 
-  handleLoadError:function(filename,error){
-    console.error("Error in source file: " + filename + " -> " + error.toString())
-  },
-  // Append a script element containing JavaScript code from the internal
-  // file system to the document body.
-  addJS: function(filename,id){
-    this.currentSourceFile = filename;
-    console.log("Adding JS file: " + filename);
-    try {
-      let code = BrowserFileSystem.getBase64Data(filename);
+    handleLoadError: function (filename, error) {
+      console.error("Error in source file: " + filename + " -> " + error.toString())
+    },
+    // Append a script element containing JavaScript code from the internal
+    // file system to the document body.
+    addJS: function (filename, id) {
+      this.currentSourceFile = filename;
+      console.log("Adding JS file: " + filename);
+      try {
+        let code = BrowserFileSystem.getBase64Data(filename);
         let script = document.createElement('script');
         script.type = 'text/javascript';
-        if(id !== undefined){
-        script.id = id;
+        if (id !== undefined) {
+          script.id = id;
         }
         script.appendChild(document.createTextNode(this.decodeText(code)));
         document.head.appendChild(script);
       }
-      catch(e){
-      this.handleLoadError(filename,e);
+      catch (e) {
+        this.handleLoadError(filename, e);
       }
       this.currentSourceFile = null;
-  },
-
-  decodeText: function(code){
-    let byteCharacters = window.atob(code);
-    let array = new Uint8Array(byteCharacters.length);
-    for(let i = 0; i < byteCharacters.length; i++ ) { 
-      array[i] = byteCharacters.charCodeAt(i);
-    }
-    return new TextDecoder("utf-8").decode(array);
-  },
-  
-  cleanSystem: function(keepFileSystem){
-    let styles = document.getElementsByTagName('style');
-    let stylearr = Array.prototype.slice.call(styles)
-    for(let i = 0; i < stylearr.length; i++){
-      stylearr[i].remove();
-    }
-    if(keepFileSystem !== true){
-      BrowserFileSystem.fs = null;
-    }
-    cleanScripts();
-  },
-  cleanScripts: function(){
-    let scripts = document.getElementsByTagName('script');
-    let scriptarr = Array.prototype.slice.call(scripts)
-    for(let i = 0; i < scriptarr.length; i++){
-      let script = scriptarr[i];
-      script.remove();
-      }
-  },
-  logLaunchStatistics: function(){
-        console.log("CSS files with errors:\n" + this.cssErrors.join(", ") + "\n");
-        console.log("JS files with errors:\n" + this.jsErrors.join(", ") + "\n");
     },
-  urlParams: new URLSearchParams(window.location.search)
 
-   }
-   
+    decodeText: function (code) {
+      let byteCharacters = window.atob(code);
+      let array = new Uint8Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        array[i] = byteCharacters.charCodeAt(i);
+      }
+      return new TextDecoder("utf-8").decode(array);
+    },
 
-    /*!
-   * natural-sort.js
-   * ===============
-   * Sorting with support for numbers, dates, unicode and more.
-   *
-   * http://github.com/studio-b12/natural-sort
-   * MIT License, © Studio B12 GmbH 2014
-   *
-   *//*
+    cleanSystem: function (keepFileSystem) {
+      let styles = document.getElementsByTagName('style');
+      let stylearr = Array.prototype.slice.call(styles)
+      for (let i = 0; i < stylearr.length; i++) {
+        stylearr[i].remove();
+      }
+      if (keepFileSystem !== true) {
+        BrowserFileSystem.fs = null;
+      }
+      cleanScripts();
+    },
+    cleanScripts: function () {
+      let scripts = document.getElementsByTagName('script');
+      let scriptarr = Array.prototype.slice.call(scripts)
+      for (let i = 0; i < scriptarr.length; i++) {
+        let script = scriptarr[i];
+        script.remove();
+      }
+    },
+    logLaunchStatistics: function () {
+      console.log("CSS files with errors:\n" + this.cssErrors.join(", ") + "\n");
+      console.log("JS files with errors:\n" + this.jsErrors.join(", ") + "\n");
+    },
+    urlParams: new URLSearchParams(window.location.search)
+
+  }
+
+
+  /*!
+ * natural-sort.js
+ * ===============
+ * Sorting with support for numbers, dates, unicode and more.
+ *
+ * http://github.com/studio-b12/natural-sort
+ * MIT License, © Studio B12 GmbH 2014
+ *
+ *//*
    *
    * Idea by Dave Koelle
    * Original implementation by Jim Palmer
@@ -241,10 +262,11 @@ let BrowserFileSystem = {};
    *
    */
 
-   let naturalSort = function naturalSort (options) { 'use strict';
+  let naturalSort = function naturalSort(options) {
+    'use strict';
     if (!options) options = {};
 
-    return function(a, b) {
+    return function (a, b) {
       const EQUAL = 0;
       const GREATER = (options.direction == 'desc' ?
         -1 :
@@ -258,7 +280,7 @@ let BrowserFileSystem = {};
       const hre = /^0x[0-9a-f]+$/i;
       const ore = /^0/;
 
-      const normalize = function normalize (value) {
+      const normalize = function normalize(value) {
         const string = '' + value;
         return (options.caseSensitive ?
           string :
@@ -271,13 +293,13 @@ let BrowserFileSystem = {};
       const y = normalize(b).replace(sre, '') || '';
 
       // chunk/tokenize
-      const xN = x.replace(re, '\0$1\0').replace(/\0$/,'').replace(/^\0/,'').split('\0');
-      const yN = y.replace(re, '\0$1\0').replace(/\0$/,'').replace(/^\0/,'').split('\0');
+      const xN = x.replace(re, '\0$1\0').replace(/\0$/, '').replace(/^\0/, '').split('\0');
+      const yN = y.replace(re, '\0$1\0').replace(/\0$/, '').replace(/^\0/, '').split('\0');
 
       // Return immediately if at least one of the values is empty.
       if (!x && !y) return EQUAL;
-      if (!x &&  y) return GREATER;
-      if ( x && !y) return SMALLER;
+      if (!x && y) return GREATER;
+      if (x && !y) return SMALLER;
 
       // numeric, hex or date detection
       const xD = parseInt(x.match(hre)) || (xN.length != 1 && x.match(dre) && Date.parse(x));
@@ -287,12 +309,12 @@ let BrowserFileSystem = {};
 
       // first try and sort Hex codes or Dates
       if (yD) {
-        if ( xD < yD ) return SMALLER;
-        else if ( xD > yD ) return GREATER;
+        if (xD < yD) return SMALLER;
+        else if (xD > yD) return GREATER;
       }
 
       // natural sorting through split numeric strings and default strings
-      for (let cLoc=0, numS=Math.max(xN.length, yN.length); cLoc < numS; cLoc++) {
+      for (let cLoc = 0, numS = Math.max(xN.length, yN.length); cLoc < numS; cLoc++) {
 
         // find floats not starting with '0', string or 0 if not defined (Clint Priest)
         oFxNcL = !(xN[cLoc] || '').match(ore) && parseFloat(xN[cLoc]) || xN[cLoc] || 0;
@@ -327,24 +349,25 @@ let BrowserFileSystem = {};
 
   }));
 
- </script>
- <script type="text/javascript">
+</script>
+<script type="text/javascript">
   launcher.initSystem();
   launcher.launchSystem();
   document.getElementsByTagName("html")[0].style.visibility = "visible";
   if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = function(fn) {
-        var timer = 16.66; // 60 fps
-        setTimeout(fn,timer);
+    window.requestAnimationFrame = function (fn) {
+      var timer = 16.66; // 60 fps
+      setTimeout(fn, timer);
     }
   }
-  window.onload = function(){
+  window.onload = function () {
     GorillaPresenter.startup()
   }
 
- /*setTimeout(function(){
-   launcher.cleanScripts()
- },25); */
+  /*setTimeout(function(){
+    launcher.cleanScripts()
+  },25); */
 </script>
 </body>
+
 </html>

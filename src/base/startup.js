@@ -23,8 +23,10 @@ GorillaPresenter.startup = function() {
     ConfigHandler.loadConfig();
     LanguageHandler.loadLanguageSelector();
     ThemeHandler.loadThemes();
-    SlideRenderer.init();
     UIHandler.loadFontStackSelectors();
+    SlideRenderer.init();
     SlideRenderer.renderSlides();
+    UIHandler.wireUI(document.getElementById("slideroot"));
+
   
 }

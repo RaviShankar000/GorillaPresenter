@@ -118,9 +118,6 @@ class SicTransit {
         self.container.appendChild(selectedPanel);
         self.normalizeStack(self);
     }
-
-    animationLock = false;
-
     isValidTransition(transitionName,self=this){
         return self.dispatchTable[transitionName] !== undefined;
     }
@@ -135,17 +132,9 @@ class SicTransit {
             args.self = this;
         }
         let self = args.self;
-        // Would be nice if we could use  navigator.locks.request() instead of this hack, but it causes flickering in Safari. Investigate further
-        if(self.animationLock === true){
-            console.error("SicTransit: animation lock is set. Ignoring request to perform transition.");
-            setTimeout(function(){
-                self.animationLock = false;
-            },1000);
-            return;
-        }
-        self.animationLock = true;
+        navigator.locks.request("sic-transit-animation-lock", async lock => {  
         const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)') === true || window.matchMedia('(prefers-reduced-motion: reduce)').matches === true;
-        if(isReduced === true){
+        if(isReduced === true) {
             console.log("SicTransit: prefers-reduced-motion is set to reduce. Using cutIn/cutOut transitions rather than animated transitions.");
             args.transitionName = args.self.dispatchTable[args.transitionName]["prefersReducedMotion"];
         }
@@ -153,13 +142,13 @@ class SicTransit {
         args.selectedPanel =  self.selectPanel(args.panelSelector,self);
         args.startTime = new Date().getTime();
         if(self.dispatchTable[args.transitionName] === undefined){
-            self.animationLock = false;
             throw new Error("SicTransit: " + args.transitionName + " is not a recognized transition");
         }
         args.transitionFunction = self.dispatchTable[args.transitionName]["forwardTransition"];
         args.firstanimation = self.dispatchTable[args.transitionName]["animation"];
         args.secondanimation = self.dispatchTable[args.transitionName]["secondanimation"];
         args.transitionFunction(args);
+        })
     }
 
 
@@ -761,6 +750,7 @@ removeOverlayPanels(self=this){
             overlaypanel = document.createElement('div');
             this.specialtyPanels[element] = overlaypanel;
             overlaypanel.classList.add(this.panelClass,'sic-transit-panel','sic-transit-' + element, "sic-transit-overlay-panel");
+            this.container.appendChild(overlaypanel);
         });
         this.normalizeStack();
     }
@@ -814,8 +804,6 @@ resetPanel(panelSelector,self=this){
 /* Performs the callback function for the given transition, if one is specified. */
     performCallback(args){
         const self = args.self;
-        // Release the animation lock.
-        self.animationLock = false;
         let dispatchEntry = self.dispatchTable[args["transitionName"]];
         if(dispatchEntry.callback === null){
             return;
@@ -862,9 +850,13 @@ resetPanel(panelSelector,self=this){
         self.panelStack.push(self.specialtyPanels.graypanel);
         self.panelStack.push(topPanel);
         self.resetPanel(topPanel,self);
-       // self.normalizeStack(self);
+        self.normalizeStack(self);
         self.resetPanel(args.selectedPanel,self);
         self.moveToTos(args.selectedPanel,self);
+        for(let i = self.panelStack.length - 2; i >= 0; i--){
+            self.panelStack[i].style.opacity = 0;
+        }   
+
         args.finishHandler = function(){
             self.resetPanel(args.selectedPanel,self);
             self.normalizeStack(self);
