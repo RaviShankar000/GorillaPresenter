@@ -1,0 +1,1154 @@
+%%% Default
+
+--slide-body-color: #ffffff;
+--slide-body-background-color: #013220;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #2E8B57;
+--slide-title-bottom-border: 1px solid #fffdfbff;
+
+
+
+%%% Damaged Robot
+
+--slide-body-color: #C0C0C0;
+--slide-body-background-color: #4B4B4B;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #6E260E;
+--slide-title-bottom-border: 1px solid #C0C0C0;
+--menu-body-color: #C0C0C0;
+--menu-background-color: #6E260E;
+
+
+%%% Bucky Fuller
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #2C3E50;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #34495E;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Modern & Clean
+
+--slide-body-color: #333333;
+--slide-body-background-color: #FFFFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #3498DB;
+--slide-title-bottom-border: 1px solid #333333;
+
+%%% Professional & Sophisticated
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #2C3E50;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #34495E;
+--slide-title-bottom-border: 1px solid #D4AF37;
+
+
+%%% Greeting
+
+--slide-body-color: #000000;
+--slide-body-background-color: #FFFACD;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FFA07A;
+--slide-title-bottom-border: 1px solid #000000;
+
+
+%%% Refreshing
+
+--slide-body-color: #2E8B57;
+--slide-body-background-color: #E0FFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #20B2AA;
+--slide-title-bottom-border: 1px solid #2E8B57;
+
+
+
+%%% Bold & Dynamic
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #FF4136;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #0074D9;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Serene & Peaceful
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #F0F8FF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #87CEFA;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Mauve Decade
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #7E5E9B;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #6A5ACD;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+
+%%% Minimalist & Chic
+
+--slide-body-color: #000000;
+--slide-body-background-color: #FFFFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #000000;
+--slide-title-bottom-border: 1px solid #000000;
+
+
+
+%%% Warm & Loving
+
+--slide-body-color: #800000;
+--slide-body-background-color: #FFE4E1;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF69B4;
+--slide-title-bottom-border: 1px solid #800000;
+
+
+
+%%% Clinical Data
+
+--slide-body-color: #000000;
+--slide-body-background-color: #FFFFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #4682B4;
+--slide-title-bottom-border: 1px solid #000000;
+
+
+
+%%% Informal Party
+
+--slide-body-color: #000080;
+--slide-body-background-color: #FFFFE0;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF69B4;
+--slide-title-bottom-border: 1px solid #000080;
+
+
+
+%%% Calm
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #E6E6FA;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #6A5ACD;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+
+%%% Industrial
+
+--slide-body-color: #E0E0E0;
+--slide-body-background-color: #2C2C2C;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #4F4F4F;
+--slide-title-bottom-border: 1px solid #E0E0E0;
+
+
+
+%%% Spring Meadow
+
+--slide-body-color: #006400;
+--slide-body-background-color: #F0FFF0;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #7FFF00;
+--slide-title-bottom-border: 1px solid #006400;
+
+
+%%% Northern Lights
+
+--slide-body-color: #A5F3E9;
+--slide-body-background-color: #1B1B2F;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #3A506B;
+--slide-title-bottom-border: 1px solid #A5F3E9;
+
+
+%%% Tropical Beach
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #F0E68C;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #1E90FF;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Las Vegas
+
+--slide-body-color: #FFD700;
+--slide-body-background-color: #000000;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF0000;
+--slide-title-bottom-border: 1px solid #FFD700;
+
+
+%%% Paris
+
+--slide-body-color: #2C3E50;
+--slide-body-background-color: #F5F5DC;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #E74C3C;
+--slide-title-bottom-border: 1px solid #2C3E50;
+
+
+%%% Manhattan
+
+--slide-body-color: #E0E0E0;
+--slide-body-background-color: #2C3E50;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #34495E;
+--slide-title-bottom-border: 1px solid #E0E0E0;
+
+
+%%% Bangkok
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #8B0000;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FFD700;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Mumbai
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #FF9933;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #138808;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Vitruvius
+
+--slide-body-color: #4B3621;
+--slide-body-background-color: #FAF0E6;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B4513;
+--slide-title-bottom-border: 1px solid #4B3621;
+
+
+%%% 80s Retro
+
+--slide-body-color: #000000;
+--slide-body-background-color: #FFFFFF;
+--slide-title-color: #000000;
+--slide-title-background-color: #FF00FF;
+--slide-title-bottom-border: 1px solid #00FFFF;
+
+
+
+%%% Crayon
+
+--slide-body-color: #0000FF;
+--slide-body-background-color: #FFFF00;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF0000;
+--slide-title-bottom-border: 1px solid #0000FF;
+
+
+%%% Paint It Black
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #000000;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #000000;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Typographical Error
+
+--slide-body-color: #000000;
+--slide-body-background-color: #FFFFFF;
+--slide-title-color: #FF0000;
+--slide-title-background-color: #FFFFFF;
+--slide-title-bottom-border: 1px solid #FF0000;
+
+
+%%% Ocean Dive
+
+--slide-body-color: #E0FFFF;
+--slide-body-background-color: #001F3F;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #0074D9;
+--slide-title-bottom-border: 1px solid #E0FFFF;
+
+
+%%% Sunset Glow
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #FF4500;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #800080;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Forest Whisper
+
+--slide-body-color: #F5F5DC;
+--slide-body-background-color: #013220;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #228B22;
+--slide-title-bottom-border: 1px solid #F5F5DC;
+
+
+%%% Desert Mirage
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #F5DEB3;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #D2B48C;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Fancy Invitation
+
+--slide-body-color: #4B0082;
+--slide-body-background-color: #FFF8DC;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B0000;
+--slide-title-bottom-border: 1px solid #4B0082;
+
+
+%%% Mechanical Marvel
+
+--slide-body-color: #D3D3D3;
+--slide-body-background-color: #2F4F4F;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #708090;
+--slide-title-bottom-border: 1px solid #D3D3D3;
+
+
+%%% Blueprint
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #000080;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #00008B;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Naval Briefing
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #000080;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #00008B;
+--slide-title-bottom-border: 1px solid #FFD700;
+
+
+%%% Steampunk
+
+--slide-body-color: #D2B48C;
+--slide-body-background-color: #3B2F2F;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B4513;
+--slide-title-bottom-border: 1px solid #D2B48C;
+
+
+%%% Cantata
+
+--slide-body-color: #000000;
+--slide-body-background-color: #FFF8DC;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B0000;
+--slide-title-bottom-border: 1px solid #000000;
+
+
+%%% Deep Woods
+
+--slide-body-color: #A0522D;
+--slide-body-background-color: #013220;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #2E8B57;
+--slide-title-bottom-border: 1px solid #A0522D;
+
+
+%%% Scholium
+
+--slide-body-color: #000000;
+--slide-body-background-color: #FAF0E6;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #708090;
+--slide-title-bottom-border: 1px solid #000000;
+
+
+%%% Neverland
+
+--slide-body-color: #4B0082;
+--slide-body-background-color: #E6E6FA;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8A2BE2;
+--slide-title-bottom-border: 1px solid #4B0082;
+
+
+%%% Hammurabi
+
+--slide-body-color: #4B3621;
+--slide-body-background-color: #DEB887;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B4513;
+--slide-title-bottom-border: 1px solid #4B3621;
+
+
+%%% Bali
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #E0FFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #20B2AA;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Prairie
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #F5DEB3;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #87CEEB;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Ancient Rome
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #DCDCDC;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #800000;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Tropical Fish
+
+--slide-body-color: #FF4500;
+--slide-body-background-color: #40E0D0;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF69B4;
+--slide-title-bottom-border: 1px solid #FF4500;
+
+
+%%% Spacecraft
+
+--slide-body-color: #C0C0C0;
+--slide-body-background-color: #000000;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #1E90FF;
+--slide-title-bottom-border: 1px solid #C0C0C0;
+
+
+%%% Cobblestone
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #D3D3D3;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #696969;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Stained Glass
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #8B008B;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF4500;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Fresco
+
+--slide-body-color: #556B2F;
+--slide-body-background-color: #FAFAD2;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #CD5C5C;
+--slide-title-bottom-border: 1px solid #556B2F;
+
+
+%%% Rager
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #FF00FF;
+--slide-title-color: #000000;
+--slide-title-background-color: #FFD700;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% New York
+
+--slide-body-color: #E0E0E0;
+--slide-body-background-color: #2C3E50;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #34495E;
+--slide-title-bottom-border: 1px solid #E0E0E0;
+
+
+%%% Marrakech
+
+--slide-body-color: #8B0000;
+--slide-body-background-color: #FFE4B5;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #CD853F;
+--slide-title-bottom-border: 1px solid #8B0000;
+
+
+
+%%% Siberia
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #F0F8FF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #4682B4;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Everglades
+
+--slide-body-color: #2E8B57;
+--slide-body-background-color: #98FB98;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #006400;
+--slide-title-bottom-border: 1px solid #2E8B57;
+
+
+%%% Badlands
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #DEB887;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #A0522D;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Arctic
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #F0FFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #5F9EA0;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Amazon
+
+--slide-body-color: #013220;
+--slide-body-background-color: #98FB98;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #228B22;
+--slide-title-bottom-border: 1px solid #013220;
+
+
+%%% Serengeti
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #F5DEB3;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #DAA520;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Great Barrier Reef
+
+--slide-body-color: #1E90FF;
+--slide-body-background-color: #E0FFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #00CED1;
+--slide-title-bottom-border: 1px solid #1E90FF;
+
+
+%%% Rockies
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #D3D3D3;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #696969;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Pampas
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #F5DEB3;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #D2B48C;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Gobi
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #F5DEB3;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #CD853F;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Grand Canyon
+
+--slide-body-color: #8B0000;
+--slide-body-background-color: #DEB887;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #A0522D;
+--slide-title-bottom-border: 1px solid #8B0000;
+
+
+%%% Great Plains
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #F5F5DC;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #BDB76B;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Bora Bora
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #E0FFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #1E90FF;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Mongolian Steppe
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #F5F5DC;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #A0522D;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Congo Basin
+
+--slide-body-color: #013220;
+--slide-body-background-color: #98FB98;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #006400;
+--slide-title-bottom-border: 1px solid #013220;
+
+
+%%% Mauna Loa
+
+--slide-body-color: #FF4500;
+--slide-body-background-color: #2F4F4F;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B0000;
+--slide-title-bottom-border: 1px solid #FF4500;
+
+
+%%% Van Gogh
+
+--slide-body-color: #1B2631;
+--slide-body-background-color: #F7DC6F;
+--slide-title-color: #F7DC6F;
+--slide-title-background-color: #154360;
+--slide-title-bottom-border: 1px solid #F7DC6F;
+
+
+%%% Picasso
+
+--slide-body-color: #000000;
+--slide-body-background-color: #F5F5F5;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B0000;
+--slide-title-bottom-border: 1px solid #000000;
+
+
+%%% Monet
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #E0FFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #6B8E23;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Dali
+
+--slide-body-color: #4B0082;
+--slide-body-background-color: #F0E68C;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B0000;
+--slide-title-bottom-border: 1px solid #4B0082;
+
+
+%%% Warhol
+
+--slide-body-color: #000000;
+--slide-body-background-color: #FFFF00;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF1493;
+--slide-title-bottom-border: 1px solid #000000;
+
+
+%%% Kahlo
+
+--slide-body-color: #006400;
+--slide-body-background-color: #FFDAB9;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B0000;
+--slide-title-bottom-border: 1px solid #006400;
+
+
+%%% Matisse
+
+--slide-body-color: #000080;
+--slide-body-background-color: #F0F8FF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #0000CD;
+--slide-title-bottom-border: 1px solid #000080;
+
+
+%%% Hokusai
+
+--slide-body-color: #1B2631;
+--slide-body-background-color: #E0FFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #000080;
+--slide-title-bottom-border: 1px solid #1B2631;
+
+
+%%% Michelangelo
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #F5F5F5;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #696969;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Seurat
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #FFFACD;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #6A5ACD;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Klimt
+
+--slide-body-color: #4B0082;
+--slide-body-background-color: #FFD700;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #DAA520;
+--slide-title-bottom-border: 1px solid #4B0082;
+
+
+%%% Pollock
+
+--slide-body-color: #000000;
+--slide-body-background-color: #FFFFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #000000;
+--slide-title-bottom-border: 1px solid #FF0000;
+
+
+%%% Magritte
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #F5F5F5;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #708090;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Mondrian
+
+--slide-body-color: #000000;
+--slide-body-background-color: #FFFFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF0000;
+--slide-title-bottom-border: 1px solid #000000;
+
+
+%%% Cezanne
+
+--slide-body-color: #4B3621;
+--slide-body-background-color: #FAF0E6;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B4513;
+--slide-title-bottom-border: 1px solid #4B3621;
+
+
+%%% Renoir
+
+--slide-body-color: #800000;
+--slide-body-background-color: #FFE4E1;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FA8072;
+--slide-title-bottom-border: 1px solid #800000;
+
+
+%%% Degas
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #FFF0F5;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #6A5ACD;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Bosch
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #2F4F4F;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #000000;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Airstrip One
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #000000;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B0000;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Arrakis
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #F5DEB3;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #CD853F;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Narnia
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #F0F8FF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #4682B4;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Oz
+
+--slide-body-color: #006400;
+--slide-body-background-color: #FFFFE0;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #228B22;
+--slide-title-bottom-border: 1px solid #006400;
+
+
+%%% Graustark
+
+--slide-body-color: #4B0082;
+--slide-body-background-color: #F8F8FF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #800080;
+--slide-title-bottom-border: 1px solid #4B0082;
+
+
+%%% Barsoom
+
+--slide-body-color: #8B0000;
+--slide-body-background-color: #FFE4C4;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #A52A2A;
+--slide-title-bottom-border: 1px solid #8B0000;
+
+
+%%% The Shire
+
+--slide-body-color: #013220;
+--slide-body-background-color: #F0FFF0;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #006400;
+--slide-title-bottom-border: 1px solid #013220;
+
+
+%%% Rohan
+
+--slide-body-color: #013220;
+--slide-body-background-color: #FFFFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #228B22;
+--slide-title-bottom-border: 1px solid #013220;
+
+
+%%% Mordor
+
+--slide-body-color: #FF4500;
+--slide-body-background-color: #2F4F4F;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #000000;
+--slide-title-bottom-border: 1px solid #FF4500;
+
+
+%%% Gondor
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #FFFFFF;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #708090;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Ruby
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #8B0000;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #B22222;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Pearl
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #F0EAD6;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #B0C4DE;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Emerald
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #006400;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #008000;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Turquoise
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #AFEEEE;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #40E0D0;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Amber
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #FFBF00;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF8C00;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Sapphire
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #0F52BA;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #1E90FF;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Orchid
+
+--slide-body-color: #4B0082;
+--slide-body-background-color: #DA70D6;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #BA55D3;
+--slide-title-bottom-border: 1px solid #4B0082;
+
+
+%%% Rose
+
+--slide-body-color: #800000;
+--slide-body-background-color: #FFC0CB;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF69B4;
+--slide-title-bottom-border: 1px solid #800000;
+
+
+%%% Daisy
+
+--slide-body-color: #2F4F4F;
+--slide-body-background-color: #FFFFF0;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FFD700;
+--slide-title-bottom-border: 1px solid #2F4F4F;
+
+
+%%% Petunia
+
+--slide-body-color: #4B0082;
+--slide-body-background-color: #E6E6FA;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #9370DB;
+--slide-title-bottom-border: 1px solid #4B0082;
+
+
+%%% Marigold
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #FFD700;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF8C00;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Bluebells
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #6A5ACD;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #483D8B;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Pizza
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #FFE5B4;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF4500;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Fresh Salad
+
+--slide-body-color: #006400;
+--slide-body-background-color: #F0FFF0;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #32CD32;
+--slide-title-bottom-border: 1px solid #006400;
+
+
+%%% Bakery
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #FFF8DC;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #D2691E;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Chili
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #8B0000;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #FF0000;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Pancake House
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #F5DEB3;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #CD853F;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Barbecue
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #2F4F4F;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B0000;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Toad in the Hole
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #FFF8DC;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #A0522D;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Lobscouse
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #DEB887;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #A0522D;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Rocky Road
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #3D2B1F;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B4513;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Phở
+
+--slide-body-color: #006400;
+--slide-body-background-color: #F5FFFA;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #228B22;
+--slide-title-bottom-border: 1px solid #006400;
+
+
+%%% Couscous
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #F5DEB3;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #DAA520;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Red Beans and Rice
+
+--slide-body-color: #8B0000;
+--slide-body-background-color: #FFFFF0;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #B22222;
+--slide-title-bottom-border: 1px solid #8B0000;
+
+
+%%% Poutine
+
+--slide-body-color: #8B4513;
+--slide-body-background-color: #FFF8DC;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #D2691E;
+--slide-title-bottom-border: 1px solid #8B4513;
+
+
+%%% Tandoori Chicken
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #FF6347;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #CD5C5C;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Goulash
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #8B0000;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #A0522D;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Pepperpot
+
+--slide-body-color: #FFFFFF;
+--slide-body-background-color: #2F4F4F;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #8B0000;
+--slide-title-bottom-border: 1px solid #FFFFFF;
+
+
+%%% Chocolate Chip
+
+--slide-body-color: #2B1B17;
+--slide-body-background-color: #F5DEB3;
+--slide-title-color: #FFFFFF;
+--slide-title-background-color: #4B2E2E;
+--slide-title-bottom-border: 1px solid #2B1B17;
+

@@ -1,0 +1,57 @@
+
+#gorilla-editor-screen {
+    padding: 0;
+    margin: 0;
+    display: none;
+    position: absolute;
+    bottom: 0;
+    top: 2.75em;
+    left: 0;
+    right: 0;
+    grid-template-rows: 1fr;
+    z-index: 100000;
+    overflow: hidden;
+    box-sizing: border-box;
+    overflow: auto;
+}
+#gorilla-editor-wrapper {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 2em 1fr;
+    z-index: 100000;
+    background-color: var(--slide-body-background-color);
+    overflow: hidden;
+    padding: 0;
+}
+
+
+#gorilla-editor-control-panel {
+    padding: 0;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 100%;
+    align-items: center;
+    margin: 0;
+    box-sizing: content-box;
+    z-index: 100001;
+    -webkit-user-select: none;
+    user-select: none;
+    display: flex;
+    color: black;
+    background-color: lightgray;
+    height: 2.75em;
+    border-top: 1px solid black;
+}
+
+#gorilla-editor-editor-panel {
+    position: absolute;
+    top: 2em;
+    height: auto;
+    overflow: auto;
+}

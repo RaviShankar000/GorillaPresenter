@@ -1,0 +1,22 @@
+.wikipedia-quote {
+    width: 80vw;
+    position: relative;
+    margin: 0 auto;
+    padding: 1em;
+    padding-left: 3em;
+    line-height: 1.6;
+    font-style: italic;
+    border-left: 0.25em solid currentColor;
+    background-color: var(--slide-body-color);
+    color: var(--slide-body-background-color);
+    border-radius: 10px;
+}
+
+.wikipedia-quote .wikipedia-logo{
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+    width: 2em;
+    height: 2em;
+    fill: var(--slide-body-background-color);
+}

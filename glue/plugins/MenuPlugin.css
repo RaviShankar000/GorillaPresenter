@@ -1,0 +1,103 @@
+
+
+.gorilla-choice-item {
+    position: relative;
+    height: auto;
+    margin: 0 auto;
+    padding: 25px;
+    line-height: 1;
+    list-style:none;
+    border-bottom:none;
+    max-width:50vw;
+  
+}
+.gorilla-choice-item img {
+    max-width:20vw;
+}
+
+.gorilla-choice-item:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
+.gorilla-choice-item:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom:1px solid black;
+}
+
+.gorilla-choice-header {
+    position: relative;
+   /* color: #ffffff;
+    background-color: #4d5b8c;*/
+    color:var(--menu-header-color);
+    background-color:var(--menu-header-background-color);
+    border: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: none;
+    font-size: 125%;
+    font-weight: bold;
+   font-family:var(--heading-font-stack)
+}
+
+
+.gorilla-choice-navigate, .gorilla-choice-multiple-choice, .gorilla-choice-notify,.gorilla-choice-external {
+    position: relative;
+   /* color: #4d5b8c;
+    background-color: #fff6e4; */
+    color:var(--menu-body-color);
+    background-color:var(--menu-background-color);
+    border: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: none;
+    cursor:pointer;
+}
+.gorilla-choice-navigate::before, .gorilla-choice-multiple-choice::before, .gorilla-choice-notify::before, .gorilla-choice-external::before {
+    content: '›';
+    position: absolute;
+    right: 0.5em;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    line-height: 1;
+}
+
+.gorilla-outline-class-none {
+    padding-left: 0em;
+}
+.gorilla-outline-level-0 {
+    padding-left: 1em;
+}
+.gorilla-outline-level-1 {
+    padding-left: 2em;
+}
+.gorilla-outline-level-2 {
+    padding-left: 3em;
+}
+.gorilla-outline-level-3 {
+    padding-left: 4em;
+}
+.gorilla-outline-level-4 {
+    padding-left: 5em;
+}
+.gorilla-outline-level-5 {
+    padding-left: 6em;
+}
+.gorilla-outline-level-6 {
+    padding-left: 7em;
+}
+.gorilla-outline-level-7 {
+    padding-left: 8em;
+}
+.gorilla-outline-level-8 {
+    padding-left: 9em;
+}
+.gorilla-outline-level-9 {
+    padding-left: 10em;
+}
+.gorilla-outline-level-10 {
+    padding-left: 11em;
+}

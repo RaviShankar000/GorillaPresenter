@@ -1,0 +1,92 @@
+
+document.body.style.cursor = "default";
+GorillaSlideRenderer.registerPlugin('test', TestPlugin);
+GorillaSlideRenderer.registerPlugin('autoplay', AutoplayPlugin);
+GorillaSlideRenderer.registerPlugin('book', BookPlugin);
+GorillaSlideRenderer.registerPlugin('media', MediaPlugin); 
+GorillaSlideRenderer.registerPlugin('menu', MenuPlugin);  
+GorillaSlideRenderer.registerPlugin('outline', OutlinePlugin);
+GorillaSlideRenderer.registerPlugin('icon', IconPlugin);
+GorillaSlideRenderer.registerPlugin('wikipedia', WikipediaPlugin);
+GorillaSlideRenderer.registerPlugin('map', MapPlugin);
+GorillaSlideRenderer.registerPlugin('home', HomePlugin);
+
+await window.fs.unpackZipData();
+//let cursorData = await fs.readBinaryFile("GorillaCursor.png");
+//let url = URL.createObjectURL(cursorData);
+//document.body.style.cursor = `url(${url}) 16 16, auto`;  
+GorillaMarkdown.init();
+await GorillaMedia.init();
+await MainMenuDriver.init();
+await GorillaEditor.init();
+await GorillaIconLoader.loadIcons();
+await GorillaSettings.loadSettings();
+await GorillaLicenseHandler.loadLicenseInfo();
+await GorillaFontLoader.loadFonts();
+HammerDriver.init();
+await GorillaMedia.loadMediaScreens();
+await GorillaThemeHandler.init();
+
+// Apply the saved theme
+GorillaThemeHandler.setTheme();
+await GorillaPresenter.init();
+// Set up event listeners for theme and font stack selectors
+
+GorillaThemeHandler.codeFontStack = GorillaSettings.settings["code-font-stack-selector"] || "--monospace-code-font-stack";
+GorillaThemeHandler.bodyFontStack = GorillaSettings.settings["body-font-stack-selector"] || "--serif-font-stack";
+GorillaThemeHandler.headingFontStack = GorillaSettings.settings["heading-font-stack-selector"] || "--didone-font-stack";
+
+// Test via a getter in the options object to see if the passive property is accessed
+var supportsPassive = false;
+try {
+  var opts = Object.defineProperty({}, 'passive', {
+    get: function() {
+      supportsPassive = true;
+    }
+  });
+  window.addEventListener("testPassive", null, opts);
+  window.removeEventListener("testPassive", null, opts);
+} catch (e) {}
+
+// Use our detect's results. passive applied if supported, capture will be false either way.
+//elem.addEventListener('touchstart', fn, supportsPassive ? { passive: true } : false); 
+
+document.getElementById("theme-selector").addEventListener("change", function (evt){GorillaThemeHandler.themeSelected()});
+document.getElementById("heading-font-stack-selector").addEventListener("change", function (evt){GorillaThemeHandler.themeSelected()});
+document.getElementById("body-font-stack-selector").addEventListener("change", function (evt){GorillaThemeHandler.themeSelected()});
+document.getElementById("code-font-stack-selector").addEventListener("change", function (evt){GorillaThemeHandler.themeSelected()});
+document.getElementById("gorilla-editor-theme-selector").addEventListener("change", function (evt){GorillaThemeHandler.editorThemeSelected()});
+document.getElementById("gorilla-editor-font-size").addEventListener("change", async function (evt){
+  console.log("Editor font size changed.");
+  let fontSize = document.getElementById("gorilla-editor-font-size").value;
+  GorillaSettings.settings["editorFontSize"] = fontSize;
+  await GorillaSettings.saveSettings();
+  document.querySelectorAll(".codejar").forEach((el) => { 
+    el.style.fontSize = GorillaSettings.settings["editorFontSize"] + "px";
+  });           
+});
+document.body.style.display = "grid";
+   const hashNumber = parseInt(window.location.hash.substring(1));
+    if(hashNumber !== GorillaPresenter.currentSlideNumber){
+
+    if (!isNaN(hashNumber) && hashNumber >= 0 && hashNumber < GorillaSlideRenderer.slides.length) {
+        GorillaPresenter.currentSlideNumber = hashNumber;
+    } else {
+        // Otherwise show the first slide
+        GorillaPresenter.currentSlideNumber = 0;
+    }
+
+  }
+
+  
+  
+  
+ let slidechooser = document.getElementById("slidechooser");
+        slidechooser.addEventListener("change", async function (e) {
+           await GorillaPresenter.showSlide(slidechooser.value, "cutIn");
+        });
+    await GorillaPresenter.show_screen("gorilla-slide-show");
+
+
+  
+  

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<!-- Copyright 2025, 2026 by Anthony W. Hursh. MIT License.-->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>GorillaPresenter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style id="theme">
+    :root {
+      --outline-item-border: 1px solid #2E8B57;
+      --slide-body-color: #ffffff;
+      --slide-body-background-color: #013220;
+      --slide-title-color: #FFFFFF;
+      --slide-title-background-color: #2E8B57;
+      --slide-title-bottom-border: 1px solid #A0522D;
+      --outline-item-title-color: #FFFFFF;
+      --outline-item-title-background-color: #2E8B57;
+      --outline-item-color: #A0522D;
+      --outline-item-background-color: #013220;
+      --outline-item-border: 1px solid #2E8B57;
+      --slide-heading-font-stack: var(--didone-font-stack);
+      --slide-body-font-stack: var(--humanist-font-stack);
+      --slide-code-font-stack: var(--monospace-code-font-stack);
+    }
+  </style>
+  <style id="editor-theme">
+  </style>
+  <script>
+    window.Prism = window.Prism || {};
+    window.Prism.manual = true;
+    Prism.disableWorkerMessageHandler = true;
+
+  </script>
+
+  <!--glue-->
+
+
+</head>
+
+<body>
+  <div id="gorilla-app-wrapper">
+    <div id="main-menu-bar" class="gorilla-menu-bar">
+      <span id="main-menu-wrapper" class="gorilla-menu-button-wrapper">
+        <button class="main-menu-item ionicon" nav-value="slideshow" title="Slideshow">albums-outline
+        </button>
+        <button class="main-menu-item ionicon" nav-value="save" title="Download Presentation">download-outline</button>
+        <button class="main-menu-item ionicon" nav-value="open" title="Open Presentation">folder-open-outline
+        </button>
+        <button class="main-menu-item ionicon" nav-value="edit" title="Edit Presentation">create-outline</button>
+        <button class="main-menu-item ionicon" nav-value="media" title="Media">film-outline</button>
+        <button class="main-menu-item ionicon" nav-value="settings" title="Settings">cog-outline</button>
+        <button class="main-menu-item ionicon" nav-value="recorder"
+          title="Audio/Video Recorder">videocam-outline</button>
+        <button class="main-menu-item ionicon" nav-value="about"
+          title="About GorillaPresenter">information-circle-outline</button>
+        <button class="main-menu-item ionicon" nav-value="fullscreen" title="Full Screen">expand-outline</button>
+      </span><span>
+        <select title="slidechooser" id="slidechooser" class="gorilla-navigation">
+        </select>
+      </span>
+    </div>
+    <div id="gorilla-presenter-screens-wrapper">
+      <div id="gorilla-slide-show" class="gorilla-presenter-screen"></div>
+
+      <div id="gorilla-media-screen" class="gorilla-presenter-screen">
+        <!--uploader-->
+        <div id="dropZone" class="drop-zone">
+          Drop file here or click to upload
+        </div>
+        <label for="fileInput" id="fileInputLabel"></label>
+        <input type="file" id="fileInput" />
+        <!--media lists-->
+        <h1>Media</h1>
+        <ul id="gorilla-media-list" class="gorilla-media-list">
+        </ul>
+        <h1>Fonts</h1>
+        <ul id="gorilla-media-font-list" class="gorilla-media-list">
+        </ul>
+        <h1>Licensing</h1>
+        <ul id="gorilla-media-license-list" class="gorilla-media-list">
+        </ul>
+        <h1>Trash <button id="gorilla-media-screen-empty-trash" class="ionicon" title="Empty Trash"
+            nav-value="empty-trash">empty-trash-outline</button></h1>
+
+        <ul id="gorilla-media-trash-list" class="gorilla-media-list">
+        </ul>
+
+
+      </div>
+      <div id="gorilla-editor-screen" class="gorilla-presenter-screen">
+        <div id="gorilla-editor-wrapper">
+        <div id="gorilla-editor-control-panel" class="gorilla-menu-button-wrapper"><button class="main-menu-item ionicon" nav-value="bold" title="Bold">fontawesome/bold</button><button class="main-menu-item ionicon" nav-value="italic" title="Italic">fontawesome/italic</button>
+        <button class="main-menu-item ionicon" nav-value="blockquote" title="Blockquote">fontawesome/leftquote</button>
+      <button class="main-menu-item ionicon" nav-value="ul" title="Bullet List">fontawesome/list-ul</button>
+        <button class="main-menu-item ionicon" nav-value="ol" title="Numbered List">fontawesome/list-ol</button>
+       <button class="main-menu-item ionicon" nav-value="superscript" title="Superscript">fontawesome/superscript</button>
+        <button class="main-menu-item ionicon" nav-value="subscript" title="Subscript">fontawesome/subscript</button>
+          <button class="main-menu-item ionicon" nav-value="strikethrough" title="Strikethrough">fontawesome/strike</button>
+        <button class="main-menu-item ionicon" nav-value="code" title="Code">fontawesome/code</button>
+        <button class="main-menu-item ionicon" nav-value="comment" title="Comment">fontawesome/comment</button>
+         <button class="main-menu-item ionicon" nav-value="insertmedia" title="Insert Media">fontawesome/media</button>
+         <button class="main-menu-item ionicon" nav-value="latex" title="LaTeX Math">fontawesome/infinity</button>
+
+         <button class="main-menu-item ionicon" nav-value="footnote" title="Insert footnote">fontawesome/note-sticky</button>
+      </div>
+
+        <div id="gorilla-editor-editor-panel">
+          <pre id="gorilla-slide-editor" class="language-markdown codejar">
+        </div>
+        </div>
+    </div> 
+  </div>
+  <div id="gorilla-about-screen" class="gorilla-presenter-screen">
+  
+  </div>
+
+    <div id="gorilla-recorder-screen" class="gorilla-presenter-screen">
+      <div>
+  <h1>Audio/Video Recorder/Editor</h1>
+  </div>
+  <div id="gorilla-media-recorder-browser-warning" class="gorilla-media-recorder-hidden"></div>
+  <div id="gorilla-media-recorder-video-container"></div>
+  <div id="gorilla-media-recorder-timeline"></div>
+  <div id="gorilla-recorder-controls" class="gorilla-recorder-menu-bar">
+      <span id="gorilla-recorder-menu-wrapper" class="gorilla-menu-button-wrapper">
+        <button class="main-menu-item ionicon" nav-value="record" id="gorilla-media-recorder-record" title="Record"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path style="fill:red;" d="M256,464C141.31,464,48,370.69,48,256S141.31,48,256,48s208,93.31,208,208S370.69,464,256,464Z"/></svg>
+        </button>
+         <button class="main-menu-item ionicon" id = "gorilla-media-recorder-play" nav-value="play" title="Play/Pause"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M133,440a35.37,35.37,0,0,1-17.5-4.67c-12-6.8-19.46-20-19.46-34.33V111c0-14.37,7.46-27.53,19.46-34.33a35.13,35.13,0,0,1,35.77.45L399.12,225.48a36,36,0,0,1,0,61L151.23,434.88A35.5,35.5,0,0,1,133,440Z"/></svg>
+
+        </button>
+         <button class="main-menu-item ionicon" id="gorilla-media-recorder-clear-selection" nav-value="clearselection" title="Deselect">backspace-outline
+        </button>
+          <button class="main-menu-item ionicon" id="gorilla-media-recorder-trim" nav-value="trim" title="Trim">contract-outline
+
+        </button>
+          <button class="main-menu-item ionicon" id="gorilla-media-recorder-cut" nav-value="cut" title="Cut">cut-outline
+        </button>
+          <button class="main-menu-item ionicon" id="gorilla-media-recorder-undo" nav-value="recorderundo" title="Undo">arrow-undo-outline
+        </button>
+
+          <button class="main-menu-item ionicon" id="gorilla-media-recorder-save-recording" nav-value="saverecording" title="Save Recording">checkmark-outline
+        </button>
+       
+
+      </span>
+      &nbsp; &nbsp;<span class="ionicon">volume-mute-outline</span>
+ <input type="range" id="gorilla-media-recorder-volume-slider" min="0" max="100" value="100">
+ <span class="ionicon">volume-high-outline</span> &nbsp; &nbsp;
+ Record Mode:
+        <label><input type="radio" name="gorilla-media-recorder-mode" value="video" checked> 🎥 Video</label>
+    <label><input type="radio" name="gorilla-media-recorder-mode" value="audio"> 🎤 Audio Only</label>
+  </div>
+   <div id="gorilla-media-recorder-status">Ready to record</div>
+
+  </div>
+ 
+<div id="gorilla-settings-screen" class="gorilla-presenter-screen">
+  <div class="gorilla-settings-panel">
+    <div class="gorilla-settings-option">
+    <label for="theme-selector">Select Theme:</label>
+    <select id="theme-selector" variable="theme" class="settingsvalue"></select>
+  </div>
+  
+  <div class="gorilla-settings-option">
+    <label for="heading-font-stack-selector">Select Heading Font:</label>
+    <select id="heading-font-stack-selector" variable="headingFontStack" class="settingsvalue"></select>
+  </div>
+  <div class="gorilla-settings-option">
+    <label for="body-font-stack-selector">Select Body Font:</label>
+    <select id="body-font-stack-selector" variable="bodyFontStack" class="settingsvalue"></select>
+  </div>
+ 
+ </div>
+ <div class="gorilla-settings-panel">
+ <div class="gorilla-settings-option">
+ <div id="gorilla-sample-slide">
+    <div id="gorilla-sample-slide-header">
+      <h1>Sample Slide Title</h1>
+    </div>
+    <div id="gorilla-sample-slide-body">
+This is some sample slide body text. It has **bold** and *italic*, as well
+as a
+
+* List
+* with
+* several
+* items
+Lorem ipsum...
+
+<ul class="gorilla-choice-list">
+<li class="gorilla-choice-item gorilla-choice-header">Navigation</li>
+<li class="gorilla-choice-item gorilla-choice-navigate gorilla-choice-sample" data-slide-number="7">Go to the Code Slide</li>
+<li class="gorilla-choice-item gorilla-choice-navigate gorilla-choice-sample" data-slide-number="13">Go to the Complex Markdown Slide</li>
+<li class="gorilla-choice-item gorilla-choice-header gorilla-choice-sample">Notification</li>
+<li class="gorilla-choice-item gorilla-choice-notify gorilla-choice-sample" data-message="Hi%20there!">Alert Hi, there</li><li class="gorilla-choice-item gorilla-choice-header gorilla-choice-sample">Multiple Choice</li>
+<li class="gorilla-choice-item gorilla-choice-multiple-choice gorilla-choice-sample" data-value="true">Correct response</li>
+<li class="gorilla-choice-item gorilla-choice-multiple-choice gorilla-choice-sample" data-value="false">Incorrect response</li>
+<li class="gorilla-choice-item gorilla-choice-header gorilla-choice-sample">External Sites</li>
+<li class="gorilla-choice-item gorilla-choice-external gorilla-choice-sample" data-url="https%3A%2F%2Fgoogle.com">Google</li>
+<li class="gorilla-choice-item gorilla-choice-external gorilla-choice-sample" data-url="https%3A%2F%2Famaszon.com">Amazon</li>
+</ul>
+
+      </div>
+</div>
+</div>
+</div>  
+ <div class="gorilla-settings-panel">
+  <div class="gorilla-settings-option">
+      <label for="code-font-stack-selector">Select Code Font:</label>
+      <select id="code-font-stack-selector" variable="codeFontStack" class="settingsvalue"></select>
+    </div>
+    <div class="gorilla-settings-option">
+      <label for="gorilla-editor-theme-selector">Select Code Theme</label>
+      <select id="gorilla-editor-theme-selector" variable="editorTheme" class="settingsvalue"></select> <select
+        title="gorilla-editor-font-size" id="gorilla-editor-font-size" variable="editorFontSize" class="settingsvalue">
+        <option>12</option>
+        <option>14</option>
+        <option>16</option>
+        <option>18</option>
+        <option>20</option>
+        <option>22</option>
+        <option>24</option>
+        <option>26</option>
+        <option>28</option>
+        <option>30</option>
+      </select>
+    </div>
+</div>
+  <div class="gorilla-settings-panel">
+<div class="gorilla-settings-option">
+  <div id="gorilla-sample-slide-code">
+     <pre id="gorilla-sample-code-editor" class="language-markdown  codejar"><code>
+
+# Sample heading
+
+This text has **bold** and *italic* styles. You can type in here.
+      
+1. Numbered
+2. List
+3. Dude
+
+- Sample bullet list item 1
+- Sample bullet list item 2
+
+
+```javascript
+  function greet(){
+    console.log("Hello, world!");
+  }
+```
+</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="gorilla-settings-panel">
+      <div class="gorilla-settings-option">
+        <label for="default-incorrect-response-input">Default Incorrect Response:</label>
+        <input type="text" id="default-incorrect-response-input" variable="defaultIncorrectResponse"
+          class="settingsvalue" value="I'm sorry, that is incorrect." />
+      </div>
+      <div class="gorilla-settings-option">
+        <label for="default-correct-response-input">Default Correct Response:</label>
+        <input type="text" id="default-correct-response-input" variable="defaultCorrectResponse" class="settingsvalue"
+          value="Correct!" />
+
+      </div>
+      <div class="gorilla-settings-option">
+        <label for="custom-css-area">Custom CSS:</label>
+        <textarea type="text" rows="20" cols="80" id="custom-css-area" variable="customCSS" class="settingsvalue"
+          value=""></textarea>
+
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="gorilla-zip-data"></div>
+</body>
+
+</html>
