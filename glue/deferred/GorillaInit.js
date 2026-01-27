@@ -3,8 +3,8 @@ document.body.style.cursor = "default";
 GorillaSlideRenderer.registerPlugin('test', TestPlugin);
 GorillaSlideRenderer.registerPlugin('autoplay', AutoplayPlugin);
 GorillaSlideRenderer.registerPlugin('book', BookPlugin);
-GorillaSlideRenderer.registerPlugin('media', MediaPlugin); 
-GorillaSlideRenderer.registerPlugin('menu', MenuPlugin);  
+GorillaSlideRenderer.registerPlugin('media', MediaPlugin);
+GorillaSlideRenderer.registerPlugin('menu', MenuPlugin);
 GorillaSlideRenderer.registerPlugin('outline', OutlinePlugin);
 GorillaSlideRenderer.registerPlugin('icon', IconPlugin);
 GorillaSlideRenderer.registerPlugin('wikipedia', WikipediaPlugin);
@@ -40,53 +40,73 @@ GorillaThemeHandler.headingFontStack = GorillaSettings.settings["heading-font-st
 var supportsPassive = false;
 try {
   var opts = Object.defineProperty({}, 'passive', {
-    get: function() {
+    get: function () {
       supportsPassive = true;
     }
   });
   window.addEventListener("testPassive", null, opts);
   window.removeEventListener("testPassive", null, opts);
-} catch (e) {}
+} catch (e) { }
 
 // Use our detect's results. passive applied if supported, capture will be false either way.
 //elem.addEventListener('touchstart', fn, supportsPassive ? { passive: true } : false); 
 
-document.getElementById("theme-selector").addEventListener("change", function (evt){GorillaThemeHandler.themeSelected()});
-document.getElementById("heading-font-stack-selector").addEventListener("change", function (evt){GorillaThemeHandler.themeSelected()});
-document.getElementById("body-font-stack-selector").addEventListener("change", function (evt){GorillaThemeHandler.themeSelected()});
-document.getElementById("code-font-stack-selector").addEventListener("change", function (evt){GorillaThemeHandler.themeSelected()});
-document.getElementById("gorilla-editor-theme-selector").addEventListener("change", function (evt){GorillaThemeHandler.editorThemeSelected()});
-document.getElementById("gorilla-editor-font-size").addEventListener("change", async function (evt){
+document.getElementById("theme-selector").addEventListener("change", function (evt) { GorillaThemeHandler.themeSelected() });
+document.getElementById("heading-font-stack-selector").addEventListener("change", function (evt) { GorillaThemeHandler.themeSelected() });
+document.getElementById("body-font-stack-selector").addEventListener("change", function (evt) { GorillaThemeHandler.themeSelected() });
+document.getElementById("code-font-stack-selector").addEventListener("change", function (evt) { GorillaThemeHandler.themeSelected() });
+document.getElementById("gorilla-editor-theme-selector").addEventListener("change", function (evt) { GorillaThemeHandler.editorThemeSelected() });
+document.getElementById("gorilla-editor-font-size").addEventListener("change", async function (evt) {
   console.log("Editor font size changed.");
   let fontSize = document.getElementById("gorilla-editor-font-size").value;
   GorillaSettings.settings["editorFontSize"] = fontSize;
   await GorillaSettings.saveSettings();
-  document.querySelectorAll(".codejar").forEach((el) => { 
+  document.querySelectorAll(".codejar").forEach((el) => {
     el.style.fontSize = GorillaSettings.settings["editorFontSize"] + "px";
-  });           
+  });
 });
 document.body.style.display = "grid";
-   const hashNumber = parseInt(window.location.hash.substring(1));
-    if(hashNumber !== GorillaPresenter.currentSlideNumber){
+const hashNumber = parseInt(window.location.hash.substring(1));
+if (hashNumber !== GorillaPresenter.currentSlideNumber) {
 
-    if (!isNaN(hashNumber) && hashNumber >= 0 && hashNumber < GorillaSlideRenderer.slides.length) {
-        GorillaPresenter.currentSlideNumber = hashNumber;
-    } else {
-        // Otherwise show the first slide
-        GorillaPresenter.currentSlideNumber = 0;
-    }
-
+  if (!isNaN(hashNumber) && hashNumber >= 0 && hashNumber < GorillaSlideRenderer.slides.length) {
+    GorillaPresenter.currentSlideNumber = hashNumber;
+  } else {
+    // Otherwise show the first slide
+    GorillaPresenter.currentSlideNumber = 0;
   }
 
-  
-  
-  
- let slidechooser = document.getElementById("slidechooser");
-        slidechooser.addEventListener("change", async function (e) {
-           await GorillaPresenter.showSlide(slidechooser.value, "cutIn");
-        });
-    await GorillaPresenter.show_screen("gorilla-slide-show");
+}
+
+/* Rethink this... as written it causes too much distraction
+const overlay = document.getElementById('nav-overlay');
+const HIDE_DELAY = 500; // milliseconds to wait before hiding
+let hideTimeout = null;
+
+document.addEventListener('mousemove', function () {
+  // Show the overlay
+  overlay.classList.add('visible');
+
+  // Clear any existing timeout
+  if (hideTimeout) {
+    clearTimeout(hideTimeout);
+  }
+
+  // Set a new timeout to hide the overlay
+  hideTimeout = setTimeout(function () {
+    overlay.classList.remove('visible');
+  }, HIDE_DELAY);
+});
+*/
 
 
-  
-  
+
+let slidechooser = document.getElementById("slidechooser");
+slidechooser.addEventListener("change", async function (e) {
+  await GorillaPresenter.showSlide(slidechooser.value, "cutIn");
+});
+await GorillaPresenter.show_screen("gorilla-slide-show");
+
+
+
+

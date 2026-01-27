@@ -17,10 +17,12 @@ GorillaScript = {
         let currentTitle = '';
         let currentBody = [];
         let currentComments = [];
-
+        console.log("processing lines:", lines.length);
         for (let i = 0; i < lines.length; i++) {
             let line = lines[i];
-
+            line = line.replace(/^[\t ]*/g, match => {
+                return match.replace(/\t/g, '    ').replace(/    /g, '\u00A0');
+            });
             // Check if this is an H1 header (starts with single #, followed by space or end)
             if (line.match(/^#(?:\s|$)/)) {
                 // If we have a previous slide, save it
@@ -67,6 +69,7 @@ GorillaScript = {
         for (let i = 0; i < slides.length; i++) {
             slides[i].offset = offsets[i] || 0;
         }
+        console.log("Total slides processed:", slidecounter);
         return slides;
     },
 
@@ -80,10 +83,10 @@ GorillaScript = {
             comments: trimmedComments,
             renderedTitle: GorillaMarkdown.mdparse.render(trimmedTitle),
             renderedBody: GorillaMarkdown.mdparse.render(trimmedBody),
-           //renderedComments: GorillaMarkdown.mdparse.render(trimmedComments),
-           renderedComments: trimmedComments,  // Keep comments as plain text
+            //renderedComments: GorillaMarkdown.mdparse.render(trimmedComments),
+            renderedComments: trimmedComments,  // Keep comments as plain text
         }
         return slide;
     },
-   
+
 };

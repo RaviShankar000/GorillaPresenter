@@ -362,7 +362,7 @@ button svg {
   padding: 1em;
   margin-bottom: 1em;
   margin-top: 3em;
-  padding-top: 3em;
+  padding-top: 1em;
   font-size:150%;
    overflow-x: hidden;  /* Disable horizontal scroll */
     overflow-y: auto;    /* Enable vertical scroll */
@@ -840,6 +840,49 @@ button:disabled {
 
 </style>
 <style>
+#nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index:100000;
+}
+
+#nav-overlay.visible {
+    opacity: 1;
+}
+
+.overlay-nav-left{
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: white;
+    pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
+    opacity: 0.7;
+}
+
+.overlay-nav-right{
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: white;
+    pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
+    opacity: 0.7;
+}
+</style>
+<style>
 .gorilla-book-header {
     display: grid;
     grid-template-rows: auto auto auto;
@@ -873,21 +916,31 @@ button:disabled {
 }
 </style>
 <style>
-
-
+.gorilla-choice-list{
+    position: relative;
+    width: auto;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--menu-background-color);
+}
 .gorilla-choice-item {
     position: relative;
     height: auto;
     margin: 0 auto;
     padding: 25px;
     line-height: 1;
-    list-style:none;
-    border-bottom:none;
-    max-width:50vw;
-  
+    list-style: none;
+    border-bottom: none;
+
 }
+
 .gorilla-choice-item img {
-    max-width:20vw;
+    max-width: 20vw;
 }
 
 .gorilla-choice-item:first-child {
@@ -899,80 +952,97 @@ button:disabled {
 .gorilla-choice-item:last-child {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    border-bottom:1px solid black;
+    border-bottom: 1px solid black;
 }
+
 
 .gorilla-choice-header {
     position: relative;
-   /* color: #ffffff;
-    background-color: #4d5b8c;*/
-    color:var(--menu-header-color);
-    background-color:var(--menu-header-background-color);
+    color: var(--menu-header-color);
+    background-color: var(--menu-header-background-color);
     border: 1px solid black;
     border-left: 1px solid black;
     border-right: 1px solid black;
     border-bottom: none;
-    font-size: 125%;
+    font-size: 1.25em;
     font-weight: bold;
-   font-family:var(--heading-font-stack)
+    font-family: var(--heading-font-stack)
 }
 
-
-.gorilla-choice-navigate, .gorilla-choice-multiple-choice, .gorilla-choice-notify,.gorilla-choice-external {
+.gorilla-choice-navigate,
+.gorilla-choice-multiple-choice,
+.gorilla-choice-notify,
+.gorilla-choice-external {
     position: relative;
-   /* color: #4d5b8c;
+    /* color: #4d5b8c;
     background-color: #fff6e4; */
-    color:var(--menu-body-color);
-    background-color:var(--menu-background-color);
+    color: var(--menu-body-color);
+    background-color: var(--menu-background-color);
     border: 1px solid black;
     border-left: 1px solid black;
     border-right: 1px solid black;
     border-bottom: none;
-    cursor:pointer;
+    font-size:1.25em;
+    cursor: pointer;
 }
-.gorilla-choice-navigate::before, .gorilla-choice-multiple-choice::before, .gorilla-choice-notify::before, .gorilla-choice-external::before {
+
+.gorilla-choice-navigate::before,
+.gorilla-choice-multiple-choice::before,
+.gorilla-choice-notify::before,
+.gorilla-choice-external::before {
     content: '›';
     position: absolute;
     right: 0.5em;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 2em;
+    font-size: 1.25em;
     line-height: 1;
 }
 
 .gorilla-outline-class-none {
     padding-left: 0em;
 }
+
 .gorilla-outline-level-0 {
     padding-left: 1em;
 }
+
 .gorilla-outline-level-1 {
     padding-left: 2em;
 }
+
 .gorilla-outline-level-2 {
     padding-left: 3em;
 }
+
 .gorilla-outline-level-3 {
     padding-left: 4em;
 }
+
 .gorilla-outline-level-4 {
     padding-left: 5em;
 }
+
 .gorilla-outline-level-5 {
     padding-left: 6em;
 }
+
 .gorilla-outline-level-6 {
     padding-left: 7em;
 }
+
 .gorilla-outline-level-7 {
     padding-left: 8em;
 }
+
 .gorilla-outline-level-8 {
     padding-left: 9em;
 }
+
 .gorilla-outline-level-9 {
     padding-left: 10em;
 }
+
 .gorilla-outline-level-10 {
     padding-left: 11em;
 }
@@ -1156,8 +1226,6 @@ button:disabled {
         <button class="main-menu-item ionicon" nav-value="slideshow" title="Slideshow">albums-outline
         </button>
         <button class="main-menu-item ionicon" nav-value="save" title="Download Presentation">download-outline</button>
-        <button class="main-menu-item ionicon" nav-value="open" title="Open Presentation">folder-open-outline
-        </button>
         <button class="main-menu-item ionicon" nav-value="edit" title="Edit Presentation">create-outline</button>
         <button class="main-menu-item ionicon" nav-value="media" title="Media">film-outline</button>
         <button class="main-menu-item ionicon" nav-value="settings" title="Settings">cog-outline</button>
@@ -1385,6 +1453,9 @@ This text has **bold** and *italic* styles. You can type in here.
       </div>
     </div>
   </div>
+  </div>
+  <div id="nav-overlay">
+    <span class="overlay-nav-left">⇠</span><span class="overlay-nav-right">⇢</span>
   </div>
   <div id="gorilla-zip-data"></div>
 <script>
@@ -5161,10 +5232,12 @@ GorillaScript = {
         let currentTitle = '';
         let currentBody = [];
         let currentComments = [];
-
+        console.log("processing lines:", lines.length);
         for (let i = 0; i < lines.length; i++) {
             let line = lines[i];
-
+            line = line.replace(/^[\t ]*/g, match => {
+                return match.replace(/\t/g, '    ').replace(/    /g, '\u00A0');
+            });
             // Check if this is an H1 header (starts with single #, followed by space or end)
             if (line.match(/^#(?:\s|$)/)) {
                 // If we have a previous slide, save it
@@ -5211,6 +5284,7 @@ GorillaScript = {
         for (let i = 0; i < slides.length; i++) {
             slides[i].offset = offsets[i] || 0;
         }
+        console.log("Total slides processed:", slidecounter);
         return slides;
     },
 
@@ -5224,12 +5298,12 @@ GorillaScript = {
             comments: trimmedComments,
             renderedTitle: GorillaMarkdown.mdparse.render(trimmedTitle),
             renderedBody: GorillaMarkdown.mdparse.render(trimmedBody),
-           //renderedComments: GorillaMarkdown.mdparse.render(trimmedComments),
-           renderedComments: trimmedComments,  // Keep comments as plain text
+            //renderedComments: GorillaMarkdown.mdparse.render(trimmedComments),
+            renderedComments: trimmedComments,  // Keep comments as plain text
         }
         return slide;
     },
-   
+
 };
 </script>
 <script>
@@ -6588,7 +6662,7 @@ MenuPlugin = {
         let choices = [];
         let choicePairs = [];
         for (let line of choiceLines) {
-            line = line.trim();
+          //  line = line.trim();
             if (line.length === 0) continue; // Skip empty lines
             choices.push(line);
         }
@@ -6596,29 +6670,27 @@ MenuPlugin = {
         for (let choice of choices) {
             if(isOutline){
                lineLevel = MenuPlugin.parseLevel(choice);
-                outlineClass = "gorilla-outline-level-" + lineLevel.level;
             }else{
                 lineLevel = { level: -1, text: choice };
                 outlineClass = "";
             }
-            console.log("outlineClass:", outlineClass);
             if (lineLevel.text.length === 0) continue;
             let choiceText = lineLevel.text;
             let parts = choiceText.split(/(?<!\\)\|/).map(part => part.trim());
-            console.log("Choice parts:", parts + "parts length:" + parts.length);
             if (parts.length === 2) {
                 choiceStructure = { text: parts[0], target: parts[1], outlineLevel: lineLevel.level }
             } else {
                 choiceStructure = { text: parts[0], target: null, outlineLevel: lineLevel.level }
             }
-            console.log("Constructed choice structure:", choiceStructure);
             choicePairs.push(choiceStructure);
         }
-        console.log("Final choice pairs:", choicePairs);
         while (choicePairs.length > 0) {
             let pair = choicePairs.shift();
             let displayString = pair.text.trim();
             if(isOutline){
+                outlineClass = "gorilla-outline-level-" + pair.outlineLevel;
+                console.log("Outline class set to:", outlineClass);
+                console.log("Outline class for display string:", outlineClass);
             displayString = MenuPlugin.mlaHeadingString(pair.outlineLevel) + " " + displayString;
             }
             if (pair.target === null) {
@@ -6658,12 +6730,17 @@ MenuPlugin = {
         generatedHTML += '</ul>\n';
         return generatedHTML;
     },
-    parseLevel: function (line) {
-        const match = line.match(/^\++/);
-        const level = match ? match[0].length : 0;
-        const text = line.replace(/^\++\s*/, '');
-        return { level: level - 1, text: text };
-    },
+ parseLevel: function (line) {
+    // Match leading non-breaking spaces (\u00A0)
+    const match = line.match(/^[\u00A0]*/);
+    const nbspaces = match ? match[0] : '';
+    const level = nbspaces.length;
+    
+    // Remove leading non-breaking spaces to get the text
+    const text = line.replace(/^[\u00A0]*/, '');
+    
+    return { level: level, text: text };
+},
     romanNumeralBands: [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1], // The bands of numbers that correspond to Roman numerals.
     romanNumeralStringsUpper: ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"], // The Roman numeral strings for each band.
     romanNumeralStringsLower: ["m", "cm", "d", "cd", "c", "xc", "l", "xl", "x", "ix", "v", "iv", "i"], // The Roman numeral strings for each band.
@@ -6680,7 +6757,6 @@ MenuPlugin = {
         MenuPlugin.resetLowerLevels(current + 1);
     },
     mlaHeadingString: function (level) {
-        console.log("Generating MLA heading string for level:", level);
         if (level < 0) {
             return "";
         }
@@ -8694,8 +8770,8 @@ document.body.style.cursor = "default";
 GorillaSlideRenderer.registerPlugin('test', TestPlugin);
 GorillaSlideRenderer.registerPlugin('autoplay', AutoplayPlugin);
 GorillaSlideRenderer.registerPlugin('book', BookPlugin);
-GorillaSlideRenderer.registerPlugin('media', MediaPlugin); 
-GorillaSlideRenderer.registerPlugin('menu', MenuPlugin);  
+GorillaSlideRenderer.registerPlugin('media', MediaPlugin);
+GorillaSlideRenderer.registerPlugin('menu', MenuPlugin);
 GorillaSlideRenderer.registerPlugin('outline', OutlinePlugin);
 GorillaSlideRenderer.registerPlugin('icon', IconPlugin);
 GorillaSlideRenderer.registerPlugin('wikipedia', WikipediaPlugin);
@@ -8731,56 +8807,76 @@ GorillaThemeHandler.headingFontStack = GorillaSettings.settings["heading-font-st
 var supportsPassive = false;
 try {
   var opts = Object.defineProperty({}, 'passive', {
-    get: function() {
+    get: function () {
       supportsPassive = true;
     }
   });
   window.addEventListener("testPassive", null, opts);
   window.removeEventListener("testPassive", null, opts);
-} catch (e) {}
+} catch (e) { }
 
 // Use our detect's results. passive applied if supported, capture will be false either way.
 //elem.addEventListener('touchstart', fn, supportsPassive ? { passive: true } : false); 
 
-document.getElementById("theme-selector").addEventListener("change", function (evt){GorillaThemeHandler.themeSelected()});
-document.getElementById("heading-font-stack-selector").addEventListener("change", function (evt){GorillaThemeHandler.themeSelected()});
-document.getElementById("body-font-stack-selector").addEventListener("change", function (evt){GorillaThemeHandler.themeSelected()});
-document.getElementById("code-font-stack-selector").addEventListener("change", function (evt){GorillaThemeHandler.themeSelected()});
-document.getElementById("gorilla-editor-theme-selector").addEventListener("change", function (evt){GorillaThemeHandler.editorThemeSelected()});
-document.getElementById("gorilla-editor-font-size").addEventListener("change", async function (evt){
+document.getElementById("theme-selector").addEventListener("change", function (evt) { GorillaThemeHandler.themeSelected() });
+document.getElementById("heading-font-stack-selector").addEventListener("change", function (evt) { GorillaThemeHandler.themeSelected() });
+document.getElementById("body-font-stack-selector").addEventListener("change", function (evt) { GorillaThemeHandler.themeSelected() });
+document.getElementById("code-font-stack-selector").addEventListener("change", function (evt) { GorillaThemeHandler.themeSelected() });
+document.getElementById("gorilla-editor-theme-selector").addEventListener("change", function (evt) { GorillaThemeHandler.editorThemeSelected() });
+document.getElementById("gorilla-editor-font-size").addEventListener("change", async function (evt) {
   console.log("Editor font size changed.");
   let fontSize = document.getElementById("gorilla-editor-font-size").value;
   GorillaSettings.settings["editorFontSize"] = fontSize;
   await GorillaSettings.saveSettings();
-  document.querySelectorAll(".codejar").forEach((el) => { 
+  document.querySelectorAll(".codejar").forEach((el) => {
     el.style.fontSize = GorillaSettings.settings["editorFontSize"] + "px";
-  });           
+  });
 });
 document.body.style.display = "grid";
-   const hashNumber = parseInt(window.location.hash.substring(1));
-    if(hashNumber !== GorillaPresenter.currentSlideNumber){
+const hashNumber = parseInt(window.location.hash.substring(1));
+if (hashNumber !== GorillaPresenter.currentSlideNumber) {
 
-    if (!isNaN(hashNumber) && hashNumber >= 0 && hashNumber < GorillaSlideRenderer.slides.length) {
-        GorillaPresenter.currentSlideNumber = hashNumber;
-    } else {
-        // Otherwise show the first slide
-        GorillaPresenter.currentSlideNumber = 0;
-    }
-
+  if (!isNaN(hashNumber) && hashNumber >= 0 && hashNumber < GorillaSlideRenderer.slides.length) {
+    GorillaPresenter.currentSlideNumber = hashNumber;
+  } else {
+    // Otherwise show the first slide
+    GorillaPresenter.currentSlideNumber = 0;
   }
 
-  
-  
-  
- let slidechooser = document.getElementById("slidechooser");
-        slidechooser.addEventListener("change", async function (e) {
-           await GorillaPresenter.showSlide(slidechooser.value, "cutIn");
-        });
-    await GorillaPresenter.show_screen("gorilla-slide-show");
+}
+
+/* Rethink this... as written it causes too much distraction
+const overlay = document.getElementById('nav-overlay');
+const HIDE_DELAY = 500; // milliseconds to wait before hiding
+let hideTimeout = null;
+
+document.addEventListener('mousemove', function () {
+  // Show the overlay
+  overlay.classList.add('visible');
+
+  // Clear any existing timeout
+  if (hideTimeout) {
+    clearTimeout(hideTimeout);
+  }
+
+  // Set a new timeout to hide the overlay
+  hideTimeout = setTimeout(function () {
+    overlay.classList.remove('visible');
+  }, HIDE_DELAY);
+});
+*/
 
 
-  
-  
+
+let slidechooser = document.getElementById("slidechooser");
+slidechooser.addEventListener("change", async function (e) {
+  await GorillaPresenter.showSlide(slidechooser.value, "cutIn");
+});
+await GorillaPresenter.show_screen("gorilla-slide-show");
+
+
+
+
 
 });
 </script>

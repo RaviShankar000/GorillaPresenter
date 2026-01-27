@@ -15,7 +15,7 @@ MenuPlugin = {
         let choices = [];
         let choicePairs = [];
         for (let line of choiceLines) {
-            line = line.trim();
+          //  line = line.trim();
             if (line.length === 0) continue; // Skip empty lines
             choices.push(line);
         }
@@ -23,29 +23,27 @@ MenuPlugin = {
         for (let choice of choices) {
             if(isOutline){
                lineLevel = MenuPlugin.parseLevel(choice);
-                outlineClass = "gorilla-outline-level-" + lineLevel.level;
             }else{
                 lineLevel = { level: -1, text: choice };
                 outlineClass = "";
             }
-            console.log("outlineClass:", outlineClass);
             if (lineLevel.text.length === 0) continue;
             let choiceText = lineLevel.text;
             let parts = choiceText.split(/(?<!\\)\|/).map(part => part.trim());
-            console.log("Choice parts:", parts + "parts length:" + parts.length);
             if (parts.length === 2) {
                 choiceStructure = { text: parts[0], target: parts[1], outlineLevel: lineLevel.level }
             } else {
                 choiceStructure = { text: parts[0], target: null, outlineLevel: lineLevel.level }
             }
-            console.log("Constructed choice structure:", choiceStructure);
             choicePairs.push(choiceStructure);
         }
-        console.log("Final choice pairs:", choicePairs);
         while (choicePairs.length > 0) {
             let pair = choicePairs.shift();
             let displayString = pair.text.trim();
             if(isOutline){
+                outlineClass = "gorilla-outline-level-" + pair.outlineLevel;
+                console.log("Outline class set to:", outlineClass);
+                console.log("Outline class for display string:", outlineClass);
             displayString = MenuPlugin.mlaHeadingString(pair.outlineLevel) + " " + displayString;
             }
             if (pair.target === null) {
@@ -85,12 +83,17 @@ MenuPlugin = {
         generatedHTML += '</ul>\n';
         return generatedHTML;
     },
-    parseLevel: function (line) {
-        const match = line.match(/^\++/);
-        const level = match ? match[0].length : 0;
-        const text = line.replace(/^\++\s*/, '');
-        return { level: level - 1, text: text };
-    },
+ parseLevel: function (line) {
+    // Match leading non-breaking spaces (\u00A0)
+    const match = line.match(/^[\u00A0]*/);
+    const nbspaces = match ? match[0] : '';
+    const level = nbspaces.length;
+    
+    // Remove leading non-breaking spaces to get the text
+    const text = line.replace(/^[\u00A0]*/, '');
+    
+    return { level: level, text: text };
+},
     romanNumeralBands: [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1], // The bands of numbers that correspond to Roman numerals.
     romanNumeralStringsUpper: ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"], // The Roman numeral strings for each band.
     romanNumeralStringsLower: ["m", "cm", "d", "cd", "c", "xc", "l", "xl", "x", "ix", "v", "iv", "i"], // The Roman numeral strings for each band.
@@ -107,7 +110,6 @@ MenuPlugin = {
         MenuPlugin.resetLowerLevels(current + 1);
     },
     mlaHeadingString: function (level) {
-        console.log("Generating MLA heading string for level:", level);
         if (level < 0) {
             return "";
         }

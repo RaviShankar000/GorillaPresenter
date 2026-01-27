@@ -192,7 +192,7 @@ button svg {
   padding: 1em;
   margin-bottom: 1em;
   margin-top: 3em;
-  padding-top: 3em;
+  padding-top: 1em;
   font-size:150%;
    overflow-x: hidden;  /* Disable horizontal scroll */
     overflow-y: auto;    /* Enable vertical scroll */

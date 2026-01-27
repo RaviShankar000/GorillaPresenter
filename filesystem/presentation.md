@@ -2,35 +2,38 @@
 ;{{{autoplay 4 LaTeX}}}
 * Free software (MIT license)
 * Completely self-contained in a **single** HTML file
-* Built-in editor
-* Built-in media recorder
+* No apps. No servers. Just a browser.
 * Presentations can be:
     * Emailed
     * Put on a thumb drive
-    * You can even put them on a standard web server, if that floats your boat
-* Slides are created using Markdown (with some custom extensions)
+    * I dunno, put them on a Babylonian cuneiform tablet if that floats your boat.
+* Built-in editor
+* Built-in media recorder
+* Slides are written in Markdown, fast and easy. Get your deck finished and be off enjoying a tasty beverage while your rivals are still playing pointy-clicky.
 
-{{{menu
-+Overview
-++Sounds great! How do I get it?|> Downloading Gorilla Presenter
-++How do I Navigate the Slide Show?|> Navigation
-+Editing
-++How do I Edit the Presentation?|> Editing Slides
-++Markdown Primer |> Basic Markdown
-++LaTeX Math|>LaTeX Math
-+Advanced Flow Control
-++Menus and Branches |> Menus and Branches
-++Autoplay |> Autoplay
-+Media
-++Using Media |> Using Media
-++Media Recorder|> Media Recorder
-+Plugins
-++Books|> Books
-++Wikipedia |> Wikipedia
-++Maps |> Maps
-++Icons |> Icons
-+Using with iPhoneOS/iPadOS|>iPhoneOS
-
+{{{outline
+Overview
+    Sounds great! How do I get it?|> Downloading Gorilla Presenter
+    How do I Navigate the Slide Show?|> Navigation
+Editing
+    How do I Edit the Presentation?|> Editing Slides
+    Markdown Primer |> Basic Markdown
+    LaTeX Math|>LaTeX Math
+Advanced Flow Control
+    Menus, Outlines, and Branches|>Menus, Outlines, and Branches
+    Autoplay |> Autoplay
+Media
+    Using Media |> Using Media
+    Media Recorder|> Media Recorder
+Plugins
+    Books|> Books
+        Wikipedia |> Wikipedia
+            Maps |> Maps
+                Icons |> Icons
+                    Using with iPhoneOS/iPadOS|>iPhoneOS
+Advanced Formatting
+    Built-in CSS Classes |Built-in  CSS Classes
+    Custom CSS Classes|> Custom CSS Classes
 }}}
 
 # Downloading Gorilla Presenter
@@ -63,7 +66,7 @@ function test() {
 ```
 Footnotes
 
-# Menus and Branches
+# Menus, Outlines, and Branches
 {{{menu
 Navigation
 Go to the Code Slide|>Code and Special
@@ -133,6 +136,11 @@ Unfortunately, most web browsers for iPhoneOS and/or iPadOS do not allow you to 
 
         {{{menu
         Get the Microsoft Edge Browser for iOS|~https://apps.apple.com/us/app/microsoft-edge-ai-browser/id1288723196}}}
+
+# Built-in CSS Classes
+
+
+# Custom CSS Classes
 
 
 # Home
