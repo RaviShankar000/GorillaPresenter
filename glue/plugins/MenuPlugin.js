@@ -42,8 +42,6 @@ MenuPlugin = {
             let displayString = pair.text.trim();
             if(isOutline){
                 outlineClass = "gorilla-outline-level-" + pair.outlineLevel;
-                console.log("Outline class set to:", outlineClass);
-                console.log("Outline class for display string:", outlineClass);
             displayString = MenuPlugin.mlaHeadingString(pair.outlineLevel) + " " + displayString;
             }
             if (pair.target === null) {
@@ -84,13 +82,13 @@ MenuPlugin = {
         return generatedHTML;
     },
  parseLevel: function (line) {
-    // Match leading non-breaking spaces (\u00A0)
-    const match = line.match(/^[\u00A0]*/);
-    const nbspaces = match ? match[0] : '';
-    const level = nbspaces.length;
+    // Match leading bell characters
+    const match = line.match(/^=*/);
+    const equalsSigns = match ? match[0] : '';
+    const level = equalsSigns.length;
     
-    // Remove leading non-breaking spaces to get the text
-    const text = line.replace(/^[\u00A0]*/, '');
+    // Remove leading tabs to get the text
+    const text = line.replace(/^=*/, '');
     
     return { level: level, text: text };
 },
@@ -235,7 +233,7 @@ MenuPlugin = {
                 event.preventDefault();
 
                 const url = decodeURIComponent(event.currentTarget.getAttribute('data-url'));
-                window.open(url, '_blank');
+                window.location.href = url;
                 return false;
             });
         });

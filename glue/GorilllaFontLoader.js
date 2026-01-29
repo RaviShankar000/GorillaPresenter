@@ -44,15 +44,15 @@ GorillaFontLoader = {
         fontStacks = GorillaFontLoader.baseFontStacks;
         fontStackOptions = GorillaFontLoader.baseFontStackOptions;
         fontFaces = '';
-        thirdPartyFonts = await fs.readDirectory("fonts/");
+        thirdPartyFonts = await fs.readDirectory("media/");
         for (let i = 0; i < thirdPartyFonts.length; i++) {
             let fontFile = thirdPartyFonts[i];
             if(fontFile.match(/\.ttf$/i) || fontFile.match(/\.otf$/i) || fontFile.match(/\.woff$/i) || fontFile.match(/\.woff2$/i)){
-               fontBaseName = fontFile.replace(/^fonts\//, ''); // Remove "fonts/" prefix if present
+               fontBaseName = fontFile.replace(/^media\//, ''); // Remove "fonts/" prefix if present
             let nameWithoutExtension = fontBaseName.replace(/\.[^/.]+$/, ""); // Remove extension
             fontStacks += `--${nameWithoutExtension.toLowerCase().replace(/\s+/g, '-')}-font-stack: '${nameWithoutExtension}';\n`;
             fontStackOptions[nameWithoutExtension] = `--${nameWithoutExtension.toLowerCase().replace(/\s+/g, '-')}-font-stack`;
-            let dataURL = await GorillaUtility.readZipFileAsDataURI("fonts/" + fontBaseName);
+            let dataURL = await GorillaUtility.readZipFileAsDataURI("media/" + fontBaseName);
             fontFaces += `@font-face {font-family: '${nameWithoutExtension}';src: url('${dataURL}');}\n`;
             }
         }

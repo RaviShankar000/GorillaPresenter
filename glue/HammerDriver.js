@@ -41,7 +41,7 @@ HammerDriver = {
                 target.tagName === 'VIDEO' ||
                 target.tagName === 'A' ||
                 target.tagName === 'CODE' ||
-                target.closest('.gorilla-choice-item, button, video, a, input, select, textarea, code')) {
+               target.closest('.gorilla-choice-item, .gorilla-branch, button, video, a, input, select, textarea, code')) {
                 return;
             }
 

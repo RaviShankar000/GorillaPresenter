@@ -125,7 +125,6 @@ MainMenuDriver = {
         });
     },
     toggleMenu: function () {
-        console.log("Toggling main menu visibility");
         if (MainMenuDriver.menuVisible === true) {
             MainMenuDriver.hideMenu();
         } else {

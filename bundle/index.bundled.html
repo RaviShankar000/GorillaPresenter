@@ -903,6 +903,32 @@ button:disabled {
 }
 </style>
 <style>
+
+.gorilla-branch {
+    color: var(--menu-header-color);
+    background-color: var(--menu-header-background-color);
+    font-weight: bold;
+    padding-left: 0.5em;
+    border-radius: 10px;
+    padding-right: 0.5em;
+    border:1px dotted; 
+}
+
+.gorilla-branch-navigate, 
+.gorilla-branch-multiple-choice,
+ .gorilla-branch-notify, 
+ .gorilla-branch-external {
+    color: var(--menu-body-color);
+    background-color: var(--menu-background-color);
+
+}
+  
+.gorilla-branch::after {
+    content: ' ›';
+  
+}
+</style>
+<style>
 .homebutton {
     position: absolute;
     left: 0.25em;
@@ -918,6 +944,7 @@ button:disabled {
 <style>
 .gorilla-choice-list{
     position: relative;
+    max-width:80vw;
     width: auto;
     margin: 0 auto;
     padding: 0;
@@ -1004,47 +1031,47 @@ button:disabled {
 }
 
 .gorilla-outline-level-0 {
-    padding-left: 1em;
+    padding-left: 0.5em;
 }
 
 .gorilla-outline-level-1 {
-    padding-left: 2em;
+    padding-left: 1em;
 }
 
 .gorilla-outline-level-2 {
-    padding-left: 3em;
+    padding-left: 1.5em;
 }
 
 .gorilla-outline-level-3 {
-    padding-left: 4em;
+    padding-left: 2em;
 }
 
 .gorilla-outline-level-4 {
-    padding-left: 5em;
+    padding-left: 2.5em;
 }
 
 .gorilla-outline-level-5 {
-    padding-left: 6em;
+    padding-left: 3em;
 }
 
 .gorilla-outline-level-6 {
-    padding-left: 7em;
+    padding-left: 3.5em;
 }
 
 .gorilla-outline-level-7 {
-    padding-left: 8em;
+    padding-left: 4em;
 }
 
 .gorilla-outline-level-8 {
-    padding-left: 9em;
+    padding-left: 4.5em;
 }
 
 .gorilla-outline-level-9 {
-    padding-left: 10em;
+    padding-left: 5em;
 }
 
 .gorilla-outline-level-10 {
-    padding-left: 11em;
+    padding-left: 5.5em;
 }
 </style>
 <style>
@@ -1253,12 +1280,12 @@ button:disabled {
         <h1>Media</h1>
         <ul id="gorilla-media-list" class="gorilla-media-list">
         </ul>
-        <h1>Fonts</h1>
+       <!--- <h1>Fonts</h1>
         <ul id="gorilla-media-font-list" class="gorilla-media-list">
         </ul>
         <h1>Licensing</h1>
         <ul id="gorilla-media-license-list" class="gorilla-media-list">
-        </ul>
+        </ul> -->
         <h1>Trash <button id="gorilla-media-screen-empty-trash" class="ionicon" title="Empty Trash"
             nav-value="empty-trash">empty-trash-outline</button></h1>
 
@@ -2870,7 +2897,7 @@ class GorillaMediaFilePrompt {
         <input id="gorilla-recorder-media-file-name" name="gorilla-recorder-media-file-name" type="text"  size="30" value="${defaultValue}" required>
        </div>
        <div>
-        <label for="gorilla-recorder-add-to-slide">Add to slide:</label><input  type="checkbox" id="gorilla-recorder-add-to-slide" name="gorilla-recorder-add-to-slide" ${addtoSlide ? 'checked' : ''}>
+        <label for="gorilla-recorder-add-to-slide">Add to current slide:</label><input  type="checkbox" id="gorilla-recorder-add-to-slide" name="gorilla-recorder-add-to-slide" ${addtoSlide ? 'checked' : ''}>
         </div>
         <div>
           <button type="submit" value="cancel">Cancel</button>
@@ -3344,7 +3371,6 @@ MainMenuDriver = {
         });
     },
     toggleMenu: function () {
-        console.log("Toggling main menu visibility");
         if (MainMenuDriver.menuVisible === true) {
             MainMenuDriver.hideMenu();
         } else {
@@ -3570,6 +3596,7 @@ GorillaMedia = {
     '.xml', '.svg', '.md', '.log', '.config', '.yml', '.yaml',
     '.license'],
   icons: {
+    css:"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><path d=\"M64,32,99,435.22,255.77,480,413,435.15,448,32ZM354.68,366.9,256.07,395l-98.46-28.24L150.86,289h48.26l3.43,39.56,53.59,15.16.13.28h0l53.47-14.85L315.38,265H203l-4-50H319.65L324,164H140l-4-49H376.58Z\"/></svg>",
     image: "<svg xmlns=\"http://www.w3.org/2000/svg\"  viewBox=\"0 0 512 512\"><rect x=\"48\" y=\"80\" width=\"416\" height=\"352\" rx=\"48\" ry=\"48\" style=\"fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px\"/><circle cx=\"336\" cy=\"176\" r=\"32\" style=\"fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:32px\"/><path d=\"M304,335.79,213.34,245.3A32,32,0,0,0,169.47,244L48,352\" style=\"fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px\"/><path d=\"M224,432,347.34,308.66a32,32,0,0,1,43.11-2L464,368\" style=\"fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px\"/></svg>",
 
     video: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\"><rect x=\"48\" y=\"96\" width=\"416\" height=\"320\" rx=\"28\" ry=\"28\" style=\"fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px\"/><rect x=\"384\" y=\"336\" width=\"80\" height=\"80\" rx=\"28\" ry=\"28\" style=\"fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px\"/><rect x=\"384\" y=\"256\" width=\"80\" height=\"80\" rx=\"28\" ry=\"28\" style=\"fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px\"/><rect x=\"384\" y=\"176\" width=\"80\" height=\"80\" rx=\"28\" ry=\"28\" style=\"fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px\"/><rect x=\"384\" y=\"96\" width=\"80\" height=\"80\" rx=\"28\" ry=\"28\" style=\"fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px\"/><rect x=\"48\" y=\"336\" width=\"80\" height=\"80\" rx=\"28\" ry=\"28\" style=\"fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px\"/><rect x=\"48\" y=\"256\" width=\"80\" height=\"80\" rx=\"28\" ry=\"28\" style=\"fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px\"/><rect x=\"48\" y=\"176\" width=\"80\" height=\"80\" rx=\"28\" ry=\"28\" style=\"fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px\"/><rect x=\"48\" y=\"96\" width=\"80\" height=\"80\" rx=\"28\" ry=\"28\" style=\"fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px\"/><rect x=\"128\" y=\"96\" width=\"256\" height=\"160\" rx=\"28\" ry=\"28\" style=\"fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px\"/><rect x=\"128\" y=\"256\" width=\"256\" height=\"160\" rx=\"28\" ry=\"28\" style=\"fill:none;stroke:#000;stroke-linejoin:round;stroke-width:32px\"/></svg>",
@@ -3628,10 +3655,9 @@ GorillaMedia = {
 
   loadMediaScreens: async function () {
     await GorillaMedia.loadMediaScreen("media", "gorilla-media-list");
-    await GorillaMedia.loadMediaScreen("fonts", "gorilla-media-font-list");
-    await GorillaMedia.loadMediaScreen("licenses", "gorilla-media-license-list");
+   // await GorillaMedia.loadMediaScreen("fonts", "gorilla-media-font-list");
+   // await GorillaMedia.loadMediaScreen("licenses", "gorilla-media-license-list");
     await GorillaMedia.loadMediaScreen("trash", "gorilla-media-trash-list");
-    await GorillaLicenseHandler.loadLicenseInfo();
     await GorillaFontLoader.loadFonts();
 
   },
@@ -3796,13 +3822,14 @@ GorillaMedia = {
       case "woff":
       case "woff2":
         return GorillaMedia.icons.font; // Font icon
+      case "css":
+        return GorillaMedia.icons.css; // CSS icon
       case "txt":
       case "md":
       case "json":
       case "js":
       case "ts":
       case "html":
-      case "css":
       case "xml":
       case "csv":
       case "log":
@@ -3817,11 +3844,12 @@ GorillaMedia = {
   getFolderLocation: function (filename) {
 
     if (filename.match(/\.ttf$/i) || filename.match(/\.otf$/i) || filename.match(/\.woff$/i) || filename.match(/\.woff2$/i)) {
-      return "fonts/" + filename;
+     // return "fonts/" + filename;
+      return "media/" + filename;
     }
-    else if (filename.match(/\.license$/i)) {
+   /* else if (filename.match(/\.license$/i)) {
       return "licenses/" + filename;
-    }
+    }*/
     else {
       return "media/" + filename;
     }
@@ -5232,12 +5260,8 @@ GorillaScript = {
         let currentTitle = '';
         let currentBody = [];
         let currentComments = [];
-        console.log("processing lines:", lines.length);
         for (let i = 0; i < lines.length; i++) {
             let line = lines[i];
-            line = line.replace(/^[\t ]*/g, match => {
-                return match.replace(/\t/g, '    ').replace(/    /g, '\u00A0');
-            });
             // Check if this is an H1 header (starts with single #, followed by space or end)
             if (line.match(/^#(?:\s|$)/)) {
                 // If we have a previous slide, save it
@@ -5720,15 +5744,15 @@ GorillaFontLoader = {
         fontStacks = GorillaFontLoader.baseFontStacks;
         fontStackOptions = GorillaFontLoader.baseFontStackOptions;
         fontFaces = '';
-        thirdPartyFonts = await fs.readDirectory("fonts/");
+        thirdPartyFonts = await fs.readDirectory("media/");
         for (let i = 0; i < thirdPartyFonts.length; i++) {
             let fontFile = thirdPartyFonts[i];
             if(fontFile.match(/\.ttf$/i) || fontFile.match(/\.otf$/i) || fontFile.match(/\.woff$/i) || fontFile.match(/\.woff2$/i)){
-               fontBaseName = fontFile.replace(/^fonts\//, ''); // Remove "fonts/" prefix if present
+               fontBaseName = fontFile.replace(/^media\//, ''); // Remove "fonts/" prefix if present
             let nameWithoutExtension = fontBaseName.replace(/\.[^/.]+$/, ""); // Remove extension
             fontStacks += `--${nameWithoutExtension.toLowerCase().replace(/\s+/g, '-')}-font-stack: '${nameWithoutExtension}';\n`;
             fontStackOptions[nameWithoutExtension] = `--${nameWithoutExtension.toLowerCase().replace(/\s+/g, '-')}-font-stack`;
-            let dataURL = await GorillaUtility.readZipFileAsDataURI("fonts/" + fontBaseName);
+            let dataURL = await GorillaUtility.readZipFileAsDataURI("media/" + fontBaseName);
             fontFaces += `@font-face {font-family: '${nameWithoutExtension}';src: url('${dataURL}');}\n`;
             }
         }
@@ -5806,7 +5830,7 @@ HammerDriver = {
                 target.tagName === 'VIDEO' ||
                 target.tagName === 'A' ||
                 target.tagName === 'CODE' ||
-                target.closest('.gorilla-choice-item, button, video, a, input, select, textarea, code')) {
+               target.closest('.gorilla-choice-item, .gorilla-branch, button, video, a, input, select, textarea, code')) {
                 return;
             }
 
@@ -6387,9 +6411,7 @@ BookPlugin = {
        }
 
         let fetchedImage = await BookPlugin.fetchImage(isbn);
-        console.log("Image fetch status for ISBN " + isbn + ": " + fetchedImage);
         if (fetchedImage) {
-            console.log("Image fetched successfully for ISBN " + isbn + ", creating object URL.");
             metadata.image = URL.createObjectURL(fetchedImage);
 
         }
@@ -6532,6 +6554,102 @@ BookPlugin = {
     },
 }
 
+
+</script>
+<script>
+BranchPlugin = {
+    renderHTML: function (directive) {
+        let parts = directive.split(/(?<!\\)\|/).map(part => part.trim());
+        let pair;
+        if (parts.length === 2) {
+           pair = { text: parts[0], target: parts[1] }
+        } else {
+            pair = { text: parts[0], target: null }
+        }
+         if (pair.target === null) {
+                if (pair.text.startsWith("*")) {
+                    pair.text = pair.text.substring(1).trim();
+                    // Correct answer
+                    generatedHTML = `<span class="gorilla-branch gorilla-branch-multiple-choice" data-value="true">${pair.text}</span>`;
+                    return generatedHTML;
+                }
+                else if (pair.text.startsWith("-")) {
+                    // Incorrect answer
+                   pair.text = pair.text.substring(1).trim();
+                    // Correct answer
+                    generatedHTML = `<span class="gorilla-branch gorilla-branch-multiple-choice" data-value="false">${pair.text}</span>`;
+                    return generatedHTML;
+                }
+                else {
+                    generatedHTML = `<span class="gorilla-branch">${pair.text}</span>`;
+                    return generatedHTML;
+
+                }
+            }
+            else // Has a target
+                argtype = pair.target.substring(0, 1);
+            switch (argtype.toLowerCase()) {
+                case ">":
+                    let destinationSlideNumber = GorillaSlideRenderer.findSlideNumber(pair.target.substring(1).trim());
+                    generatedHTML = `<span class="gorilla-branch gorilla-branch-navigate" data-slide-number="${destinationSlideNumber}">${pair.text}</span>`;
+                    break;
+                case "~":
+                    let url = encodeURIComponent(pair.target.substring(1).trim());
+                    generatedHTML = `<span class="gorilla-branch gorilla-branch-external" data-url="${url}">${pair.text}</span>`;
+                    break;
+                default:
+                    let message = encodeURIComponent(pair.target);
+                    generatedHTML = `<span class="gorilla-branch gorilla-branch-notify" data-message="${message}">${pair.text}</span>`;
+                    break;
+            }
+            return generatedHTML;
+    },
+    postprocess: function () {
+        document.querySelectorAll('.gorilla-branch-multiple-choice:not(.gorilla-branch-sample)').forEach(item => {
+            item.addEventListener('click', event => {
+                event.stopPropagation();
+                event.preventDefault();
+                const value = event.currentTarget.getAttribute('data-value');
+                if (value === "true") {
+                    GorillaAlert.show(GorillaSettings.settings.defaultCorrectResponse);
+                }
+                else {
+                    GorillaAlert.show(GorillaSettings.settings.defaultIncorrectResponse);
+                }
+                return false;
+             }, { capture: true });  // Add this option
+        });
+        document.querySelectorAll('.gorilla-branch-navigate:not(.gorilla-branch-sample)').forEach(item => {
+            item.addEventListener('click', event => {
+                event.stopPropagation();
+                event.preventDefault();
+                const slideNumber = parseInt(event.currentTarget.getAttribute('data-slide-number'));
+                GorillaPresenter.showSlide(slideNumber);
+                return false;
+             }, { capture: true });  // Add this option
+        });
+
+        document.querySelectorAll('.gorilla-branch-notify:not(.gorilla-branch-sample)').forEach(item => {
+            item.addEventListener('click', event => {
+                event.stopPropagation();
+                event.preventDefault();
+                const message = decodeURIComponent(event.currentTarget.getAttribute('data-message'));
+                GorillaPresenter.notify(message);
+                return false;
+             }, { capture: true });  // Add this option
+        });
+        document.querySelectorAll('.gorilla-branch-external:not(.gorilla-branch-sample)').forEach(item => {
+            item.addEventListener('click', event => {
+                event.stopPropagation();
+                event.preventDefault();
+                const url = decodeURIComponent(event.currentTarget.getAttribute('data-url'));
+                window.location.href = url;
+                return false;
+          }, { capture: true });  // Add this option
+    }
+    );
+    }
+};
 
 </script>
 <script>
@@ -6689,8 +6807,6 @@ MenuPlugin = {
             let displayString = pair.text.trim();
             if(isOutline){
                 outlineClass = "gorilla-outline-level-" + pair.outlineLevel;
-                console.log("Outline class set to:", outlineClass);
-                console.log("Outline class for display string:", outlineClass);
             displayString = MenuPlugin.mlaHeadingString(pair.outlineLevel) + " " + displayString;
             }
             if (pair.target === null) {
@@ -6731,13 +6847,13 @@ MenuPlugin = {
         return generatedHTML;
     },
  parseLevel: function (line) {
-    // Match leading non-breaking spaces (\u00A0)
-    const match = line.match(/^[\u00A0]*/);
-    const nbspaces = match ? match[0] : '';
-    const level = nbspaces.length;
+    // Match leading bell characters
+    const match = line.match(/^=*/);
+    const equalsSigns = match ? match[0] : '';
+    const level = equalsSigns.length;
     
-    // Remove leading non-breaking spaces to get the text
-    const text = line.replace(/^[\u00A0]*/, '');
+    // Remove leading tabs to get the text
+    const text = line.replace(/^=*/, '');
     
     return { level: level, text: text };
 },
@@ -6882,7 +6998,7 @@ MenuPlugin = {
                 event.preventDefault();
 
                 const url = decodeURIComponent(event.currentTarget.getAttribute('data-url'));
-                window.open(url, '_blank');
+                window.location.href = url;
                 return false;
             });
         });
@@ -8777,6 +8893,7 @@ GorillaSlideRenderer.registerPlugin('icon', IconPlugin);
 GorillaSlideRenderer.registerPlugin('wikipedia', WikipediaPlugin);
 GorillaSlideRenderer.registerPlugin('map', MapPlugin);
 GorillaSlideRenderer.registerPlugin('home', HomePlugin);
+GorillaSlideRenderer.registerPlugin('branch', BranchPlugin);
 
 await window.fs.unpackZipData();
 //let cursorData = await fs.readBinaryFile("GorillaCursor.png");

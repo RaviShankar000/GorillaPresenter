@@ -1,5 +1,6 @@
 .gorilla-choice-list{
     position: relative;
+    max-width:80vw;
     width: auto;
     margin: 0 auto;
     padding: 0;
@@ -86,45 +87,45 @@
 }
 
 .gorilla-outline-level-0 {
-    padding-left: 1em;
+    padding-left: 0.5em;
 }
 
 .gorilla-outline-level-1 {
-    padding-left: 2em;
+    padding-left: 1em;
 }
 
 .gorilla-outline-level-2 {
-    padding-left: 3em;
+    padding-left: 1.5em;
 }
 
 .gorilla-outline-level-3 {
-    padding-left: 4em;
+    padding-left: 2em;
 }
 
 .gorilla-outline-level-4 {
-    padding-left: 5em;
+    padding-left: 2.5em;
 }
 
 .gorilla-outline-level-5 {
-    padding-left: 6em;
+    padding-left: 3em;
 }
 
 .gorilla-outline-level-6 {
-    padding-left: 7em;
+    padding-left: 3.5em;
 }
 
 .gorilla-outline-level-7 {
-    padding-left: 8em;
+    padding-left: 4em;
 }
 
 .gorilla-outline-level-8 {
-    padding-left: 9em;
+    padding-left: 4.5em;
 }
 
 .gorilla-outline-level-9 {
-    padding-left: 10em;
+    padding-left: 5em;
 }
 
 .gorilla-outline-level-10 {
-    padding-left: 11em;
+    padding-left: 5.5em;
 }

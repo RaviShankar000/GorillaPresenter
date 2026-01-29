@@ -19,9 +19,7 @@ BookPlugin = {
        }
 
         let fetchedImage = await BookPlugin.fetchImage(isbn);
-        console.log("Image fetch status for ISBN " + isbn + ": " + fetchedImage);
         if (fetchedImage) {
-            console.log("Image fetched successfully for ISBN " + isbn + ", creating object URL.");
             metadata.image = URL.createObjectURL(fetchedImage);
 
         }

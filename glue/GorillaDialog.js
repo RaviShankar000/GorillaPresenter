@@ -74,7 +74,7 @@ class GorillaMediaFilePrompt {
         <input id="gorilla-recorder-media-file-name" name="gorilla-recorder-media-file-name" type="text"  size="30" value="${defaultValue}" required>
        </div>
        <div>
-        <label for="gorilla-recorder-add-to-slide">Add to slide:</label><input  type="checkbox" id="gorilla-recorder-add-to-slide" name="gorilla-recorder-add-to-slide" ${addtoSlide ? 'checked' : ''}>
+        <label for="gorilla-recorder-add-to-slide">Add to current slide:</label><input  type="checkbox" id="gorilla-recorder-add-to-slide" name="gorilla-recorder-add-to-slide" ${addtoSlide ? 'checked' : ''}>
         </div>
         <div>
           <button type="submit" value="cancel">Cancel</button>
