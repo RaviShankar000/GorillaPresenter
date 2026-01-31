@@ -551,9 +551,8 @@ handlePlayheadMouseUp() {
             const constraints = GorillaRecorder.recordingMode === 'video'
                 ? { video: { width: 1280, height: 720 }, audio: true }
                 : { audio: true };
-
             GorillaRecorder.recordingStream = await navigator.mediaDevices.getUserMedia(constraints);
-
+        
             GorillaRecorder.recordedChunks = [];
             GorillaRecorder.recordingStartTime = Date.now();
 
@@ -637,9 +636,12 @@ handlePlayheadMouseUp() {
             GorillaRecorder.setStatus(`Recording ${GorillaRecorder.recordingMode}...`);
             return true;
         } catch (error) {
-            console.error('Error accessing media:', error);
-            alert(`Failed to access ${GorillaRecorder.recordingMode === 'video' ? 'camera/microphone' : 'microphone'}. Please check permissions.`);
+            console.error('Error accessing media:', error);{
+            GorillaAlert.show("This browser does not support recording from a file:// URL, or there was another permission issue. At the present time, only desktop Chrome, Brave, and Firefox browsers support recording from a file:// URL.");
+            GorillaRecorder.stateTransition('IDLE')
             return false;
+
+        }
         }
     }
 
@@ -1081,47 +1083,3 @@ modeRadios.forEach(radio => {
         GorillaRecorder.setRecordingMode(e.target.value);
     });
 });
-
-// Browser compatibility check
-function checkBrowserSupport() {
-    const testVideo = document.createElement('video');
-    const canPlayWebM = testVideo.canPlayType('video/webm; codecs="vp8, opus"');
-
-    const isOldSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) &&
-        !canPlayWebM;
-
-    const isIE = /MSIE|Trident/.test(navigator.userAgent);
-
-    if (isIE) {
-        browserWarning.className = 'gorilla-media-recorder-error';
-        browserWarning.innerHTML = '❌ <strong>Internet Explorer is not supported.</strong> Please use a modern browser like Chrome, Firefox, Edge, or Safari.';
-        browserWarning.classList.remove('gorilla-media-recorder-hidden');
-        document.querySelectorAll('button').forEach(btn => btn.disabled = true);
-        return false;
-    }
-
-    if (isOldSafari) {
-        browserWarning.className = 'gorilla-media-recorder-warning';
-        browserWarning.innerHTML = '⚠️ <strong>Limited Safari Support:</strong> Your version of Safari may not support WebM playback. Please update to macOS Big Sur (2020) or iOS 14.5+ for full compatibility, or use Chrome/Firefox.';
-        browserWarning.classList.remove('gorilla-media-recorder-hidden');
-        return true;
-    }
-
-    if (!canPlayWebM) {
-        browserWarning.className = 'gorilla-media-recorder-warning';
-        browserWarning.innerHTML = '⚠️ <strong>WebM Support Uncertain:</strong> Your browser may have limited support for WebM. Consider using Chrome, Firefox, or Edge.';
-        browserWarning.classList.remove('gorilla-media-recorder-hidden');
-        return true;
-    }
-
-    if (!window.MediaRecorder) {
-        browserWarning.className = 'gorilla-media-recorder-error';
-        browserWarning.innerHTML = '❌ <strong>Recording not supported:</strong> Your browser does not support recording. Please use a modern browser.';
-        browserWarning.classList.remove('gorilla-media-recorder-hidden');
-        return false;
-    }
-
-    return true;
-}
-
-checkBrowserSupport();

@@ -1,5 +1,6 @@
 # Gorilla Presenter
 
+{{{media Our Founder}}}
 * Free software (MIT license)
 * Completely self-contained in a **single** HTML file
 * No apps. No servers. Just a browser.
@@ -8,7 +9,7 @@
     * Put on a thumb drive
     * I dunno, put them on a Babylonian cuneiform tablet if that floats your boat.
 * Built-in editor
-* Built-in media recorder
+* Built-in media recorder (desktop Chrome, Brave, and Firefox)
 * Slides are written in Markdown, fast and easy. Get your deck finished and be off enjoying a tasty beverage while your rivals are still playing pointy-clicky.
 
 {{{outline
@@ -32,11 +33,12 @@ Plugins
 ==Wikipedia |> Wikipedia
 ===Map |> Map
 ====Icon |> Icon
-=====Using with iPhoneOS/iPadOS|>iPhoneOS
+
 =LaTeX Math|>LaTeX Math
 Advanced Formatting
 =Built-in CSS Classes |Built-in CSS Classes
 =Custom CSS Classes|> Custom CSS Classes
+Using Gorilla Presenter with iOS|>iOS
 }}}
 
 # How Do I Get Gorilla Presenter?
@@ -431,17 +433,18 @@ produces:
 {{{icon american-football-outline}}}
 
 
-# Using with iPhoneOS/iPadOS
-
-Unfortunately, most web browsers for iPhoneOS and/or iPadOS do not allow you to open HTML files (like a GorillaPresenter presentation) from the local file system. It is widely believed that Apple does this to prevent web applications (again, like GorillaPresenter) from competing with the App Store. 
-
-    There is a workaround which requires installing the Microsoft Edge Browser.
-
-        {{{menu
-        Get the Microsoft Edge Browser for iOS|~https://apps.apple.com/us/app/microsoft-edge-ai-browser/id1288723196}}}
 
 # Built-in CSS Classes
 
 
 # Custom CSS Classes
 
+# Using Gorilla Presenter with iOS
+
+Unfortunately, most web browsers for iPhoneOS and/or iPadOS do not allow you to open HTML files (like a GorillaPresenter presentation) from the local file system. It is widely believed that Apple does this to prevent web applications (again, like GorillaPresenter) from competing with the App Store. 
+
+There is a workaround which requires installing the Microsoft Edge Browser.
+
+{{{branch
+Get the Microsoft Edge Browser for iOS|~https://apps.apple.com/us/app/microsoft-edge-ai-browser/id1288723196
+}}}
