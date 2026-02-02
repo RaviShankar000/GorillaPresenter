@@ -11,6 +11,7 @@ GorillaSlideRenderer.registerPlugin('wikipedia', WikipediaPlugin);
 GorillaSlideRenderer.registerPlugin('map', MapPlugin);
 GorillaSlideRenderer.registerPlugin('home', HomePlugin);
 GorillaSlideRenderer.registerPlugin('branch', BranchPlugin);
+GorillaSlideRenderer.registerPlugin('poetry', PoetryPlugin);
 
 await window.fs.unpackZipData();
 //let cursorData = await fs.readBinaryFile("GorillaCursor.png");

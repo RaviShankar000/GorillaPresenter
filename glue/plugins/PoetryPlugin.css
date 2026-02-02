@@ -1,0 +1,19 @@
+.poetry {
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+}
+
+poem-title{
+    text-align:center;
+}
+
+.poem-title p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 110%;
+    margin-bottom: 0.5em;
+}
+
+.poem-body p{
+    margin:0;
+}

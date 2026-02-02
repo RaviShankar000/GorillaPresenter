@@ -9,7 +9,22 @@ GorillaSlideRenderer = {
     plugins: {},
 
     processText: async function (input) {
-        MediaPlugin.reset();
+        //MediaPlugin.reset();
+        StetPlugin.reset();
+        LiteralPlugin.reset()
+       input = await StetPlugin.preprocess(input);
+       input = await LiteralPlugin.preprocess(input);
+         for (let plugin in GorillaSlideRenderer.plugins) {
+            console.log("Checking plugin: " + plugin);
+            if(GorillaSlideRenderer.plugins[plugin].reset !== undefined) {
+                console.log("Resetting plugin: " + plugin);
+                await GorillaSlideRenderer.plugins[plugin].reset();
+            }
+            if (GorillaSlideRenderer.plugins[plugin].preprocess !== undefined) {
+                console.log("Preprocessing with plugin: " + plugin);
+                input= await GorillaSlideRenderer.plugins[plugin].preprocess(input);
+            }
+        }
         GorillaSlideRenderer.cursorPosition = GorillaEditor.getCursorPosition();
         if (GorillaSlideRenderer.cursorPosition) {
             GorillaSlideRenderer.cursorStart = GorillaSlideRenderer.cursorPosition.start;
@@ -20,15 +35,19 @@ GorillaSlideRenderer = {
         GorillaSlideRenderer.slides = GorillaScript.preprocess(input);
         let rendered = GorillaSlideRenderer.render(GorillaSlideRenderer.slides);
         GorillaSlideRenderer.slideData = await GorillaSlideRenderer.postprocess(rendered);
-        document.getElementById('gorilla-slide-show').innerHTML = GorillaSlideRenderer.slideData;
+        let html = GorillaSlideRenderer.slideData;
         for (let plugin in GorillaSlideRenderer.plugins) {
             if (plugin.postprocess !== undefined) {
                 html = await GorillaSlideRenderer.plugins[plugin].postprocess(html);
             }
         }
-        Prism.highlightAll(); // Re-highlight code blocks after markdown rendering
+        html = await StetPlugin.postprocess(html);
+        html = await LiteralPlugin.postprocess(html);
+        document.getElementById('gorilla-slide-show').innerHTML = html; 
+        Prism.highlightAll();// Re-highlight code blocks after markdown rendering
         GorillaSlideRenderer.slideShow = new SicTransit("#gorilla-slide-show", ".gorilla-slide-class");
         renderMathInElement(document.body);
+        
     },
 
     render: function (slides) {
@@ -111,7 +130,12 @@ GorillaSlideRenderer = {
             console.error(directiveError);
             return directiveError;
         }
+        if( GorillaSlideRenderer.plugins[command].renderHTML !== undefined) {
         return await GorillaSlideRenderer.plugins[command].renderHTML(args);
+        }
+        else {
+            return args;
+        }
     },
     findSlideNumber(target) {
         for (let i = 0; i < GorillaSlideRenderer.slides.length; i++) {

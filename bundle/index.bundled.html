@@ -1090,6 +1090,27 @@ button:disabled {
 }
 </style>
 <style>
+.poetry {
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+}
+
+poem-title{
+    text-align:center;
+}
+
+.poem-title p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 110%;
+    margin-bottom: 0.5em;
+}
+
+.poem-body p{
+    margin:0;
+}
+</style>
+<style>
 .wikipedia-quote {
     width: 80vw;
     position: relative;
@@ -5449,7 +5470,22 @@ GorillaSlideRenderer = {
     plugins: {},
 
     processText: async function (input) {
-        MediaPlugin.reset();
+        //MediaPlugin.reset();
+        StetPlugin.reset();
+        LiteralPlugin.reset()
+       input = await StetPlugin.preprocess(input);
+       input = await LiteralPlugin.preprocess(input);
+         for (let plugin in GorillaSlideRenderer.plugins) {
+            console.log("Checking plugin: " + plugin);
+            if(GorillaSlideRenderer.plugins[plugin].reset !== undefined) {
+                console.log("Resetting plugin: " + plugin);
+                await GorillaSlideRenderer.plugins[plugin].reset();
+            }
+            if (GorillaSlideRenderer.plugins[plugin].preprocess !== undefined) {
+                console.log("Preprocessing with plugin: " + plugin);
+                input= await GorillaSlideRenderer.plugins[plugin].preprocess(input);
+            }
+        }
         GorillaSlideRenderer.cursorPosition = GorillaEditor.getCursorPosition();
         if (GorillaSlideRenderer.cursorPosition) {
             GorillaSlideRenderer.cursorStart = GorillaSlideRenderer.cursorPosition.start;
@@ -5460,15 +5496,19 @@ GorillaSlideRenderer = {
         GorillaSlideRenderer.slides = GorillaScript.preprocess(input);
         let rendered = GorillaSlideRenderer.render(GorillaSlideRenderer.slides);
         GorillaSlideRenderer.slideData = await GorillaSlideRenderer.postprocess(rendered);
-        document.getElementById('gorilla-slide-show').innerHTML = GorillaSlideRenderer.slideData;
+        let html = GorillaSlideRenderer.slideData;
         for (let plugin in GorillaSlideRenderer.plugins) {
             if (plugin.postprocess !== undefined) {
                 html = await GorillaSlideRenderer.plugins[plugin].postprocess(html);
             }
         }
-        Prism.highlightAll(); // Re-highlight code blocks after markdown rendering
+        html = await StetPlugin.postprocess(html);
+        html = await LiteralPlugin.postprocess(html);
+        document.getElementById('gorilla-slide-show').innerHTML = html; 
+        Prism.highlightAll();// Re-highlight code blocks after markdown rendering
         GorillaSlideRenderer.slideShow = new SicTransit("#gorilla-slide-show", ".gorilla-slide-class");
         renderMathInElement(document.body);
+        
     },
 
     render: function (slides) {
@@ -5551,7 +5591,12 @@ GorillaSlideRenderer = {
             console.error(directiveError);
             return directiveError;
         }
+        if( GorillaSlideRenderer.plugins[command].renderHTML !== undefined) {
         return await GorillaSlideRenderer.plugins[command].renderHTML(args);
+        }
+        else {
+            return args;
+        }
     },
     findSlideNumber(target) {
         for (let i = 0; i < GorillaSlideRenderer.slides.length; i++) {
@@ -5750,6 +5795,16 @@ GorillaUtility = {
     reader.readAsDataURL(blob);
   });
 },
+
+// Generate a quasi-UUID, not a great one, but good enough for our purposes. Don't rely on uniqueness across sessions, or for anything critical (cryptography, etc).
+
+uuid: function() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    },
 
 }
 </script>
@@ -6745,6 +6800,97 @@ IconPlugin = {
 }
 </script>
 <script>
+LiteralPlugin = {
+    preserved: {},
+    
+    reset: function() {
+        this.preserved = {};
+    },
+    
+    preprocess: async function(text) {
+        if (!text) return text;
+        
+        // Extract literal blocks while handling nested {{{ }}}
+        let result = '';
+        let i = 0;
+        
+        while (i < text.length) {
+            const literalStart = text.indexOf('{{{literal', i);
+            if (literalStart === -1) {
+                result += text.slice(i);
+                break;
+            }
+            
+            // Add everything before the literal block
+            result += text.slice(i, literalStart);
+            
+            // Find the matching }}} by counting braces
+            let braceCount = 0;
+            let j = literalStart;
+            let contentStart = -1;
+            
+            while (j < text.length) {
+                if (text.slice(j, j + 3) === '{{{') {
+                    if (braceCount === 0) {
+                        contentStart = j + 10; // Skip past '{{{literal'
+                    }
+                    braceCount++;
+                    j += 3;
+                } else if (text.slice(j, j + 3) === '}}}') {
+                    braceCount--;
+                    if (braceCount === 0) {
+                        // Found matching close
+                        const content = text.slice(contentStart, j);
+                        const id = GorillaUtility.uuid();
+                        this.preserved[id] = content;
+                        result += id;
+                        i = j + 3;
+                        break;
+                    }
+                    j += 3;
+                } else {
+                    j++;
+                }
+            }
+            
+            if (braceCount !== 0) {
+                // Unmatched braces, just skip this
+                i = literalStart + 10;
+            }
+        }
+        
+        return result;
+    },
+    
+    postprocess: async function(text) {
+        if (!text) return text;
+        
+        // Restore literal blocks with transformations
+        for (const [id, content] of Object.entries(this.preserved)) {
+            let processed = content;
+            
+            // 1. Escape HTML characters
+            processed = processed
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+            
+            // 2. Replace spaces with &nbsp;
+            processed = processed.replace(/ /g, '&nbsp;');
+            
+            // 3. Replace newlines with <br>\n
+            processed = processed.replace(/\n/g, '<br>\n');
+            
+            text = text.replace(id, processed);
+        }
+        
+        return text;
+    }
+}
+</script>
+<script>
 MapPlugin = {
 
     renderHTML: async function (mapSpec) {
@@ -6762,7 +6908,8 @@ MediaPlugin = {
 
      mediaSequenceNumber: 0,
     mediaData: [],
-    reset: function () {
+    reset: async function () {
+        console.log("Resetting MediaPlugin.");
         this.mediaSequenceNumber = 0;
         for(let url of this.mediaData) {
             URL.revokeObjectURL(url);
@@ -6771,9 +6918,18 @@ MediaPlugin = {
     },
 
     renderHTML: async function (mediaSpec) {
-        const mediaFile = await GorillaMedia.findMediaFile(mediaSpec);
+        let mediaFile
+        if(mediaSpec.startsWith("http://") || mediaSpec.startsWith("https://") ) {
+        mediaFile= mediaSpec;
+        } else {
+         mediaFile = await GorillaMedia.findMediaFile(mediaSpec);
+        }
         if (mediaFile) {
-            MediaPlugin.mediaData.push(URL.createObjectURL(await fs.readBinaryFile(mediaFile)));
+             if(mediaSpec.startsWith("http://") || mediaSpec.startsWith("https://") ) {
+                    MediaPlugin.mediaData.push(mediaFile);
+             } else {
+                MediaPlugin.mediaData.push(URL.createObjectURL(await fs.readBinaryFile(mediaFile)));
+                }
             if (mediaFile.endsWith(".jpeg") || mediaFile.endsWith(".jpg") || mediaFile.endsWith(".png") || mediaFile.endsWith(".gif")) {
                 return `<img id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" src="" alt="Media: ${mediaFile}" title="Media: ${mediaFile}" class="gorilla-media gorilla-media-image" />`;
             } else if (mediaFile.endsWith(".mp4") || mediaFile.endsWith(".mov") || mediaFile.endsWith(".avi") || mediaFile.endsWith(".webm")) {
@@ -7072,10 +7228,129 @@ OutlinePlugin = {
 </script>
 <script>
 PoetryPlugin = {
-    renderHTML: async function (arg) {
-        return arg.replace(/\n/g, '<br>').replace(/\s/g, '&nbsp;')
+    preprocess: async function(text) {
+        const preserved = [];
+        
+        // Extract and preserve fenced code blocks
+        text = text.replace(/```[\s\S]*?```/g, (match) => {
+            const index = preserved.length;
+            preserved.push(match);
+            return `\x00PRESERVED${index}\x00`;
+        });
+        
+        // Extract and preserve inline code
+        text = text.replace(/`[^`\n]+`/g, (match) => {
+            const index = preserved.length;
+            preserved.push(match);
+            return `\x00PRESERVED${index}\x00`
+        });
+        
+        // Changed \s+ to just \s (single whitespace character)
+        text = text.replace(/\{\{\{poetry\s(.*?)\}\}\}/gs, (match, poem) => {
+            let lines = poem.split('\n');
+            if(lines.length === 0) {
+                return "";
+            }
+            const firstLine = lines.shift().trim();
+            const title = firstLine === "" ? "" : GorillaMarkdown.mdparse.render(firstLine);
+            const poemBody = GorillaMarkdown.mdparse.render(
+                lines.join('\n').replace(/ /g, '&nbsp;').replace(/\n/g, '<br>')
+            );
+            return "<div class='poetry'><div>&nbsp;</div><div><div class='poem-title'>" + 
+                   title + "</div><div class='poem-body'>" + poemBody + 
+                   "</div></div><div>&nbsp;</div></div>";
+        });
+        
+        // Restore preserved blocks
+        text = text.replace(/\x00PRESERVED(\d+)\x00/g, (match, index) => {
+            return preserved[parseInt(index)];
+        });
+        
+        return text;
+    }
+}
+</script>
+<script>
+StetPlugin = {
+    preserved: {},
+    index:0,
+    reset: function() {
+        this.preserved = {};
+        this.index = 0;
     },
-    };
+    uuid: function() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    },
+    preprocess: async function(text) {
+        // Extract stet blocks while handling nested {{{ }}}
+        let result = '';
+        let i = 0;
+        
+        while (i < text.length) {
+            const stetStart = text.indexOf('{{{stet', i);
+            if (stetStart === -1) {
+                result += text.slice(i);
+                break;
+            }
+            
+            // Add everything before the stet block
+            result += text.slice(i, stetStart);
+            
+            // Find the matching }}} by counting braces
+            let braceCount = 0;
+            let j = stetStart;
+            let contentStart = -1;
+            
+            while (j < text.length) {
+                if (text.slice(j, j + 3) === '{{{') {
+                    if (braceCount === 0) {
+                        contentStart = j + 7; // Skip past '{{{stet'
+                    }
+                    braceCount++;
+                    j += 3;
+                } else if (text.slice(j, j + 3) === '}}}') {
+                    braceCount--;
+                    if (braceCount === 0) {
+                        // Found matching close
+                        const content = text.slice(contentStart, j);
+                        const index = this.index++;
+                        let stetCode = `${this.uuid()}`
+                        console.log("Preserving stet block: " + stetCode + " content was [" + content + "]");
+                        this.preserved[stetCode] = content;
+                        result += stetCode;
+                        i = j + 3;
+                        break;
+                    }
+                    j += 3;
+                } else {
+                    j++;
+                }
+            }
+            
+            if (braceCount !== 0) {
+                // Unmatched braces, just skip this
+                i = stetStart + 7;
+            }
+        }
+        
+        return result;
+    },
+    
+    postprocess: async function(text) {
+        // Restore stet blocks
+        for (let key in this.preserved) {
+            let value = this.preserved[key];
+            console.log("Restoring stet block: " + key);
+            text = text.replace(key, value);
+        };
+        
+        return text;
+    }
+}
 </script>
 <script>
 TestPlugin = {
@@ -8950,6 +9225,7 @@ GorillaSlideRenderer.registerPlugin('wikipedia', WikipediaPlugin);
 GorillaSlideRenderer.registerPlugin('map', MapPlugin);
 GorillaSlideRenderer.registerPlugin('home', HomePlugin);
 GorillaSlideRenderer.registerPlugin('branch', BranchPlugin);
+GorillaSlideRenderer.registerPlugin('poetry', PoetryPlugin);
 
 await window.fs.unpackZipData();
 //let cursorData = await fs.readBinaryFile("GorillaCursor.png");

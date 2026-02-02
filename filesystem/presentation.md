@@ -12,31 +12,34 @@
 * Built-in media recorder (desktop Chrome, Brave, and Firefox)
 * Slides are written in Markdown, fast and easy. Get your deck finished and be off enjoying a tasty beverage while your rivals are still playing pointy-clicky.
 
+
 {{{outline
 Overview
-=Sounds great! How do I get it?|> How Do I Get Gorilla Presente
+=Sounds Great! How do I Get It?|> How Do I Get Gorilla Presente
 =How do I Navigate the Slide Show?|> Navigation
 Editing
 =How do I Edit the Presentation?|> Editing Slides
 ==Markdown Basics |> Markdown Basics
-Advanced Flow Control
-=Branches, Menus, and Outlines
+Plugins
+= Media |> Media Management
+== Media Recorder|> Media Recorder
+== Using Media |> Using Media
+= Advanced Flow Control |> Advanced Flow Control
 ==Branches|> Branches
 ==Menus|> Menus
 ==Outlines|>  Outlines
 =Autoplay |> Autoplay
-Media
-=Using Media |> Using Media
-=Media Recorder|> Media Recorder
-Plugins
+=Poetry|> Poetry
 =Book|> Book
-==Wikipedia |> Wikipedia
-===Map |> Map
-====Icon |> Icon
-
-=LaTeX Math|>LaTeX Math
+=Wikipedia |> Wikipedia
+=Map |> Map
+=Icon |> Icon
+=LaTeX Math|> LaTeX Math
+=Home|> Home
+=Stet|> Stet
+=Literal|> Literal
 Advanced Formatting
-=Built-in CSS Classes |Built-in CSS Classes
+=Built-in CSS Classes |> Built-in CSS Classes
 =Custom CSS Classes|> Custom CSS Classes
 Using Gorilla Presenter with iOS|>iOS
 }}}
@@ -75,8 +78,6 @@ When you're done, click the slideshow button on the main menu (you may need to l
 
 Gorilla Presenter slides are written using Markdown, with some extensions. Markdown is a way of specifying text formatting with special keyboard sequences.
 
-In the examples below, non-standard Markdown will be indicated with a § (section character)
-
 This is just a brief overview -- there are many excellent Markdown tutorials on the web. 
 
 ## *Paragraphs*
@@ -103,8 +104,16 @@ produces:
 This text has only one paragraph. 
 Even though there's a line break, there is no blank line.
 
-§ If you want a line break without starting a new paragraph, you can end the previous line with a backslash character (\\).
+If you want a line break without starting a new paragraph, you can end the previous line with a backslash character (\\) (this is not standard Markdwown)
 
+```
+This text will have a single line break, \
+rather than a paragraph.
+```
+produces:
+
+This text will have a single line break, \
+rather than a paragraph.
 
 ## *Headings*
 
@@ -160,7 +169,7 @@ will produce:
 0. It has three items in it.
 95. This is the third one.
 
-Note that only thing that matters is that the lines begin with numbers -- they can be anything and Markdown will automatically create a sequential numbered list.
+Note that only thing that matters is that the lines begin with a number -- they can be arbitrary numbers and Markdown will automatically create a sequentially numbered list.
 
 
 ## *Unordered (bulleted) Lists*
@@ -193,7 +202,7 @@ will produce a blockquote:
 > 
 > -- Juvenal
 
-## *Superscripts and subscripts§*
+## *Superscripts and subscripts*
 
 Superscripts are achieved by surrounding the superscript text with caret (^) characters.
 
@@ -202,6 +211,8 @@ Superscripts are achieved by surrounding the superscript text with caret (^) cha
 Subscripts are achieved by surrounding the subscript text with tilde (~) characters.
 
 `H~2~O` -> H~2~O
+
+Note that superscripts and subscripts are not a feature in standard Markdown, though this syntax is a widely-used extension.
 
 ## *Code*
 
@@ -227,49 +238,53 @@ function test() {
 }
 ```
 
-## *Footnotes§*
+## *Footnotes*
 
-Footnotes are produced using the syntax `^[text of note]`.
+Footnotes are produced using the syntax {{{stet ^[text of note]}}}.
 
-This is a line with a ^[Here's the note] footnote in it.
+This is a line with a ^[Here's the note. Click the reverse arrow to go back.] footnote in it.
+
+This is an extension. The way standard Markdown creates footnotes is more clumsy, though you can use it if you prefer (or if you have existing Markdown that's formatted that way).
 
 There are numerous other Markdown features, but these are the ones most generally useful in creating slide presentations. If you want to learn more, have a look at this [Markdown "cheatsheet"](https://www.markdownguide.org/cheat-sheet/)
 
+# Advanced Flow Control
 
-# *Branches§*
+Most presentations are intended for viewing in a linear fashion, from the first slide to the last one.
+
+Gorilla Presenter lets you do that, of course, but it also lets you create branches, menus, outlines, and automatic transitions that let you control the viewer's path through the presentation, based on choices the viewer makes while watching the presentation. You can use these features to create a classic "programmed learning" experience, or create whatever organization matches your own vision.
+
+# Branches
 
 A branch is like a high-powered hyperlink. You can navigate to another slide, open an external web site, ask a true/false question, or display any message of your choice.
 
 If the text for the branch begins with an asterisk, clicking it will display whatever you have set as "Default Correct Response" in the Gorilla Presenter settings.
 
-`{{{branch *correct answer}}}` -> {{{branch *correct answer}}}
+{{{stet{{{branch *correct answer}}}}}} -> {{{branch *correct answer}}}
 
 If the text begins with a minus sign, clicking it will display whatever you've set as Default Incorrect Response.
 
-`{{{branch -incorrect answer}}}` -> {{{branch -incorrect answer}}}
+{{{stet{{{branch -incorrect answer}}}}}} -> {{{branch -incorrect answer}}}
 
 If the text contains |> followed by a slide name, Gorilla Presenter will produce an internal link to another slide. You can even use a partial name, in which case the link will go to the first matching slide.
 
-`{{{branch Go to the first slide |> Gorilla P}}}` -> {{{branch Go to the first slide |> Gorilla P}}} (note use of partial slide name)
-
-(if you try that out you may want to click the back button to get back here afterward)
+{{{stet{{{branch Go to the first slide |> Gorilla P}}}}}} -> {{{branch Go to the first slide |> Gorilla P}}} (note use of partial slide name)
 
 |~ will produce a link to an external web site.
 
-`{{{branch external link|~https://www.google.com}}}` -> {{{branch external link|~https://www.google.com}}}
+{{{stet{{{branch external link|~https://www.google.com}}}}}} -> {{{branch external link|~https://www.google.com}}} (will open in a new window or tab)
 
 If you have just a | as the separator, Gorilla Presenter will display a message containing whatever text follows it.
 
-`{{{branch this branch displays a message|Hi, there!}}}` -> {{{branch this branch displays a message|Hi, there!}}}
+{{{stet{{{branch this branch displays a message|Hi, there!}}}}}} -> {{{branch this branch displays a message|Hi, there!}}}
 
 If you don't have an | at all, the branch won't do anything (other than being displayed with a different color)
 
-{{{branch The goggles do nothing!}}}` -> {{{branch The goggles do nothing!}}}
+{{{stet {{{branch The goggles do nothing!}}}}}} -> {{{branch The goggles do nothing!}}}
 
 This is of little use for a single branch, but is quite useful in Menus and Outlines (read on).
 
-
-# *Menus§*
+# Menus
 
 Menus are basically a collection of branches packed into a list. The link format is exactly the same as for branches (see previous slide). Here a blank argument (which was of no use in a plain branch) is used as a menu separator.
 
@@ -302,7 +317,7 @@ Display a message|Hi there!
 
 Outlines are exactly like menus, except they appear in MLA outline format. Outline indentation levels are specified by preceding the line with an equals sign for each desired indentation level.
 
-````
+```
 {{{outline
 Search Engines
 =Google|~https://www.google.com
@@ -318,7 +333,7 @@ Level Demonstration
 == Back up to second level
 Back up to top level
 }}}
-````
+```
 
 will produce:
 
@@ -337,21 +352,56 @@ Level Demonstration
 == Back up to second level
 }}}
 
+# Media Management
+
+**VERY IMPORTANT** Any changes you make on the media management screen will Go Away unless you download the altered presentation for later reloading. Simply clicking refresh or opening the original file again will result in all your changes being lost (this holds for slides you've edited too, of course).
+
+To reach the media management screen, click/press and hold on any other screen until the menu appears, then select the media button.
+
+{{{media Media Tab}}}
+
+The media management screen lets you upload and manage resource files, such as images, audio files, video files, and custom fonts and CSS.
+
+{{{media Media Management Screen}}}
+
+You can add or delete standard image files (png,jpeg,gif,bmp,svg,and webp), several types of video file (mp4, mov, avi, webm), audio files (mp3 or webm), font files (ttf,otf,woff,woff2), and css files. Several other file types can be uploaded, but Gorilla Presenter doesn't do anything with them for now. It's expected that other file types will be handled in the future.
+
+For maximum compatibility, it's recommended that you use png, jpeg, gif, svg, or webp images, mp4 or webm videos, and mp3 or webm audio.
+
+Any font files or CSS files uploaded here will be loaded when the presentation starts up, or when the media management screen is exited. The CSS here will be loaded **after** all the built-in CSS is loaded, making it possible to override just about every part of Gorilla Presenter's appearance. Note that this could render the presentation competely unviewable if you don't know what you're doing. 😱 Great power, great responsibility, yadda-yadda-yadda.
+
+It doesn't make much difference what you name your font files or CSS files, but you should try to give your audio, video, and image files meaningful names. Gorilla Presenter uses its own file system which allows you to use just about any character you can type. For example, prefer "Theda Bara With A Skeleton" to some atrocity like "thdabrskl352". You can rename any file on the media management screen just by clicking on the name and typing the new text. 
+
+There is an integrated trash bin that lets you temporarily mark files as delete, then emptied later to make the deletion permanent.
+
+
 # Using Media
 
-The media screen lets you upload and manage resource files, such as images, audio files, video files, and custom fonts and CSS.
+This is pretty easy. Just insert a media directive along with the name (or a partial name) of the media file you want to use. As with other parts of Gorilla Presenter, you only need to give enough of the name to distinguish it from other files.
 
 
-This should {{{media theda}}} show a picture of Theda Bara
+You don't need to tell Gorilla Presenter whether it's an audio, video, or still image file, nor do you need to worry about file extensions. Gorilla Presenter figures all that stuff out for you. However, you should probably avoid having (e.g.) both a "This is a cool" image file and a "This is cool" video file, or you may get unexpected behavior (Gorilla Presenter uses the first matching file it finds, which may not be the one you want if you have duplicate names).
 
-{{{media Test}}}
+{{{stet {{{media theda}}}}}} will display a picture of silent film star Theda Bara.
 
-Display an audio player with a test MP3 file.
+{{{media theda}}}
+
+The actual media file is named "Theda Bara With A Skeleton.jpg", but "theda" is enough to eliminate ambiguity.
 
 
-{{{media spin}}}
+{{{stet {{{media 1812}}}}}} will play an excerpt from Tchaikovsky's 1812 Overture (from a public domain performance courtesy of the Skidmore College Orchestra).
 
-Display an MP4 video.
+
+{{{media 1812}}}
+
+
+{{{stet{{{media nasa}}}}}} will display a webm video of the satellite coverage of some NASA weather satellites (video courtesy NASA)
+
+
+{{{media nasa}}}
+
+{{{media https://upload.wikimedia.org/wikipedia/commons/1/13/NASA-Apollo13-ViewsOfMoon-20200224.webm}}}
+
 
 # Media Recorder
 
@@ -369,8 +419,77 @@ There are three basic forms:
 
 While the slides are autoplaying, you can click on a slide to pause the autoplay, then click again to resume.
 
+# Poetry
+
+The poetry plugin formats any contained text as poetry/verse -- line breaks, spacing, etc. are all retained as written, though typographic substitutions (e.g., curly quotes) are still made. In addition, the poetry block is centered horizontally on the screen. Markdown code (bold, italic, etc.) can be used within the poem.
 
 ```
+{{{poetry
+This is *My* Title
+Mary had a little lamb.
+    Its fleece was white as snow.
+And everywhere that Mary went,
+    The lamb was sure to go.
+}}}
+```
+
+will produce:
+
+{{{poetry
+This is *My* Title
+Mary had a little lamb.
+    Its fleece was white as snow.
+And everywhere that Mary went,
+    The lamb was sure to go.
+}}}
+
+The first line will be used as the title. If you don't want the poetry block to have a title, use a blank line.
+
+```
+{{{poetry
+
+Here is my poem.
+    It hasn't a title.
+Maybe it's ho-hum.
+    A title's not vital.
+}}}
+```
+will produce:
+
+{{{poetry
+
+Here is my poem.
+    It hasn't a title.
+Maybe it's ho-hum.
+    A title's not vital.
+}}}
+
+# Home
+
+The Home plugin is very simple... it just adds a link to the first slide, enabling the user to jump back to the beginning of the presentation.
+
+`{{{home}}}`
+
+# Stet
+
+The stet plugin is sort of like an "anti-plugin". Anything contained in a stet directive will appear in the output without any processing by Gorilla Presenter. This is useful in special circumstances (this tutorial uses stet extensively for examples, for instance). Note that this won't keep the web browser from doing web-browsery things (e.g., eating extra whitespace, interpreting any angle brackets as possible HTML code, etc.). It just makes Gorilla Presenter leave the text alone.
+
+Example: this media directive would normally be processed by the media plugin, but because it is wrapped in a stet directive Gorilla Presenter won't touch it.
+
+{{{stet {{{media bazmataz}}}}}}
+
+# Literal
+
+The literal plugin is similar to stet, but it makes some substitutions to make the result render as expected in a browser. Problematic characters, such as space, ampersand, angle brackets, and newlines are replaced so the browser doesn't eat them or confuse them with HTML tags.
+
+{{{literalThis text has    embedded spaces
+newlines, 
+
+
+more newlines,
+A line with a                    whole bunch of embedded spaces,
+some < > angle brackets, and an & ampersand.}}}
+
 
 # Book
 
@@ -380,7 +499,7 @@ Unlike Gorilla Presenter in general, the Books plugin does require an active int
 
 The format is:
 
-`{{{book 978-0201514254}}}`
+{{{stet{{{book 978-0201514254}}}}}}
 
 and the result will be:
 
@@ -394,6 +513,8 @@ The Wikipedia plugin will retrieve a summary for your chosen topic (if it exists
 
 As with the Book plugin, this obviously requires an active internet connection.
 
+{{{stet{{{wikipedia black sabbath}}}}}} will produce:
+
 {{{wikipedia black sabbath}}}
 
 
@@ -401,7 +522,7 @@ As with the Book plugin, this obviously requires an active internet connection.
 
 The Map plugin embeds a Google Map for your chosen search term (if it exists, of course). Google Maps is pretty flexible... you can enter your searches by city name, latitude and longitude, and even major landmarks. Once again, this obviously requires an internet connection to work.
 
-`{{{map Washington Monument}}}`
+{{{stet{{{map Washington Monument}}}}}}
 
 produces:
 
@@ -410,29 +531,31 @@ produces:
 
 # LaTeX Math
 
-
 Gorilla Presenter uses the KaTeX plugin to render LaTeX mathematics. 
 
-Display (large) math uses `$$LaTeX code$$`
+Display (large) math uses {{{stet$$LaTeX code$$}}}
 
 Here's some display LaTeX: $$x^n + y^n = z^n$$
 
-Inline (small) math uses `\\(LaTeX code\\)`
+Inline (small) math uses {{{stet\\(LaTeX code\\)}}}
 
 Here's some inline LaTeX:  \\(z^n\\).
 
 
 # Icon
 
-Gorilla Presenter contains the full set of {{{branch Ionicons|~https://ionic.io/ionicons}}}. You can use these for decorative purposes, custom menus, or the
+Gorilla Presenter contains the full set of {{{branch Ionicons|~https://ionic.io/ionicons}}}. You can use these for decorative purposes, custom menus, or the like.
 
-`{{icon american-football-outline}}}`
+{{{stet {{icon american-football-outline}}}}}
 
 produces:
 
 {{{icon american-football-outline}}}
 
 
+# Settings
+
+Settings information goes here, TBW
 
 # Built-in CSS Classes
 

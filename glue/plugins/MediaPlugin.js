@@ -2,7 +2,8 @@ MediaPlugin = {
 
      mediaSequenceNumber: 0,
     mediaData: [],
-    reset: function () {
+    reset: async function () {
+        console.log("Resetting MediaPlugin.");
         this.mediaSequenceNumber = 0;
         for(let url of this.mediaData) {
             URL.revokeObjectURL(url);
@@ -11,9 +12,18 @@ MediaPlugin = {
     },
 
     renderHTML: async function (mediaSpec) {
-        const mediaFile = await GorillaMedia.findMediaFile(mediaSpec);
+        let mediaFile
+        if(mediaSpec.startsWith("http://") || mediaSpec.startsWith("https://") ) {
+        mediaFile= mediaSpec;
+        } else {
+         mediaFile = await GorillaMedia.findMediaFile(mediaSpec);
+        }
         if (mediaFile) {
-            MediaPlugin.mediaData.push(URL.createObjectURL(await fs.readBinaryFile(mediaFile)));
+             if(mediaSpec.startsWith("http://") || mediaSpec.startsWith("https://") ) {
+                    MediaPlugin.mediaData.push(mediaFile);
+             } else {
+                MediaPlugin.mediaData.push(URL.createObjectURL(await fs.readBinaryFile(mediaFile)));
+                }
             if (mediaFile.endsWith(".jpeg") || mediaFile.endsWith(".jpg") || mediaFile.endsWith(".png") || mediaFile.endsWith(".gif")) {
                 return `<img id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" src="" alt="Media: ${mediaFile}" title="Media: ${mediaFile}" class="gorilla-media gorilla-media-image" />`;
             } else if (mediaFile.endsWith(".mp4") || mediaFile.endsWith(".mov") || mediaFile.endsWith(".avi") || mediaFile.endsWith(".webm")) {
