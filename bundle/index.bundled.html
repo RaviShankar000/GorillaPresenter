@@ -131,7 +131,7 @@
     display: none;
     position: absolute;
     bottom: 0;
-    top: 2.75em;
+    top: 1.75em;
     left: 0;
     right: 0;
     grid-template-rows: 1fr;
@@ -5837,6 +5837,16 @@ HammerDriver = {
                     await GorillaPresenter.showSlide(GorillaSlideRenderer.slides.length - 1, "swipeInFromLeft");
                     evt.preventDefault();
                     break;
+            }
+        });
+        let editor = document.getElementById("gorilla-slide-editor");
+        editor.addEventListener("keydown", function (evt) {
+            console.log("Keydown event in editor, key:", evt.key);
+                  if ((evt.ctrlKey || evt.metaKey) && evt.key === 's') {
+    evt.preventDefault(); // Prevent browser's default "Save Page" dialog
+                    GorillaPresenter.markDirty(true);
+                    GorillaPresenter.showSlideShow();
+    console.log('Save triggered!');
             }
         });
     },
