@@ -97,7 +97,7 @@ HammerDriver = {
             }
         });
         let editor = document.getElementById("gorilla-slide-editor");
-        editor.addEventListener("keydown", function (evt) {
+   /*     editor.addEventListener("keydown", function (evt) {
             console.log("Keydown event in editor, key:", evt.key);
                   if ((evt.ctrlKey || evt.metaKey) && evt.key === 's') {
     evt.preventDefault(); // Prevent browser's default "Save Page" dialog
@@ -105,6 +105,6 @@ HammerDriver = {
                     GorillaPresenter.showSlideShow();
     console.log('Save triggered!');
             }
-        });
-    },
+        }); */
+    }, 
 }

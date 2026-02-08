@@ -125,6 +125,10 @@
 </style>
 <style>
 
+.highlight {
+    background-color: yellow;
+    color:black;
+}
 #gorilla-editor-screen {
     padding: 0;
     margin: 0;
@@ -140,24 +144,25 @@
     box-sizing: border-box;
     overflow: auto;
 }
+
 #gorilla-editor-wrapper {
     position: absolute;
     bottom: 0;
-    top: 0;
+    top: 0.25em;
     left: 0;
     right: 0;
     margin: 0;
+    margin-top: 1em;
     box-sizing: border-box;
     display: grid;
-    grid-template-rows: 2em 1fr;
+    grid-template-rows: 3em 3em auto;
     z-index: 100000;
     background-color: var(--slide-body-background-color);
     overflow: hidden;
     padding: 0;
 }
 
-
-#gorilla-editor-control-panel {
+#gorilla-editor-main-control-panel {
     padding: 0;
     padding-left: 0.5em;
     padding-right: 0.5em;
@@ -171,15 +176,108 @@
     display: flex;
     color: black;
     background-color: lightgray;
-    height: 2.75em;
+    height: 3em;
+    border-top: 1px solid black;
+}
+
+#gorilla-editor-find-control-panel {
+    padding: 0;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 100%;
+    align-items: center;
+    margin: 0;
+    box-sizing: content-box;
+    z-index: 100001;
+    -webkit-user-select: none;
+    user-select: none;
+    display: flex;
+    color: black;
+    background-color: lightgray;
+    height: 3em;
     border-top: 1px solid black;
 }
 
 #gorilla-editor-editor-panel {
-    position: absolute;
-    top: 2em;
+    padding: 0;
+    margin: 0;
     height: auto;
     overflow: auto;
+}
+
+#gorilla-find-replace-dialog {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border: 2px solid #999;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1000000;
+    min-width: 500px;
+}
+
+.gorilla-find-replace-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+    border-radius: 6px 6px 0 0;
+}
+
+.gorilla-find-replace-header button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.gorilla-find-replace-body {
+    padding: 15px;
+}
+
+.gorilla-find-replace-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.gorilla-find-replace-row label {
+    min-width: 60px;
+}
+
+.gorilla-find-replace-row input[type="text"] {
+    flex: 1;
+    padding: 5px;
+}
+
+.gorilla-find-replace-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.gorilla-find-replace-buttons button {
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+#gorilla-find-status {
+    margin-top: 10px;
+    color: #666;
+    font-size: 12px;
+}
+
+.gorilla-find-highlight {
+    background-color: yellow;
+}
+
+.gorilla-find-current {
+    background-color: orange;
 }
 </style>
 <style>
@@ -193,12 +291,8 @@ body {
   position:fixed;
   top:0;
   left:0;
-  width:100vw;
-  height:100vh;
-  max-width:100vw;
-  max-height:100vh;
-  min-width:100vw;
-  min-height:100vh;
+  bottom:0;
+  right:0;
    background-color:black;
    overflow: hidden;
   
@@ -378,7 +472,7 @@ button svg {
     font-family: var(--slide-body-font-stack);
     background-color: var(--slide-body-background-color);
     padding: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 0;
     margin-top: 3em;
     padding-top: 1em;
     font-size: 150%;
@@ -428,7 +522,6 @@ button svg {
   display:none;
   overflow:auto;
   z-index:100000;
-  padding-top:2.75em;
   font-family: var(--slide-body-font-stack);
   color: black;
   background-color: darkgray;
@@ -511,7 +604,6 @@ button svg {
 
 #gorilla-media-screen {
     padding: 1em;
-    padding-top: 2.75em;
     grid-template-rows: 10em 4em 10em 4em 10em 4em 10em 4em 10em;
     overflow:auto;
     color:var(--slide-body-color);
@@ -536,6 +628,16 @@ button svg {
     transform-origin: center;  /* or 50% 50% */
     /*transform-box: fill-box;   /* Important for SVG to use object bounding box */
 }
+
+.gorilla-media{
+      max-width: 90vw;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+   }
 
 .gorilla-media-list {
   list-style: none;        
@@ -598,6 +700,7 @@ span[contenteditable]:focus {
     top: 0;
     left: 0;
     padding: 0;
+    height:3em;
     padding-left: 0.5em;
     padding-right: 0.5em;
     width: 100%;
@@ -645,6 +748,7 @@ span[contenteditable]:focus {
  position: absolute;
   bottom: 0;
   top:0;
+  padding-top:3em;
   left:0;
   right:0;
   margin:0;
@@ -685,13 +789,7 @@ button:disabled {
 }
 </style>
 <style>
-   .gorilla-media{
-      max-width: 90vw;
-      height: auto;
-      min-height:4em;
-      display: block;
-      margin: 0 auto;
-   }
+   
    
    #gorilla-media-recorder-video-container {
     width: 90vw;
@@ -946,13 +1044,6 @@ button:disabled {
 
 </style>
 <style>
-.homebutton {
-    position: absolute;
-    left: 0.25em;
-    top: 4em;
-}
-</style>
-<style>
 .mapiframe{
     margin:0 auto;
     display:block;
@@ -1177,8 +1268,7 @@ poem-title{
       </span>
     </div>
     <div id="gorilla-presenter-screens-wrapper">
-      <div id="gorilla-slide-show" class="gorilla-presenter-screen"></div>
-
+    
       <div id="gorilla-media-screen" class="gorilla-presenter-screen">
         <!--uploader-->
         <div id="dropZone" class="drop-zone">
@@ -1206,7 +1296,7 @@ poem-title{
       </div>
       <div id="gorilla-editor-screen" class="gorilla-presenter-screen">
         <div id="gorilla-editor-wrapper">
-        <div id="gorilla-editor-control-panel" class="gorilla-menu-button-wrapper"><button class="main-menu-item ionicon" nav-value="bold" title="Bold">fontawesome/bold</button><button class="main-menu-item ionicon" nav-value="italic" title="Italic">fontawesome/italic</button>
+        <div id="gorilla-editor-main-control-panel" class="gorilla-menu-button-wrapper"><button class="main-menu-item ionicon" nav-value="bold" title="Bold">fontawesome/bold</button><button class="main-menu-item ionicon" nav-value="italic" title="Italic">fontawesome/italic</button>
         <button class="main-menu-item ionicon" nav-value="blockquote" title="Blockquote">fontawesome/leftquote</button>
       <button class="main-menu-item ionicon" nav-value="ul" title="Bullet List">fontawesome/list-ul</button>
         <button class="main-menu-item ionicon" nav-value="ol" title="Numbered List">fontawesome/list-ol</button>
@@ -1219,18 +1309,38 @@ poem-title{
          <button class="main-menu-item ionicon" nav-value="latex" title="LaTeX Math">fontawesome/infinity</button>
 
          <button class="main-menu-item ionicon" nav-value="footnote" title="Insert footnote">fontawesome/note-sticky</button>
+         </div>
+         <div id="gorilla-editor-find-control-panel">
+          
+                <input type="text" id="gorilla-find-input" placeholder="Find..."> <button id="gorilla-find-next">Find</button><button id="gorilla-find-previous">Previous</button>
+                 <input type="text" id="gorilla-replace-input" placeholder="Replace with..."><button id="gorilla-replace-current">Replace</button>
+                <button id="gorilla-replace-all">Replace All</button>
+                <label>
+                    <input type="checkbox" id="gorilla-find-case-sensitive"> Case sensitive
+                </label>
+               <!--- Decided regex was overkill for this application, just adds UI complexity. Kept code here and in GorillaEditor.js in case we decide to add it back later.
+
+               <label>
+                    <input type="checkbox" id="gorilla-find-regex"> Regex
+                </label> --->
+           
+            
+               
+                
+            &nbsp;&nbsp;<span id="gorilla-find-status"></span>
+            </div>
+              <div id="gorilla-editor-editor-panel">
+          <pre id="gorilla-slide-editor" class="language-markdown codejar"></pre>
+        </div>
       </div>
 
-        <div id="gorilla-editor-editor-panel">
-          <pre id="gorilla-slide-editor" class="language-markdown codejar">
+      
         </div>
-        </div>
-    </div> 
-  </div>
-  <div id="gorilla-about-screen" class="gorilla-presenter-screen">
+          <div id="gorilla-slide-show" class="gorilla-presenter-screen"></div>
+ <div id="gorilla-about-screen" class="gorilla-presenter-screen">
   
   </div>
-
+  
     <div id="gorilla-recorder-screen" class="gorilla-presenter-screen">
       <div>
   <h1>Audio/Video Recorder/Editor</h1>
@@ -1270,6 +1380,9 @@ poem-title{
    <div id="gorilla-media-recorder-status">Ready to record</div>
 
   </div>
+
+
+
  
 <div id="gorilla-settings-screen" class="gorilla-presenter-screen">
   <div class="gorilla-settings-panel">
@@ -1384,12 +1497,17 @@ This text has **bold** and *italic* styles. You can type in here.
       </div>
     </div>
   </div>
+
+    </div> 
   </div>
-  <div id="nav-overlay">
-    <span class="overlay-nav-left">⇠</span><span class="overlay-nav-right">⇢</span>
+ 
+
   </div>
   <div id="gorilla-dirty-indicator">Presentation has been edited <button class="main-menu-item ionicon" nav-value="save" title="Download Presentation">download-outline</button></div>
   <div id="gorilla-zip-data"></div>
+
+ 
+
 <script>
 const globalWindow = window;
 function CodeJar(editor, highlight, opt = {}) {
@@ -2999,15 +3117,16 @@ let GorillaEditor = {
     getCursorPosition: function () {
         return GorillaEditor.jar.save();
     },
-    setCursorPosition: function (start, end = null) {
+    setCursorPosition: function (start, end = null, skipFocus = false) {
         if (end === null) {
             end = start;
         }
-       // console.log("Setting cursor position: start =", start, ", end =", end);
         GorillaEditor.jar.restore({ start: start, end: end, dir: "->" });
 
         setTimeout(() => {
-            GorillaEditor.editor.focus();
+            if (!skipFocus) {
+                GorillaEditor.editor.focus();
+            }
 
             // Scroll cursor into view
             const selection = window.getSelection();
@@ -3158,12 +3277,221 @@ let GorillaEditor = {
     latex: function () {
         GorillaEditor.wrapSelectedText('$$', '$$');
     },
-    footnote:function () {
+    footnote: function () {
         GorillaEditor.wrapSelectedText('^[', ']');
     }
 }
 
+GorillaFindReplace = {
+    currentMatches: [],
+    currentIndex: -1,
+    lastSearchText: null,
 
+    find(force = false) {
+        const findText = document.getElementById('gorilla-find-input').value;
+        if (!findText) return;
+        if (force === false) {
+            if (findText === GorillaFindReplace.lastSearchText) {
+                // Same search text, no need to re-search
+                return;
+            }
+        }
+        GorillaFindReplace.lastSearchText = findText;
+        const caseSensitive = document.getElementById('gorilla-find-case-sensitive').checked;
+        //const useRegex = document.getElementById('gorilla-find-regex').checked;
+
+        const code = GorillaEditor.getCode();
+        GorillaFindReplace.currentMatches = [];
+
+        try {
+            let pattern;
+            /*  if (useRegex) { // Decided regex search is overkill for now and adds complexity, can add back later if needed
+                  pattern = new RegExp(findText, caseSensitive ? 'g' : 'gi');
+              } else  { */
+            const escaped = findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            pattern = new RegExp(escaped, caseSensitive ? 'g' : 'gi');
+            //}
+
+            let match;
+            while ((match = pattern.exec(code)) !== null) {
+                GorillaFindReplace.currentMatches.push({
+                    start: match.index,
+                    end: match.index + match[0].length,
+                    text: match[0]
+                });
+            }
+
+            if (GorillaFindReplace.currentMatches.length > 0) {
+
+                GorillaFindReplace.currentIndex = 0;
+                GorillaFindReplace.highlightMatches(pattern);
+                GorillaFindReplace.scrollToMatch(0);
+                GorillaFindReplace.updateStatus();
+            } else {
+                GorillaFindReplace.updateStatus('No matches found');
+            }
+        } catch (e) {
+            GorillaFindReplace.updateStatus('Invalid regex: ' + e.message);
+        }
+    },
+    findNext() {
+        if ((GorillaFindReplace.currentMatches.length === 0) || document.getElementById('gorilla-find-input').value != GorillaFindReplace.lastSearchText) {
+            GorillaFindReplace.find(true);
+            return;
+        }
+
+        GorillaFindReplace.currentIndex = (GorillaFindReplace.currentIndex + 1) % GorillaFindReplace.currentMatches.length;
+        GorillaFindReplace.scrollToMatch(GorillaFindReplace.currentIndex);
+        GorillaFindReplace.updateStatus();
+    },
+    findPrevious() {
+        if (GorillaFindReplace.currentMatches.length === 0) {
+            GorillaFindReplace.find();
+            return;
+        }
+
+        GorillaFindReplace.currentIndex = (GorillaFindReplace.currentIndex - 1 + GorillaFindReplace.currentMatches.length) % GorillaFindReplace.currentMatches.length;
+        GorillaFindReplace.scrollToMatch(GorillaFindReplace.currentIndex);
+        GorillaFindReplace.updateStatus();
+    },
+    replaceCurrent() {
+        if (GorillaFindReplace.currentMatches.length === 0 || GorillaFindReplace.currentIndex === -1) return;
+
+        const replaceText = document.getElementById('gorilla-replace-input').value;
+        const match = GorillaFindReplace.currentMatches[GorillaFindReplace.currentIndex];
+
+        // Set cursor to select the match
+        GorillaEditor.jar.restore({ start: match.start, end: match.end, dir: "->" });
+        GorillaEditor.editor.focus();
+
+        // Record history before change
+        GorillaEditor.jar.recordHistory();
+
+        // Replace using native selection
+        const selection = window.getSelection();
+        const range = selection.getRangeAt(0);
+        range.deleteContents();
+        const textNode = document.createTextNode(replaceText);
+        range.insertNode(textNode);
+
+        // Update highlighting
+        GorillaEditor.highlightElement(GorillaEditor.editor);
+
+        // Record history after change
+        GorillaEditor.jar.recordHistory();
+
+        // Refresh matches
+        GorillaFindReplace.find();
+    },
+    replaceAll() {
+        if (GorillaFindReplace.currentMatches.length === 0) return;
+
+        const replaceText = document.getElementById('gorilla-replace-input').value;
+        const count = GorillaFindReplace.currentMatches.length;
+
+        // Record initial state
+        GorillaEditor.jar.recordHistory();
+
+        // Replace from end to start to maintain indices
+        for (let i = GorillaFindReplace.currentMatches.length - 1; i >= 0; i--) {
+            const match = GorillaFindReplace.currentMatches[i];
+
+            // Select the match
+            GorillaEditor.jar.restore({ start: match.start, end: match.end, dir: "->" });
+
+            // Replace using native selection
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                const textNode = document.createTextNode(replaceText);
+                range.insertNode(textNode);
+            }
+        }
+
+        // Update highlighting
+        GorillaEditor.highlightElement(GorillaEditor.editor);
+
+        // Record final state
+        GorillaEditor.jar.recordHistory();
+
+        GorillaFindReplace.currentMatches = [];
+        GorillaFindReplace.updateStatus(`Replaced ${count} occurrence(s)`);
+    },
+    highlightMatches(pattern) {
+
+        Prism.languages.insertBefore('markdown', 'important', {
+            'highlight': {
+                pattern: pattern,
+                greedy: true
+            }
+        });
+
+        GorillaEditor.highlightElement(GorillaEditor.editor); 
+        
+    },
+
+    clearHighlights() {
+        // Clear any highlights
+    },
+    scrollToMatch(index) {
+        const match = GorillaFindReplace.currentMatches[index];
+        GorillaEditor.setCursorPosition(match.start, match.end);
+
+    },
+    updateStatus(message) {
+        const status = document.getElementById('gorilla-find-status');
+        if (message) {
+            status.textContent = message;
+        } else if (GorillaFindReplace.currentMatches.length > 0) {
+            status.textContent = `Match ${GorillaFindReplace.currentIndex + 1} of ${GorillaFindReplace.currentMatches.length}`;
+        } else {
+            status.textContent = '';
+        }
+    },
+
+    init() {
+
+        document.getElementById('gorilla-find-next').onclick = (e) => {
+            e.preventDefault();
+            GorillaFindReplace.findNext();
+        };
+
+        document.getElementById('gorilla-find-previous').onclick = (e) => {
+            e.preventDefault();
+            GorillaFindReplace.findPrevious();
+        };
+
+        document.getElementById('gorilla-replace-current').onclick = (e) => {
+            e.preventDefault();
+            GorillaFindReplace.replaceCurrent();
+        };
+
+        document.getElementById('gorilla-replace-all').onclick = (e) => {
+            e.preventDefault();
+            GorillaFindReplace.replaceAll();
+        };
+        // Checkboxes trigger new search
+        document.getElementById('gorilla-find-case-sensitive').onchange = () => GorillaFindReplace.find(true);
+        /*    document.getElementById('gorilla-find-regex').onchange = () => GorillaFindReplace.find(true); */
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                document.getElementById('gorilla-find-input').focus();
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
+                e.preventDefault();
+                document.getElementById('gorilla-replace-input').focus();
+            }
+
+        });
+    }
+};
+
+// Initialize when ready
+GorillaFindReplace.init();
 </script>
 <script>
 GorillaIconLoader = {
@@ -3235,9 +3563,6 @@ MainMenuDriver = {
                 command = commandContainer.getAttribute("nav-value");
                 // MainMenuDriver.hideMenu();
                 switch (command) {
-                    case "forward":
-                        await GorillaPresenter.previousSlide();
-                        break;
                     case 'slideshow':
                         GorillaPresenter.showSlideShow();
                         break;
@@ -5840,7 +6165,7 @@ HammerDriver = {
             }
         });
         let editor = document.getElementById("gorilla-slide-editor");
-        editor.addEventListener("keydown", function (evt) {
+   /*     editor.addEventListener("keydown", function (evt) {
             console.log("Keydown event in editor, key:", evt.key);
                   if ((evt.ctrlKey || evt.metaKey) && evt.key === 's') {
     evt.preventDefault(); // Prevent browser's default "Save Page" dialog
@@ -5848,8 +6173,8 @@ HammerDriver = {
                     GorillaPresenter.showSlideShow();
     console.log('Save triggered!');
             }
-        });
-    },
+        }); */
+    }, 
 }
 </script>
 <script>
@@ -6619,23 +6944,6 @@ BranchPlugin = {
 
 </script>
 <script>
-HomePlugin = {
-     renderHTML: async function (directive) {
-        const iconSpec = "ionicons/home.svg";
-        let iconExists = await fs.fileExists(iconSpec);
-        if (iconExists) {
-            let iconData = await fs.readTextFile(iconSpec);
-            iconData = iconData.replace(/<svg /, `<svg title="Home" aria-label="Home" `);
-            return `<span class="ionicon homebutton" onClick='GorillaPresenter.showSlide(0, \"swipeInFromLeft\");'>${iconData}</span>`;
-        }
-        else {
-            console.warn("Icon file not found for directive: " + directive);
-            return `<span class="gorilla-media-missing">[Missing icon: ${directive}]</span>`;
-        }
-    }
-}
-</script>
-<script>
 IconPlugin = {
      renderHTML: async function (directive) {
         let iconBasename = directive.trim();
@@ -6776,7 +7084,6 @@ MediaPlugin = {
         mediaSpec = specparts[0];
         let title = "";
         if(specparts.length > 1) {
-            console.log("Media directive has title: " + specparts[1]);
            title = specparts[1];
         }
         
@@ -6788,28 +7095,30 @@ MediaPlugin = {
             mediaFile= mediaSpec;
         } else {
          mediaFile = await GorillaMedia.findMediaFile(mediaSpec);
-         console.log("Resolved media spec '" + mediaSpec + "' to file: " + mediaFile);
          if(title === "") {
          title = GorillaMedia.splitFilePath(mediaFile).basePath.replace(/media\//, ""); // Strip "media/" from display title if present
         }
             }
         if (mediaFile) {
+            let mediaData;
              if(mediaSpec.startsWith("http://") || mediaSpec.startsWith("https://") ) {
-                    MediaPlugin.mediaData.push(mediaFile);
+                 //   MediaPlugin.mediaData.push(mediaFile);
+                 mediaData = mediaFile;
              } else {
-                MediaPlugin.mediaData.push(URL.createObjectURL(await fs.readBinaryFile(mediaFile)));
+                //MediaPlugin.mediaData.push(URL.createObjectURL(await fs.readBinaryFile(mediaFile)));
+                mediaData = URL.createObjectURL(await fs.readBinaryFile(mediaFile))
                 }
             if (mediaFile.endsWith(".jpeg") || mediaFile.endsWith(".jpg") || mediaFile.endsWith(".png") || mediaFile.endsWith(".gif")) {
-                return `<img id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" src="" alt="${title}" title="${title}" class="gorilla-media gorilla-media-image" />`;
+                return `<img id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" src="${mediaData}" alt="${title}" title="${title}" class="gorilla-media gorilla-media-image" />`;
             } else if (mediaFile.endsWith(".mp4") || mediaFile.endsWith(".mov") || mediaFile.endsWith(".avi") || mediaFile.endsWith(".webm")) {
-                return `<video id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" controls  alt="${title}" title="${title}" class="gorilla-media gorilla-media-video"><source src="">Your browser does not support the video tag.</video>`;
+                return `<video id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" controls  alt="${title}" title="${title}" class="gorilla-media gorilla-media-video"><source src="${mediaData}">Your browser does not support the video tag.</video>`;
             } else if (mediaFile.endsWith(".mp3") || mediaFile.endsWith(".wav")) {
-                return `<audio id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" controls  alt="${title}" title="${title}" class="gorilla-media gorilla-media-audio"><source src="">Your browser does not support the audio element.</audio>`;
+                return `<audio id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" controls  alt="${title}" title="${title}" class="gorilla-media gorilla-media-audio"><source src="${mediaData}">Your browser does not support the audio element.</audio>`;
             }
             else {
-                MediaPlugin.mediaData.pop();
-                let mediadata = await GorillaUtility.readZipFileAsDataURI(mediaFile);
-                return "<a id='gorilla-media-" + (MediaPlugin.mediaSequenceNumber++) + "' sequence=\"" + (MediaPlugin.mediaSequenceNumber++) + "\" href='" + mediadata + "' download>" + GorillaMedia.GorillaMedia.getFileIcon(GorillaMedia.splitFilePath(mediaFile).extension) + " Download " + mediaSpec + "</a>";
+               // MediaPlugin.mediaData.pop();
+                MediaData = await GorillaUtility.readZipFileAsDataURI(mediaFile);
+                return "<a id='gorilla-media-" + (MediaPlugin.mediaSequenceNumber++) + "' sequence=\"" + (MediaPlugin.mediaSequenceNumber++) + "\" href='" + MediaData + "' download>" + GorillaMedia.GorillaMedia.getFileIcon(GorillaMedia.splitFilePath(mediaFile).extension) + " Download " + mediaSpec + "</a>";
             }
         } else {
             console.warn("Media file not found for directive: " + mediaSpec);
@@ -6818,6 +7127,7 @@ MediaPlugin = {
     },
 
     postprocess: function () {
+        return;
         const mediaElements = document.querySelectorAll('.gorilla-media');
         mediaElements.forEach((element) => {
             const sequence = parseInt(element.getAttribute('sequence'));
@@ -7586,7 +7896,6 @@ GorillaSlideRenderer.registerPlugin('outline', OutlinePlugin);
 GorillaSlideRenderer.registerPlugin('icon', IconPlugin);
 GorillaSlideRenderer.registerPlugin('wikipedia', WikipediaPlugin);
 GorillaSlideRenderer.registerPlugin('map', MapPlugin);
-GorillaSlideRenderer.registerPlugin('home', HomePlugin);
 GorillaSlideRenderer.registerPlugin('branch', BranchPlugin);
 GorillaSlideRenderer.registerPlugin('poetry', PoetryPlugin); 
 
@@ -7645,8 +7954,8 @@ document.getElementById("gorilla-editor-font-size").addEventListener("change", a
     el.style.fontSize = GorillaSettings.settings["editorFontSize"] + "px";
   });
 });
-//document.body.style.display = "grid";
-document.body.style.display = "block";
+document.body.style.display = "grid";
+//document.body.style.display = "block";
 const hashNumber = parseInt(window.location.hash.substring(1));
 if (hashNumber !== GorillaPresenter.currentSlideNumber) {
 
@@ -7689,7 +7998,9 @@ let slidechooser = document.getElementById("slidechooser");
 slidechooser.addEventListener("change", async function (e) {
   await GorillaPresenter.showSlide(slidechooser.value, "cutIn");
 });
+//document.body.style.display="none";
 await GorillaPresenter.show_screen("gorilla-slide-show");
+//document.body.style.display="grid";
 
 
 

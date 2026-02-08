@@ -8,12 +8,8 @@ body {
   position:fixed;
   top:0;
   left:0;
-  width:100vw;
-  height:100vh;
-  max-width:100vw;
-  max-height:100vh;
-  min-width:100vw;
-  min-height:100vh;
+  bottom:0;
+  right:0;
    background-color:black;
    overflow: hidden;
   
@@ -193,7 +189,7 @@ button svg {
     font-family: var(--slide-body-font-stack);
     background-color: var(--slide-body-background-color);
     padding: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 0;
     margin-top: 3em;
     padding-top: 1em;
     font-size: 150%;
@@ -243,7 +239,6 @@ button svg {
   display:none;
   overflow:auto;
   z-index:100000;
-  padding-top:2.75em;
   font-family: var(--slide-body-font-stack);
   color: black;
   background-color: darkgray;
@@ -326,7 +321,6 @@ button svg {
 
 #gorilla-media-screen {
     padding: 1em;
-    padding-top: 2.75em;
     grid-template-rows: 10em 4em 10em 4em 10em 4em 10em 4em 10em;
     overflow:auto;
     color:var(--slide-body-color);
@@ -351,6 +345,16 @@ button svg {
     transform-origin: center;  /* or 50% 50% */
     /*transform-box: fill-box;   /* Important for SVG to use object bounding box */
 }
+
+.gorilla-media{
+      max-width: 90vw;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+   }
 
 .gorilla-media-list {
   list-style: none;        
@@ -413,6 +417,7 @@ span[contenteditable]:focus {
     top: 0;
     left: 0;
     padding: 0;
+    height:3em;
     padding-left: 0.5em;
     padding-right: 0.5em;
     width: 100%;
@@ -460,6 +465,7 @@ span[contenteditable]:focus {
  position: absolute;
   bottom: 0;
   top:0;
+  padding-top:3em;
   left:0;
   right:0;
   margin:0;

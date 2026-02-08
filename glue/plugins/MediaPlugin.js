@@ -15,7 +15,6 @@ MediaPlugin = {
         mediaSpec = specparts[0];
         let title = "";
         if(specparts.length > 1) {
-            console.log("Media directive has title: " + specparts[1]);
            title = specparts[1];
         }
         
@@ -27,28 +26,30 @@ MediaPlugin = {
             mediaFile= mediaSpec;
         } else {
          mediaFile = await GorillaMedia.findMediaFile(mediaSpec);
-         console.log("Resolved media spec '" + mediaSpec + "' to file: " + mediaFile);
          if(title === "") {
          title = GorillaMedia.splitFilePath(mediaFile).basePath.replace(/media\//, ""); // Strip "media/" from display title if present
         }
             }
         if (mediaFile) {
+            let mediaData;
              if(mediaSpec.startsWith("http://") || mediaSpec.startsWith("https://") ) {
-                    MediaPlugin.mediaData.push(mediaFile);
+                 //   MediaPlugin.mediaData.push(mediaFile);
+                 mediaData = mediaFile;
              } else {
-                MediaPlugin.mediaData.push(URL.createObjectURL(await fs.readBinaryFile(mediaFile)));
+                //MediaPlugin.mediaData.push(URL.createObjectURL(await fs.readBinaryFile(mediaFile)));
+                mediaData = URL.createObjectURL(await fs.readBinaryFile(mediaFile))
                 }
             if (mediaFile.endsWith(".jpeg") || mediaFile.endsWith(".jpg") || mediaFile.endsWith(".png") || mediaFile.endsWith(".gif")) {
-                return `<img id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" src="" alt="${title}" title="${title}" class="gorilla-media gorilla-media-image" />`;
+                return `<img id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" src="${mediaData}" alt="${title}" title="${title}" class="gorilla-media gorilla-media-image" />`;
             } else if (mediaFile.endsWith(".mp4") || mediaFile.endsWith(".mov") || mediaFile.endsWith(".avi") || mediaFile.endsWith(".webm")) {
-                return `<video id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" controls  alt="${title}" title="${title}" class="gorilla-media gorilla-media-video"><source src="">Your browser does not support the video tag.</video>`;
+                return `<video id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" controls  alt="${title}" title="${title}" class="gorilla-media gorilla-media-video"><source src="${mediaData}">Your browser does not support the video tag.</video>`;
             } else if (mediaFile.endsWith(".mp3") || mediaFile.endsWith(".wav")) {
-                return `<audio id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" controls  alt="${title}" title="${title}" class="gorilla-media gorilla-media-audio"><source src="">Your browser does not support the audio element.</audio>`;
+                return `<audio id='gorilla-media-${MediaPlugin.mediaSequenceNumber}' sequence="${MediaPlugin.mediaSequenceNumber++}" controls  alt="${title}" title="${title}" class="gorilla-media gorilla-media-audio"><source src="${mediaData}">Your browser does not support the audio element.</audio>`;
             }
             else {
-                MediaPlugin.mediaData.pop();
-                let mediadata = await GorillaUtility.readZipFileAsDataURI(mediaFile);
-                return "<a id='gorilla-media-" + (MediaPlugin.mediaSequenceNumber++) + "' sequence=\"" + (MediaPlugin.mediaSequenceNumber++) + "\" href='" + mediadata + "' download>" + GorillaMedia.GorillaMedia.getFileIcon(GorillaMedia.splitFilePath(mediaFile).extension) + " Download " + mediaSpec + "</a>";
+               // MediaPlugin.mediaData.pop();
+                MediaData = await GorillaUtility.readZipFileAsDataURI(mediaFile);
+                return "<a id='gorilla-media-" + (MediaPlugin.mediaSequenceNumber++) + "' sequence=\"" + (MediaPlugin.mediaSequenceNumber++) + "\" href='" + MediaData + "' download>" + GorillaMedia.GorillaMedia.getFileIcon(GorillaMedia.splitFilePath(mediaFile).extension) + " Download " + mediaSpec + "</a>";
             }
         } else {
             console.warn("Media file not found for directive: " + mediaSpec);
@@ -57,6 +58,7 @@ MediaPlugin = {
     },
 
     postprocess: function () {
+        return;
         const mediaElements = document.querySelectorAll('.gorilla-media');
         mediaElements.forEach((element) => {
             const sequence = parseInt(element.getAttribute('sequence'));

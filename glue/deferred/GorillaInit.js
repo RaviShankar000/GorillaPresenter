@@ -10,7 +10,6 @@ GorillaSlideRenderer.registerPlugin('outline', OutlinePlugin);
 GorillaSlideRenderer.registerPlugin('icon', IconPlugin);
 GorillaSlideRenderer.registerPlugin('wikipedia', WikipediaPlugin);
 GorillaSlideRenderer.registerPlugin('map', MapPlugin);
-GorillaSlideRenderer.registerPlugin('home', HomePlugin);
 GorillaSlideRenderer.registerPlugin('branch', BranchPlugin);
 GorillaSlideRenderer.registerPlugin('poetry', PoetryPlugin); 
 
@@ -69,8 +68,8 @@ document.getElementById("gorilla-editor-font-size").addEventListener("change", a
     el.style.fontSize = GorillaSettings.settings["editorFontSize"] + "px";
   });
 });
-//document.body.style.display = "grid";
-document.body.style.display = "block";
+document.body.style.display = "grid";
+//document.body.style.display = "block";
 const hashNumber = parseInt(window.location.hash.substring(1));
 if (hashNumber !== GorillaPresenter.currentSlideNumber) {
 
@@ -113,7 +112,9 @@ let slidechooser = document.getElementById("slidechooser");
 slidechooser.addEventListener("change", async function (e) {
   await GorillaPresenter.showSlide(slidechooser.value, "cutIn");
 });
+//document.body.style.display="none";
 await GorillaPresenter.show_screen("gorilla-slide-show");
+//document.body.style.display="grid";
 
 
 

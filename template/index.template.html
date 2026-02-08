@@ -60,8 +60,7 @@
       </span>
     </div>
     <div id="gorilla-presenter-screens-wrapper">
-      <div id="gorilla-slide-show" class="gorilla-presenter-screen"></div>
-
+    
       <div id="gorilla-media-screen" class="gorilla-presenter-screen">
         <!--uploader-->
         <div id="dropZone" class="drop-zone">
@@ -89,7 +88,7 @@
       </div>
       <div id="gorilla-editor-screen" class="gorilla-presenter-screen">
         <div id="gorilla-editor-wrapper">
-        <div id="gorilla-editor-control-panel" class="gorilla-menu-button-wrapper"><button class="main-menu-item ionicon" nav-value="bold" title="Bold">fontawesome/bold</button><button class="main-menu-item ionicon" nav-value="italic" title="Italic">fontawesome/italic</button>
+        <div id="gorilla-editor-main-control-panel" class="gorilla-menu-button-wrapper"><button class="main-menu-item ionicon" nav-value="bold" title="Bold">fontawesome/bold</button><button class="main-menu-item ionicon" nav-value="italic" title="Italic">fontawesome/italic</button>
         <button class="main-menu-item ionicon" nav-value="blockquote" title="Blockquote">fontawesome/leftquote</button>
       <button class="main-menu-item ionicon" nav-value="ul" title="Bullet List">fontawesome/list-ul</button>
         <button class="main-menu-item ionicon" nav-value="ol" title="Numbered List">fontawesome/list-ol</button>
@@ -102,18 +101,38 @@
          <button class="main-menu-item ionicon" nav-value="latex" title="LaTeX Math">fontawesome/infinity</button>
 
          <button class="main-menu-item ionicon" nav-value="footnote" title="Insert footnote">fontawesome/note-sticky</button>
+         </div>
+         <div id="gorilla-editor-find-control-panel">
+          
+                <input type="text" id="gorilla-find-input" placeholder="Find..."> <button id="gorilla-find-next">Find</button><button id="gorilla-find-previous">Previous</button>
+                 <input type="text" id="gorilla-replace-input" placeholder="Replace with..."><button id="gorilla-replace-current">Replace</button>
+                <button id="gorilla-replace-all">Replace All</button>
+                <label>
+                    <input type="checkbox" id="gorilla-find-case-sensitive"> Case sensitive
+                </label>
+               <!--- Decided regex was overkill for this application, just adds UI complexity. Kept code here and in GorillaEditor.js in case we decide to add it back later.
+
+               <label>
+                    <input type="checkbox" id="gorilla-find-regex"> Regex
+                </label> --->
+           
+            
+               
+                
+            &nbsp;&nbsp;<span id="gorilla-find-status"></span>
+            </div>
+              <div id="gorilla-editor-editor-panel">
+          <pre id="gorilla-slide-editor" class="language-markdown codejar"></pre>
+        </div>
       </div>
 
-        <div id="gorilla-editor-editor-panel">
-          <pre id="gorilla-slide-editor" class="language-markdown codejar">
+      
         </div>
-        </div>
-    </div> 
-  </div>
-  <div id="gorilla-about-screen" class="gorilla-presenter-screen">
+          <div id="gorilla-slide-show" class="gorilla-presenter-screen"></div>
+ <div id="gorilla-about-screen" class="gorilla-presenter-screen">
   
   </div>
-
+  
     <div id="gorilla-recorder-screen" class="gorilla-presenter-screen">
       <div>
   <h1>Audio/Video Recorder/Editor</h1>
@@ -153,6 +172,9 @@
    <div id="gorilla-media-recorder-status">Ready to record</div>
 
   </div>
+
+
+
  
 <div id="gorilla-settings-screen" class="gorilla-presenter-screen">
   <div class="gorilla-settings-panel">
@@ -267,12 +289,17 @@ This text has **bold** and *italic* styles. You can type in here.
       </div>
     </div>
   </div>
+
+    </div> 
   </div>
-  <div id="nav-overlay">
-    <span class="overlay-nav-left">⇠</span><span class="overlay-nav-right">⇢</span>
+ 
+
   </div>
   <div id="gorilla-dirty-indicator">Presentation has been edited <button class="main-menu-item ionicon" nav-value="save" title="Download Presentation">download-outline</button></div>
   <div id="gorilla-zip-data"></div>
+
+ 
+
 </body>
 
 </html>

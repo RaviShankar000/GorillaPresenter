@@ -18,9 +18,6 @@ MainMenuDriver = {
                 command = commandContainer.getAttribute("nav-value");
                 // MainMenuDriver.hideMenu();
                 switch (command) {
-                    case "forward":
-                        await GorillaPresenter.previousSlide();
-                        break;
                     case 'slideshow':
                         GorillaPresenter.showSlideShow();
                         break;

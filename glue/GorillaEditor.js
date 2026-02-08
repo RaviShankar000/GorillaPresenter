@@ -48,15 +48,16 @@ let GorillaEditor = {
     getCursorPosition: function () {
         return GorillaEditor.jar.save();
     },
-    setCursorPosition: function (start, end = null) {
+    setCursorPosition: function (start, end = null, skipFocus = false) {
         if (end === null) {
             end = start;
         }
-       // console.log("Setting cursor position: start =", start, ", end =", end);
         GorillaEditor.jar.restore({ start: start, end: end, dir: "->" });
 
         setTimeout(() => {
-            GorillaEditor.editor.focus();
+            if (!skipFocus) {
+                GorillaEditor.editor.focus();
+            }
 
             // Scroll cursor into view
             const selection = window.getSelection();
@@ -207,8 +208,218 @@ let GorillaEditor = {
     latex: function () {
         GorillaEditor.wrapSelectedText('$$', '$$');
     },
-    footnote:function () {
+    footnote: function () {
         GorillaEditor.wrapSelectedText('^[', ']');
     }
 }
 
+GorillaFindReplace = {
+    currentMatches: [],
+    currentIndex: -1,
+    lastSearchText: null,
+
+    find(force = false) {
+        const findText = document.getElementById('gorilla-find-input').value;
+        if (!findText) return;
+        if (force === false) {
+            if (findText === GorillaFindReplace.lastSearchText) {
+                // Same search text, no need to re-search
+                return;
+            }
+        }
+        GorillaFindReplace.lastSearchText = findText;
+        const caseSensitive = document.getElementById('gorilla-find-case-sensitive').checked;
+        //const useRegex = document.getElementById('gorilla-find-regex').checked;
+
+        const code = GorillaEditor.getCode();
+        GorillaFindReplace.currentMatches = [];
+
+        try {
+            let pattern;
+            /*  if (useRegex) { // Decided regex search is overkill for now and adds complexity, can add back later if needed
+                  pattern = new RegExp(findText, caseSensitive ? 'g' : 'gi');
+              } else  { */
+            const escaped = findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            pattern = new RegExp(escaped, caseSensitive ? 'g' : 'gi');
+            //}
+
+            let match;
+            while ((match = pattern.exec(code)) !== null) {
+                GorillaFindReplace.currentMatches.push({
+                    start: match.index,
+                    end: match.index + match[0].length,
+                    text: match[0]
+                });
+            }
+
+            if (GorillaFindReplace.currentMatches.length > 0) {
+
+                GorillaFindReplace.currentIndex = 0;
+                GorillaFindReplace.highlightMatches(pattern);
+                GorillaFindReplace.scrollToMatch(0);
+                GorillaFindReplace.updateStatus();
+            } else {
+                GorillaFindReplace.updateStatus('No matches found');
+            }
+        } catch (e) {
+            GorillaFindReplace.updateStatus('Invalid regex: ' + e.message);
+        }
+    },
+    findNext() {
+        if ((GorillaFindReplace.currentMatches.length === 0) || document.getElementById('gorilla-find-input').value != GorillaFindReplace.lastSearchText) {
+            GorillaFindReplace.find(true);
+            return;
+        }
+
+        GorillaFindReplace.currentIndex = (GorillaFindReplace.currentIndex + 1) % GorillaFindReplace.currentMatches.length;
+        GorillaFindReplace.scrollToMatch(GorillaFindReplace.currentIndex);
+        GorillaFindReplace.updateStatus();
+    },
+    findPrevious() {
+        if (GorillaFindReplace.currentMatches.length === 0) {
+            GorillaFindReplace.find();
+            return;
+        }
+
+        GorillaFindReplace.currentIndex = (GorillaFindReplace.currentIndex - 1 + GorillaFindReplace.currentMatches.length) % GorillaFindReplace.currentMatches.length;
+        GorillaFindReplace.scrollToMatch(GorillaFindReplace.currentIndex);
+        GorillaFindReplace.updateStatus();
+    },
+    replaceCurrent() {
+        if (GorillaFindReplace.currentMatches.length === 0 || GorillaFindReplace.currentIndex === -1) return;
+
+        const replaceText = document.getElementById('gorilla-replace-input').value;
+        const match = GorillaFindReplace.currentMatches[GorillaFindReplace.currentIndex];
+
+        // Set cursor to select the match
+        GorillaEditor.jar.restore({ start: match.start, end: match.end, dir: "->" });
+        GorillaEditor.editor.focus();
+
+        // Record history before change
+        GorillaEditor.jar.recordHistory();
+
+        // Replace using native selection
+        const selection = window.getSelection();
+        const range = selection.getRangeAt(0);
+        range.deleteContents();
+        const textNode = document.createTextNode(replaceText);
+        range.insertNode(textNode);
+
+        // Update highlighting
+        GorillaEditor.highlightElement(GorillaEditor.editor);
+
+        // Record history after change
+        GorillaEditor.jar.recordHistory();
+
+        // Refresh matches
+        GorillaFindReplace.find();
+    },
+    replaceAll() {
+        if (GorillaFindReplace.currentMatches.length === 0) return;
+
+        const replaceText = document.getElementById('gorilla-replace-input').value;
+        const count = GorillaFindReplace.currentMatches.length;
+
+        // Record initial state
+        GorillaEditor.jar.recordHistory();
+
+        // Replace from end to start to maintain indices
+        for (let i = GorillaFindReplace.currentMatches.length - 1; i >= 0; i--) {
+            const match = GorillaFindReplace.currentMatches[i];
+
+            // Select the match
+            GorillaEditor.jar.restore({ start: match.start, end: match.end, dir: "->" });
+
+            // Replace using native selection
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                const textNode = document.createTextNode(replaceText);
+                range.insertNode(textNode);
+            }
+        }
+
+        // Update highlighting
+        GorillaEditor.highlightElement(GorillaEditor.editor);
+
+        // Record final state
+        GorillaEditor.jar.recordHistory();
+
+        GorillaFindReplace.currentMatches = [];
+        GorillaFindReplace.updateStatus(`Replaced ${count} occurrence(s)`);
+    },
+    highlightMatches(pattern) {
+
+        Prism.languages.insertBefore('markdown', 'important', {
+            'highlight': {
+                pattern: pattern,
+                greedy: true
+            }
+        });
+
+        GorillaEditor.highlightElement(GorillaEditor.editor); 
+        
+    },
+
+    clearHighlights() {
+        // Clear any highlights
+    },
+    scrollToMatch(index) {
+        const match = GorillaFindReplace.currentMatches[index];
+        GorillaEditor.setCursorPosition(match.start, match.end);
+
+    },
+    updateStatus(message) {
+        const status = document.getElementById('gorilla-find-status');
+        if (message) {
+            status.textContent = message;
+        } else if (GorillaFindReplace.currentMatches.length > 0) {
+            status.textContent = `Match ${GorillaFindReplace.currentIndex + 1} of ${GorillaFindReplace.currentMatches.length}`;
+        } else {
+            status.textContent = '';
+        }
+    },
+
+    init() {
+
+        document.getElementById('gorilla-find-next').onclick = (e) => {
+            e.preventDefault();
+            GorillaFindReplace.findNext();
+        };
+
+        document.getElementById('gorilla-find-previous').onclick = (e) => {
+            e.preventDefault();
+            GorillaFindReplace.findPrevious();
+        };
+
+        document.getElementById('gorilla-replace-current').onclick = (e) => {
+            e.preventDefault();
+            GorillaFindReplace.replaceCurrent();
+        };
+
+        document.getElementById('gorilla-replace-all').onclick = (e) => {
+            e.preventDefault();
+            GorillaFindReplace.replaceAll();
+        };
+        // Checkboxes trigger new search
+        document.getElementById('gorilla-find-case-sensitive').onchange = () => GorillaFindReplace.find(true);
+        /*    document.getElementById('gorilla-find-regex').onchange = () => GorillaFindReplace.find(true); */
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                document.getElementById('gorilla-find-input').focus();
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
+                e.preventDefault();
+                document.getElementById('gorilla-replace-input').focus();
+            }
+
+        });
+    }
+};
+
+// Initialize when ready
+GorillaFindReplace.init();
