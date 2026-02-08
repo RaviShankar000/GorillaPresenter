@@ -383,6 +383,28 @@ button svg {
   border-radius: 4px;
 }
 
+/* Ensure native media controls (especially audio) get usable dimensions
+   on browsers that may render them with no intrinsic size. */
+.gorilla-media-audio,
+audio.gorilla-media-audio {
+  display: block;
+  width: 100%;
+  max-width: 90vw;
+  /* Give a reasonable minimum/control height so browsers show controls */
+  height: 2.5em;
+  min-height: 32px;
+  box-sizing: border-box;
+}
+
+/* Video should remain responsive but ensure it uses available width */
+.gorilla-media-video,
+video.gorilla-media-video {
+  display: block;
+  width: 100%;
+  max-width: 90vw;
+  height: auto;
+}
+
 .gorilla-media-list {
   list-style: none;
   padding: 0;

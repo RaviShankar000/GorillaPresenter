@@ -80,6 +80,8 @@ MediaPlugin = {
 
             const sequence = seqAttr ? parseInt(seqAttr, 10) : null;
 
+            
+
             // If external src is provided, nothing to do
             if (dataSrc) continue;
 
@@ -112,9 +114,12 @@ MediaPlugin = {
                             const tag = element.tagName.toLowerCase();
                             if (tag === 'video' || tag === 'audio') {
                                 const sourceElement2 = element.querySelector('source');
-                                if (sourceElement2) sourceElement2.setAttribute('src', url);
-                                else element.setAttribute('src', url);
-                                try { element.load(); } catch (e) { /* ignore */ }
+                                try {
+                                    element.setAttribute('src', url);
+                                    element.load();
+                                } catch (e) {
+                                    /* ignore */
+                                }
                             } else if (tag === 'img') {
                                 element.setAttribute('src', url);
                             } else if (tag === 'a') {
@@ -154,13 +159,7 @@ MediaPlugin = {
                     element.addEventListener('click', (e) => e.stopPropagation());
                 } else if (tag === 'video' || tag === 'audio') {
                     const sourceElement = element.querySelector('source');
-                    if (sourceElement) {
-                        sourceElement.setAttribute('src', url);
-                    } else {
-                        // fallback: set src directly
-                        element.setAttribute('src', url);
-                    }
-                    try { element.load(); } catch (e) { /* ignore */ }
+                    try { element.setAttribute('src', url); element.load(); } catch (e) { /* ignore */ }
                     // stop clicks on the media element from bubbling to slide handlers
                     element.addEventListener('click', (e) => { e.stopPropagation(); });
                 } else if (tag === 'a') {
