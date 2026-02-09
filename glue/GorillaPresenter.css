@@ -179,11 +179,7 @@ button svg {
   padding-left: 1em;
   margin: 0;
   margin-bottom: 0;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  left: 0;
-  z-index: 100;
+  position: relative;
   overflow: auto;
   white-space: nowrap;
 }
@@ -198,17 +194,13 @@ button svg {
 }
 
 .gorilla-slide-body-class {
-  position: absolute;
-  bottom: 0;
-  top: 0;
+  position: relative;
   width: 100%;
   color: var(--slide-body-color);
   font-family: var(--slide-body-font-stack);
   background-color: var(--slide-body-background-color);
   padding: 1em;
   margin-bottom: 0;
-  margin-top: 3em;
-  padding-top: 1em;
   font-size: 150%;
   overflow-x: hidden;
   overflow-y: auto;
@@ -468,18 +460,14 @@ span[contenteditable]:focus {
 }
 
 .gorilla-menu-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   padding: 0;
   height: 3em;
   padding-left: 0.5em;
   padding-right: 0.5em;
-  width: 100%;
   align-items: center;
   margin: 0;
   box-sizing: content-box;
-  z-index: 100001;
   -webkit-user-select: none;
   user-select: none;
   display: none;
