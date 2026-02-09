@@ -3,10 +3,10 @@ MainMenuDriver = {
     init: async function () {
         MainMenuDriver.menubar = document.getElementById('gorilla-menu-bar');
         window.addEventListener('hashchange', async function () {
-            const slideNumber = parseInt(window.location.hash.substring(1));
-            console.log("Hash changed to slide number:", slideNumber);
-            if (!isNaN(slideNumber) && slideNumber >= 0) {
-                await GorillaPresenter.showSlide(slideNumber);
+            const hashNumber = parseInt(window.location.hash.substring(1));
+            console.log("Hash changed to:", hashNumber);
+            if (!isNaN(hashNumber) && hashNumber >= 1) {
+                await GorillaPresenter.showSlide(hashNumber - 1); // Convert from 1-based hash to 0-based index
             }
         });
 
@@ -153,12 +153,14 @@ MainMenuDriver = {
     hideMenu: function () {
         //  document.getElementById('gorilla-app-wrapper').classList.remove("menu-active");
         document.getElementById('main-menu-bar').style.display = "none";
+        document.body.classList.remove('menu-visible');
         MainMenuDriver.menuVisible = false;
         MainMenuDriver.showUserSelect(false);
 
     },
     showMenu: function () {
         document.getElementById('main-menu-bar').style.display = "grid";
+        document.body.classList.add('menu-visible');
         MainMenuDriver.menuVisible = true;
         MainMenuDriver.showUserSelect(true);
     },

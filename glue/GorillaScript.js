@@ -1,4 +1,27 @@
 GorillaScript = {
+    // Calculate slide offsets based on original text (before plugin preprocessing)
+    calculateOffsets(sourceText) {
+        const offsets = [];
+        let currentPosition = 0;
+        
+        // Ensure file starts with a header
+        if (!sourceText.startsWith('#')) {
+            sourceText = '#\n' + sourceText;
+        }
+        
+        const lines = sourceText.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i];
+            // Check if this is an H1 header (starts with single #, followed by space or end)
+            if (line.match(/^#(?:\s|$)/)) {
+                offsets.push(currentPosition);
+            }
+            currentPosition = currentPosition + line.length + 1; // +1 for newline
+        }
+        
+        return offsets;
+    },
+
     preprocess(sourceText) {
         offsets = [];
         currentPosition = 0;

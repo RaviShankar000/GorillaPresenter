@@ -14,11 +14,14 @@ GorillaPresenter = {
     },
     updateSlideData: async function () {
         GorillaPresenter.handleUpdatedEditor();
-        let calculatedNumber = GorillaPresenter.calculateActiveSlideNumber();
-        GorillaPresenter.currentSlideNumber = calculatedNumber >= 0 ? calculatedNumber : 0;
-
+        
+        // Get editor content and process it to get fresh slide offsets
         GorillaPresenter.currentText = GorillaEditor.getCode();
         GorillaPresenter.slideData = await GorillaSlideRenderer.processText(GorillaPresenter.currentText);
+
+        // Now calculate active slide with fresh offsets
+        let calculatedNumber = GorillaPresenter.calculateActiveSlideNumber();
+        GorillaPresenter.currentSlideNumber = calculatedNumber >= 0 ? calculatedNumber : 0;
 
         for (let plugin in GorillaSlideRenderer.plugins) {
             if (GorillaSlideRenderer.plugins[plugin].postprocess !== undefined) {
@@ -72,6 +75,8 @@ GorillaPresenter = {
 
     },
     showSlide: async function (slideNumber, transitionName = "cutIn") {
+        // Ensure slideNumber is an integer, not a string
+        slideNumber = parseInt(slideNumber);
 
         let slidechooser = document.getElementById("slidechooser");
         if (slideNumber < 0) {
@@ -119,8 +124,8 @@ GorillaPresenter = {
 
         GorillaPresenter.currentSlideNumber = slideNumber;
         slidechooser.value = slideNumber;
-        // Update the URL hash with the current slide number
-        if (window.location.hash !== `#${slideNumber}`) window.location.hash = slideNumber;
+        // Update the URL hash with the current slide number (1-based)
+        if (window.location.hash !== `#${slideNumber + 1}`) window.location.hash = slideNumber + 1;
 
         // Timer handling within the currently rendered slide
         let timerspan = slideContainer.querySelector('.gorilla-timer');

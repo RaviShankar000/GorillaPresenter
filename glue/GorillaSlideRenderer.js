@@ -10,6 +10,10 @@ GorillaSlideRenderer = {
 
     processText: async function (input) {
         //MediaPlugin.reset();
+        
+        // Calculate offsets on original text BEFORE plugin preprocessing
+        const originalOffsets = GorillaScript.calculateOffsets(input);
+        
         StetPlugin.reset();
         LiteralPlugin.reset()
         input = await StetPlugin.preprocess(input);
@@ -30,6 +34,11 @@ GorillaSlideRenderer = {
             GorillaSlideRenderer.cursorStart = 0;
         }
         GorillaSlideRenderer.slides = GorillaScript.preprocess(input);
+        
+        // Override offsets with the ones calculated from original text
+        for (let i = 0; i < GorillaSlideRenderer.slides.length && i < originalOffsets.length; i++) {
+            GorillaSlideRenderer.slides[i].offset = originalOffsets[i];
+        }
         const renderedArray = GorillaSlideRenderer.render(GorillaSlideRenderer.slides);
 
         // Run postprocess and plugin HTML-transforming postprocess (those that accept an argument)

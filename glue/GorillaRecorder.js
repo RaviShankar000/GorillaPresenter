@@ -137,6 +137,9 @@ class GorillaMediaRecorder {
                 buttonElement.innerHTML = imageSvg;
             }
         }
+        if (newState === 'RECORDING') {
+            GorillaRecorder.setStatus('Recording in Progress');
+        }
     }
 
 
@@ -443,6 +446,14 @@ class GorillaMediaRecorder {
             const data = audioBuffer.getChannelData(0);
             const step = Math.ceil(data.length / width);
             const amp = height / 2;
+            let maxAbs = 0;
+
+            for (let i = 0; i < data.length; i++) {
+                const absValue = Math.abs(data[i]);
+                if (absValue > maxAbs) maxAbs = absValue;
+            }
+
+            const scale = maxAbs > 0 ? 1 / maxAbs : 1;
 
             GorillaRecorder.waveformCtx.fillStyle = '#090000ff';
             GorillaRecorder.waveformCtx.fillRect(0, 0, width, height);
@@ -461,8 +472,10 @@ class GorillaMediaRecorder {
                     if (datum > max) max = datum;
                 }
 
-                const yMin = (1 + min) * amp;
-                const yMax = (1 + max) * amp;
+                const scaledMin = Math.max(-1, Math.min(1, min * scale));
+                const scaledMax = Math.max(-1, Math.min(1, max * scale));
+                const yMin = (1 + scaledMin) * amp;
+                const yMax = (1 + scaledMax) * amp;
 
                 GorillaRecorder.waveformCtx.fillRect(i, yMin, 1, yMax - yMin);
             }
@@ -633,7 +646,7 @@ class GorillaMediaRecorder {
             // Show recording indicator
             GorillaRecorder.recordingIndicator.classList.add('gorilla-media-recorder-active');
 
-            GorillaRecorder.setStatus(`Recording ${GorillaRecorder.recordingMode}...`);
+            GorillaRecorder.setStatus('Recording in Progress');
             return true;
         } catch (error) {
             console.error('Error accessing media:', error); {
@@ -842,7 +855,6 @@ class GorillaMediaRecorder {
         const source = audioContext.createMediaElementSource(tempVideo);
         const destination = audioContext.createMediaStreamDestination();
         source.connect(destination);
-        source.connect(audioContext.destination);
 
         const audioTrack = destination.stream.getAudioTracks()[0];
         const combinedStream = new MediaStream([videoTrack, audioTrack]);
@@ -876,7 +888,6 @@ class GorillaMediaRecorder {
         };
 
         newRecorder.start(1000);
-        tempVideo.muted = false;
 
         if (mode === 'trim') {
             tempVideo.currentTime = GorillaRecorder.selectionStart;
@@ -1022,6 +1033,9 @@ class GorillaMediaRecorder {
     }
 
     setStatus(msg) {
+        if (GorillaRecorder.currentState === 'RECORDING' && msg !== 'Recording in Progress') {
+            return;
+        }
         if (GorillaRecorder.onStatusChange) {
             GorillaRecorder.onStatusChange(msg);
         }

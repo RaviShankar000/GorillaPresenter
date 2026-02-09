@@ -71,10 +71,10 @@ document.getElementById("gorilla-editor-font-size").addEventListener("change", a
 document.body.style.display = "grid";
 //document.body.style.display = "block";
 const hashNumber = parseInt(window.location.hash.substring(1));
-if (hashNumber !== GorillaPresenter.currentSlideNumber) {
+if (hashNumber !== GorillaPresenter.currentSlideNumber + 1) {
 
-  if (!isNaN(hashNumber) && hashNumber >= 0 && hashNumber < GorillaSlideRenderer.slides.length) {
-    GorillaPresenter.currentSlideNumber = hashNumber;
+  if (!isNaN(hashNumber) && hashNumber >= 1 && hashNumber <= GorillaSlideRenderer.slides.length) {
+    GorillaPresenter.currentSlideNumber = hashNumber - 1; // Convert from 1-based hash to 0-based index
   } else {
     // Otherwise show the first slide
     GorillaPresenter.currentSlideNumber = 0;
@@ -110,7 +110,7 @@ document.addEventListener('mousemove', function () {
 
 let slidechooser = document.getElementById("slidechooser");
 slidechooser.addEventListener("change", async function (e) {
-  await GorillaPresenter.showSlide(slidechooser.value, "cutIn");
+  await GorillaPresenter.showSlide(parseInt(slidechooser.value), "cutIn");
 });
 //document.body.style.display="none";
 await GorillaPresenter.show_screen("gorilla-slide-show");

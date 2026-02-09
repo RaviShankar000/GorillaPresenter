@@ -1,3 +1,17 @@
+#gorilla-recorder-screen {
+  margin: 0 auto;
+  margin-top: 0;
+  padding:1em;
+  display: none;
+  overflow: auto;
+  z-index: 100000;
+  font-family: var(--slide-body-font-stack);
+  color: var(--slide-body-color);
+  background-color: var(--slide-body-background-color);
+  grid-template-rows: 2em 24em 2.5em 8em 2.75em;
+}
+   
+   
    #gorilla-media-recorder-video-container {
      width: 90vw;
      margin: 0 auto;
@@ -7,9 +21,7 @@
    }
 
    #gorilla-media-recorder-video-container video {
-     max-height: 23em;
-     min-height: 23em;
-     height: 23em;
+     height: 100%;
      width: auto;
      margin: 0 auto;
      display: block;
@@ -141,10 +153,20 @@
    }
 
    #gorilla-media-recorder-status {
-     padding: 10px;
-     background: var(--slide-body-color);
-     height: 1em;
-     color: var(--slide-body-background-color);
+    padding: 0.6em 1em;
+    margin: 1.2em auto 0.4em;
+    width: 90vw;
+    background-color: #2ab02e;
+    color: #0b1116;
+    border: 2px solid #0b1116;
+    border-radius: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.2;
+    min-height: 1em;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
    }
 
    .gorilla-media-recorder-hidden {

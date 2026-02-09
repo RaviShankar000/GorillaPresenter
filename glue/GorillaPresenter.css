@@ -134,6 +134,7 @@ button svg {
   /* Optional: smooth fade */
 }
 
+
 #gorilla-sample-slide {
   font-family: var(--slide-body-font-stack);
   color: var(--slide-body-color);
@@ -204,6 +205,7 @@ button svg {
   font-size: 150%;
   overflow-x: hidden;
   overflow-y: auto;
+  min-height: 100%;
 }
 
 #gorilla-slide-show {
@@ -231,17 +233,6 @@ button svg {
 
 }
 
-#gorilla-recorder-screen {
-  margin: 0 auto;
-  margin-top: 2em;
-  display: none;
-  overflow: auto;
-  z-index: 100000;
-  font-family: var(--slide-body-font-stack);
-  color: var(--slide-body-color);
-  background-color: var(--slide-body-background-color);
-  grid-template-rows: 3em 25em 6em 2.75em 1em;
-}
 
 #gorilla-settings-screen {
   margin: 0 auto;
@@ -321,20 +312,6 @@ button svg {
 
 
 
-#gorilla-slide-editor {
-  /*  background-color: #f0f0f0;
-    color: #333; */
-  width: 90vw;
-  min-width: 90vw;
-  max-width: 90vw;
-  height: 80vh;
-  min-height: 80vh;
-  max-height: 80vh;
-  padding: 2em;
-  margin: 0 auto;
-  overflow: auto;
-
-}
 
 #gorilla-media-screen {
   padding: 1em;
@@ -473,6 +450,7 @@ span[contenteditable]:focus {
   display: none;
   grid-template-columns: auto 1fr;
   color: black;
+  z-index: 100001;
   background-color: lightgray;
 }
 
@@ -513,7 +491,6 @@ span[contenteditable]:focus {
   position: absolute;
   bottom: 0;
   top: 0;
-  padding-top: 3em;
   left: 0;
   right: 0;
   margin: 0;
@@ -523,6 +500,11 @@ span[contenteditable]:focus {
   background-color: white;
   overflow: hidden;
 
+}
+
+.menu-visible .gorilla-presenter-screen {
+  top: 3em;
+  height: calc(100vh - 3em);
 }
 
 
