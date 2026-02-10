@@ -7,6 +7,7 @@ MenuPlugin = {
         this.isOutline = isOutline;
         let argtype = "";
         let outlineClass = "gorilla-outline-level-none";
+        let outlinePrefix = "";
         if (isOutline) {
             MenuPlugin.resetMLALevelCounters();
         }
@@ -42,16 +43,18 @@ MenuPlugin = {
             let displayString = pair.text.trim();
             if (isOutline) {
                 outlineClass = "gorilla-outline-level-" + pair.outlineLevel;
-                displayString = MenuPlugin.mlaHeadingString(pair.outlineLevel) + " " + displayString;
+                outlinePrefix = MenuPlugin.mlaHeadingString(pair.outlineLevel);
             }
             if (pair.target === null) {
                 if (pair.text.startsWith("*")) {
+                    displayString = outlinePrefix + displayString.substring(1).trim();
                     // Correct answer
                     generatedHTML += `<li class="gorilla-choice-item gorilla-choice-multiple-choice ${outlineClass}" data-value="true">${displayString}</li>\n`;
                     continue;
                 }
                 else if (pair.text.startsWith("-")) {
                     // Incorrect answer
+                    displayString = outlinePrefix + displayString.substring(1).trim();
                     generatedHTML += `<li class="gorilla-choice-item gorilla-choice-multiple-choice ${outlineClass}" data-value="false">${displayString}</li>\n`;
                     continue;
                 }
@@ -62,6 +65,7 @@ MenuPlugin = {
                 }
             }
             else // Has a target
+                displayString = outlinePrefix + " " + displayString;
                 argtype = pair.target.substring(0, 1);
             switch (argtype.toLowerCase()) {
                 case ">":

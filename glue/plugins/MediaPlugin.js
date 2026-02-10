@@ -3,6 +3,31 @@ MediaPlugin = {
     mediaSequenceNumber: 0,
     mediaData: [],
     mediaPaths: [],
+    
+    // Get image dimensions to prevent layout shift
+    getImageDimensions: async function (filePath) {
+        try {
+            const blob = await fs.readBinaryFile(filePath);
+            const url = URL.createObjectURL(blob);
+            const img = new Image();
+            
+            return new Promise((resolve, reject) => {
+                img.onload = () => {
+                    URL.revokeObjectURL(url);
+                    resolve({ width: img.width, height: img.height });
+                };
+                img.onerror = () => {
+                    URL.revokeObjectURL(url);
+                    reject(new Error('Failed to load image'));
+                };
+                img.src = url;
+            });
+        } catch (e) {
+            console.error('Failed to get image dimensions for', filePath, e);
+            return null;
+        }
+    },
+    
     reset: async function () {
         this.mediaSequenceNumber = 0;
         for (let url of this.mediaData) {
@@ -48,7 +73,10 @@ MediaPlugin = {
                     return `<img id='gorilla-media-${seq}' data-sequence="${seq}" src="${mediaFile}" alt="${title}" title="${title}" class="gorilla-media gorilla-media-image" />`;
                 }
                 MediaPlugin.mediaPaths[seq] = mediaFile;
-                return `<img id='gorilla-media-${seq}' data-sequence="${seq}" ${dataAttr} alt="${title}" title="${title}" class="gorilla-media gorilla-media-image" />`;
+                // Get dimensions to prevent layout shift
+                const dims = await MediaPlugin.getImageDimensions(mediaFile);
+                const dimAttrs = dims ? `width="${dims.width}" height="${dims.height}"` : '';
+                return `<img id='gorilla-media-${seq}' data-sequence="${seq}" ${dimAttrs} ${dataAttr} alt="${title}" title="${title}" class="gorilla-media gorilla-media-image" />`;
             } else if (mediaFile.match(/\.(mp4|mov|avi|webm)$/i)) {
                 if (isExternal) {
                     return `<video id='gorilla-media-${seq}' data-sequence="${seq}" controls alt="${title}" title="${title}" class="gorilla-media gorilla-media-video"><source src="${mediaFile}">Your browser does not support the video tag.</video>`;
@@ -155,6 +183,9 @@ MediaPlugin = {
                 const tag = element.tagName.toLowerCase();
                 if (tag === 'img') {
                     element.setAttribute('src', url);
+                    // Remove data attributes now that src is set
+                    element.removeAttribute('data-media-path');
+                    element.removeAttribute('data-media-src');
                     // prevent clicks on media controls from advancing slides
                     element.addEventListener('click', (e) => e.stopPropagation());
                 } else if (tag === 'video' || tag === 'audio') {

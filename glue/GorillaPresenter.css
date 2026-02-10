@@ -212,7 +212,8 @@ button svg {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   margin-top: 0;
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
@@ -350,6 +351,19 @@ button svg {
   border: 1px solid #e0e0e0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
+}
+
+/* Images with width/height attributes maintain aspect ratio and prevent layout shift */
+.gorilla-media-image {
+  aspect-ratio: auto;
+  width: auto;
+  max-width: 100%;
+}
+
+/* Show subtle background for images without src yet (loading placeholder) */
+.gorilla-media-image:not([src]),
+.gorilla-media-image[src=""] {
+  background-color: #f5f5f5;
 }
 
 /* Ensure native media controls (especially audio) get usable dimensions
