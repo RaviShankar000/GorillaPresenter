@@ -196,7 +196,6 @@ button svg {
 
 .gorilla-slide-body-class {
   position: relative;
-  width: 100%;
   color: var(--slide-body-color);
   font-family: var(--slide-body-font-stack);
   background-color: var(--slide-body-background-color);
